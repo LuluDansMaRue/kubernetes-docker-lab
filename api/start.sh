@@ -1,4 +1,7 @@
 # Startup shell
 
+# Install project dependencies
 go get ./...
-go run main.go router.go
+
+# Start and watch the project
+CompileDaemon -command="./data"

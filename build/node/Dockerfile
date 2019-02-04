@@ -8,10 +8,5 @@ RUN mkdir ${APP_PATH}
 # Set workdir
 WORKDIR ${APP_PATH}
 
-RUN ls -la
-
-# Install dependencies
-RUN npm install
-
 # Run the app
-CMD ["npm", "run", "serve"]
+CMD ["sh", "start.sh"]
