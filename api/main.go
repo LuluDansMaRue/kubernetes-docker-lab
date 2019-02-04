@@ -4,14 +4,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 func main() {
 	// Create the routing
 	r := routing()
 
-	fmt.Println("server is running")
-
 	// Bind the router to the http module
-	log.Fatal(http.ListenAndServe(":8000", r))
+	srv := &http.Server{
+		Handler:      r,
+		Addr:         "127.0.0.1:8000",
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
+	}
+
+	fmt.Println("server is running")
+	log.Fatal(srv.ListenAndServe())
 }

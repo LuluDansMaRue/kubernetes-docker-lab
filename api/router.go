@@ -1,14 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("hello")
+	w.Write([]byte("Hello bubble tea server"))
 }
 
 func addBobba(w http.ResponseWriter, r *http.Request) {
