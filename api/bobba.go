@@ -15,5 +15,5 @@ type Bobba struct {
 }
 
 func populateBobba() Bobba {
-
+	return Bobba{}
 }
