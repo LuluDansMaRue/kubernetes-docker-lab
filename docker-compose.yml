@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  # Golang API
+  # api:
+  #   image: golang:1.11-alpine3.8
+  #   container_name: 'bobba_go_api'
+  #   working_dir: /data
+  #   volumes: 
+  #     - ./api:/data
+  #   command: 'go get ./... && go run main.go router.go'
+  #   ports:
+  #     - "8000:8000"
+
+  api:
+    build: build/api/
+    image: 'bobba/api'
+    container_name: 'bobba_go_api'
+    volumes: 
+      - ./api:/data
+    ports:
+      - "9000:8000"
+  
+  # Front VueJS
+  web:
+    build: build/node/
+    image: 'bobba/front'
+    container_name: 'bobba_vue_front'
+    volumes:
+      - ./front:/data
+    ports:
+      - "8080:8080"
