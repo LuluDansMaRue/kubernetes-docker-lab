@@ -1,19 +1,15 @@
 package main
 
 type ingredient struct {
-	name   string
-	calory int
+	Name   string `json:"name"`
+	Calory int    `json:"calory"`
 }
 
 // Bobba structure
 type Bobba struct {
-	name        string
-	ingredients []ingredient
-	price       float32
-	shop        string
-	flavor      string
-}
-
-func populateBobba() Bobba {
-	return Bobba{}
+	Name        string       `json:"name"`
+	Ingredients []ingredient `json:"ingredients"`
+	Price       float32      `json:"price"`
+	Shop        string       `json:"shop"`
+	Flavor      string       `json:"flavor"`
 }
