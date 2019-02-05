@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "6396ea7b-d4e3-4d82-8f39-aa47b9a840c1",
+		"name": "Bubble tea",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add bubble tea",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Sesame the best\",\n\t\"price\": 3,\n\t\"shop\": \"37m2\",\n\t\"flavor\": \"Sesame\",\n\t\"calory\": 100\n}"
+				},
+				"url": {
+					"raw": "{{host}}/bobba/add",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"bobba",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all bobba",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/bobba",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"bobba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single bobba",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/bobba/18",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"bobba",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete bubble tea",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/bobba/18",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"bobba",
+						"18"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "049d5bd6-454a-4175-8f0f-53a3d189579e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "307fe59e-7d64-4fae-a781-8a7c268fe45d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e6c06abc-4692-40de-acab-3991c8faf58e",
+			"key": "host",
+			"value": "localhost:9000",
+			"type": "string"
+		}
+	]
+}
