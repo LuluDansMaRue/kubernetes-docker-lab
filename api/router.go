@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"./bobba"
+	"./database"
 
 	"github.com/gorilla/mux"
 )
@@ -16,9 +17,19 @@ type messageError struct {
 	Status  int    `json:"status"`
 }
 
+// success struct
+type success struct {
+	Data   interface{} `json:"data"`
+	Status int         `json:"status"`
+}
+
 const (
 	idEmptyRemove string = "Id is empty. Can't remove the bubble tea"
 	idEmptyDetail string = "Id is empty. Can't get detail of a bubble tea"
+)
+
+var (
+	db *database.BobbaCon
 )
 
 // Default Handler
@@ -42,9 +53,23 @@ func addBobba(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json")
 
 	if err != nil {
-		errPayload := buildErrorPaylaod(err.Error(), 200)
+		errPayload := buildErrorPayload(err.Error(), 200)
 		w.Write(errPayload)
+		return
 	}
+
+	// call our goroutine
+	last, insertErr := runAddRoutine(bobba)
+
+	if insertErr != nil {
+		errPayload := buildErrorPayload(insertErr.Error(), 200)
+		w.Write(errPayload)
+		return
+	}
+
+	payload := buildSuccessPayload(last, 200)
+	w.Write(payload)
+	return
 }
 
 // Remove Bobba
@@ -58,7 +83,7 @@ func removeBobba(w http.ResponseWriter, r *http.Request) {
 	// Set JSON header
 	w.Header().Set("Content-type", "application/json")
 	if err != nil {
-		errPayload := buildErrorPaylaod(
+		errPayload := buildErrorPayload(
 			idEmptyRemove,
 			200,
 		)
@@ -79,7 +104,7 @@ func getBobbaDetail(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-type", "application/json")
 	if err != nil {
-		errPayload := buildErrorPaylaod(
+		errPayload := buildErrorPayload(
 			idEmptyDetail,
 			200,
 		)
@@ -94,10 +119,24 @@ func getBobbaDetail(w http.ResponseWriter, r *http.Request) {
 // Param string message
 // Param int status
 // Return []byte
-func buildErrorPaylaod(message string, status int) []byte {
+func buildErrorPayload(message string, status int) []byte {
 	payload := messageError{
 		Message: message,
 		Status:  status,
+	}
+
+	json, err := json.Marshal(payload)
+	if err != nil {
+		panic(err)
+	}
+
+	return json
+}
+
+func buildSuccessPayload(data interface{}, status int) []byte {
+	payload := success{
+		Data:   data,
+		Status: status,
 	}
 
 	json, err := json.Marshal(payload)
@@ -124,8 +163,23 @@ func getRequestID(params map[string]string, identifier string) (int, error) {
 	return id, nil
 }
 
+// InitDB
+// Call the initializer of the database
+func initDB() {
+	instance, err := database.Create()
+
+	if err != nil {
+		panic(err)
+	}
+
+	db = instance
+}
+
 // Creating the routing
 func routing() *mux.Router {
+	// Initialize the database once
+	initDB()
+
 	r := mux.NewRouter()
 	r.HandleFunc("/", defaultHandler)
 	r.HandleFunc("/bobba/add", addBobba).Methods("POST")

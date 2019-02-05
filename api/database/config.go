@@ -2,8 +2,6 @@ package database
 
 import (
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 // Config structure
@@ -17,17 +15,12 @@ type Config struct {
 }
 
 func parseConfig() Config {
-	err := godotenv.Load()
-	if err != nil {
-		panic(err)
-	}
-
 	config := Config{
-		username: os.Getenv("username"),
-		password: os.Getenv("password"),
-		host:     os.Getenv("host"),
-		port:     os.Getenv("port"),
-		database: os.Getenv("database"),
+		username: os.Getenv("MYSQL_USER"),
+		password: os.Getenv("MYSQL_PASSWORD"),
+		host:     os.Getenv("MYSQL_HOST"),
+		port:     os.Getenv("MYSQL_PORT"),
+		database: os.Getenv("MYSQL_DATABASE"),
 	}
 
 	return config

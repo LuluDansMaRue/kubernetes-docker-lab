@@ -4,7 +4,7 @@ import "../bobba"
 
 // AddBobba add a bubble tea into the database
 func (db *BobbaCon) AddBobba(b bobba.Bobba) (int64, error) {
-	stmt, err := db.connection.Prepare("INSERT INTO bobba SET name = ?, price = ?, shop = ?, calory = ?,flavor = ?")
+	stmt, err := db.connection.Prepare("INSERT INTO bobba SET name = ?, price = ?, shop = ?, flavor = ?, calory = ?")
 
 	if err != nil {
 		return 0, err

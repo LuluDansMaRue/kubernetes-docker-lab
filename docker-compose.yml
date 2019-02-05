@@ -10,6 +10,15 @@ services:
       - ./api:/data
     ports:
       - "9000:8000"
+    depends_on:
+      - db
+    # Unable to pass the .env file to the container
+    environment:
+      MYSQL_DATABASE: ${database}
+      MYSQL_USER: ${username}
+      MYSQL_PASSWORD: ${password}
+      MYSQL_PORT: ${port}
+      MYSQL_HOST: ${host}
   
   # Front VueJS
   web:
@@ -21,16 +30,14 @@ services:
     ports:
       - "8080:8080"
 
-  # Database
+  # MySQL Database
   db:
     image: mysql:latest
     container_name: 'bobba_database'
-    env_file:
-      - ./api/.env
-    port:
+    ports:
       - "3306:3306"
     volumes:
-      - ./sql/dump.sql/docker-entrypoint-initdb.d/dump.sql
+      - ./sql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
     environment:
       MYSQL_ROOT_PASSWORD: ${root_password}
       MYSQL_DATABASE: ${database}

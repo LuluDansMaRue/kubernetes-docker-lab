@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `bobba`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `bobba` (
-  `id` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `price` double DEFAULT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
   `shop` varchar(255) DEFAULT NULL,
   `flavor` varchar(255) DEFAULT NULL,
-  `calory` double DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `calory` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-05 12:07:54
+-- Dump completed on 2019-02-05 15:42:19

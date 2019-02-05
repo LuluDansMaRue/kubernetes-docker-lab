@@ -24,7 +24,7 @@ const (
 // Return error
 func Create() (*BobbaCon, error) {
 	config := parseConfig()
-	db, err := sql.Open(driver, config.username+":"+config.password+"@/tcp("+config.host+")/"+config.database)
+	db, err := sql.Open(driver, config.username+":"+config.password+"@tcp("+config.host+")/"+config.database)
 
 	if err != nil {
 		return nil, errors.New(instanceErr)
