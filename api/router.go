@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -49,11 +51,11 @@ func addBobba(w http.ResponseWriter, r *http.Request) {
 // Param r *http.Request
 func removeBobba(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
+	_, err := getRequestID(vars, "id")
 
 	// Set JSON header
 	w.Header().Set("Content-type", "application/json")
-	if len(id) == 0 {
+	if err != nil {
 		errPayload := buildErrorPaylaod(
 			idEmptyRemove,
 			200,
@@ -65,12 +67,16 @@ func removeBobba(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// Get Bobba Detail
+// Get the detail of a bubble tea
+// Param http.ResponseWriter w
+// Param *http.Request r
 func getBobbaDetail(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
+	_, err := getRequestID(vars, "id")
 
 	w.Header().Set("Content-type", "application/json")
-	if len(id) == 0 {
+	if err != nil {
 		errPayload := buildErrorPaylaod(
 			idEmptyDetail,
 			200,
@@ -100,10 +106,20 @@ func buildErrorPaylaod(message string, status int) []byte {
 	return json
 }
 
-func getRequestID(params map[string]string) (int, error) {
-	//id := params["id"]
+// Get Request ID
+// Get the identifier
+// Param parmams map[string]string
+// Param string identifier
+// Return int id
+func getRequestID(params map[string]string, identifier string) (int, error) {
+	strid := params[identifier]
+	id, err := strconv.Atoi(strid)
 
-	return 0, nil
+	if err != nil {
+		return 0, errors.New("Unable to convert " + identifier + " to an int")
+	}
+
+	return id, nil
 }
 
 // Creating the routing
