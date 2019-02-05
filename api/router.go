@@ -78,20 +78,42 @@ func addBobba(w http.ResponseWriter, r *http.Request) {
 // Param r *http.Request
 func removeBobba(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	_, err := getRequestID(vars, "id")
+	id, err := getRequestID(vars, "id")
 
 	// Set JSON header
 	w.Header().Set("Content-type", "application/json")
 	if err != nil {
-		errPayload := buildErrorPayload(
-			idEmptyRemove,
-			200,
-		)
+		errPayload := buildErrorPayload(idEmptyRemove, 200)
 
 		w.Write(errPayload)
 		return
 	}
 
+	err = runRemoveRoutine(id)
+	if err != nil {
+		errPayload := buildErrorPayload(err.Error(), 200)
+		w.Write(errPayload)
+	}
+
+	payload := buildSuccessPayload("success", 200)
+	w.Write(payload)
+}
+
+// Get All Bobba
+// Get every bubble tea
+// Param http.ResponseWriter w
+// Param *http.Request r
+func getAllBobba(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
+	bobbas, err := runGetAllRoutine()
+	if err != nil {
+		errPayload := buildErrorPayload(err.Error(), 200)
+		w.Write(errPayload)
+		return
+	}
+
+	payload := buildSuccessPayload(bobbas, 200)
+	w.Write(payload)
 }
 
 // Get Bobba Detail
@@ -100,19 +122,27 @@ func removeBobba(w http.ResponseWriter, r *http.Request) {
 // Param *http.Request r
 func getBobbaDetail(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	_, err := getRequestID(vars, "id")
+	id, err := getRequestID(vars, "id")
 
 	w.Header().Set("Content-type", "application/json")
 	if err != nil {
-		errPayload := buildErrorPayload(
-			idEmptyDetail,
-			200,
-		)
-
+		errPayload := buildErrorPayload(idEmptyDetail, 200)
 		w.Write(errPayload)
 		return
 	}
+
+	bobba, getErr := runGetDetailedRoutine(id)
+	if getErr != nil {
+		errPayload := buildErrorPayload(getErr.Error(), 200)
+		w.Write(errPayload)
+		return
+	}
+
+	payload := buildSuccessPayload(bobba, 200)
+	w.Write(payload)
 }
+
+///// Utility methods //////
 
 // Build Error Payload
 // Build the error payload message that will be sent by the API
@@ -183,8 +213,9 @@ func routing() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/", defaultHandler)
 	r.HandleFunc("/bobba/add", addBobba).Methods("POST")
-	r.HandleFunc("/bobba/remove/{id}", removeBobba).Methods("DELETE")
+	r.HandleFunc("/bobba/{id}", removeBobba).Methods("DELETE")
 	r.HandleFunc("/bobba/{id}", getBobbaDetail).Methods("GET")
+	r.HandleFunc("/bobba", getAllBobba).Methods("GET")
 
 	return r
 }

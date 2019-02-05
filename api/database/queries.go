@@ -1,6 +1,8 @@
 package database
 
-import "../bobba"
+import (
+	"../bobba"
+)
 
 // AddBobba add a bubble tea into the database
 func (db *BobbaCon) AddBobba(b bobba.Bobba) (int64, error) {
@@ -38,23 +40,23 @@ func (db *BobbaCon) GetAllBobba() ([]bobba.Bobba, error) {
 	}
 
 	for rows.Next() {
+		var id int
 		var name string
 		var price float32
 		var shop string
 		var flavor string
 		var calory float32
 
-		err = rows.Scan(&name, &price, &shop, &flavor, &calory)
+		err = rows.Scan(&id, &name, &price, &shop, &flavor, &calory)
 		if err != nil {
 			panic(err)
 		}
 
 		b := bobba.Bobba{
+			ID:     id,
 			Name:   name,
-			Price:  price,
 			Shop:   shop,
 			Flavor: flavor,
-			Calory: calory,
 		}
 
 		bobbas = append(bobbas, b)
@@ -66,7 +68,7 @@ func (db *BobbaCon) GetAllBobba() ([]bobba.Bobba, error) {
 // RemoveBobba remove a bubble tea
 // Param string id
 // Return error
-func (db *BobbaCon) RemoveBobba(id string) error {
+func (db *BobbaCon) RemoveBobba(id int) error {
 	stmt, err := db.connection.Prepare("DELETE FROM bobba WHERE id = ?")
 	if err != nil {
 		return err
@@ -84,7 +86,7 @@ func (db *BobbaCon) RemoveBobba(id string) error {
 // Param string id
 // Return bobba
 // Return error
-func (db *BobbaCon) GetSingleBobba(id string) (bobba.Bobba, error) {
+func (db *BobbaCon) GetSingleBobba(id int) (bobba.Bobba, error) {
 	var b bobba.Bobba
 	stmt, err := db.connection.Prepare("SELECT * FROM bobba WHERE id = ?")
 	if err != nil {
@@ -92,17 +94,19 @@ func (db *BobbaCon) GetSingleBobba(id string) (bobba.Bobba, error) {
 	}
 
 	row := stmt.QueryRow(id)
+	var dbID int
 	var name string
 	var price float32
 	var shop string
 	var flavor string
 	var calory float32
 
-	err = row.Scan(&name, &price, &shop, &flavor, &calory)
+	err = row.Scan(&dbID, &name, &price, &shop, &flavor, &calory)
 	if err != nil {
 		return b, err
 	}
 
+	b.ID = dbID
 	b.Name = name
 	b.Price = price
 	b.Shop = shop
