@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"./bobba"
+
 	"github.com/gorilla/mux"
 )
 
@@ -32,7 +34,7 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 // Param w http.ResponseWriter
 // Param r *http.Request
 func addBobba(w http.ResponseWriter, r *http.Request) {
-	var bobba Bobba
+	var bobba bobba.Bobba
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&bobba)
 
