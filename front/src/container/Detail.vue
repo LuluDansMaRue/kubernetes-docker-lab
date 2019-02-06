@@ -8,7 +8,11 @@
       <p>Price: {{ bobba.price }}</p>
       <p>Shop: {{ bobba.shop }}</p>
     </div>
-    <delete-button name="delete" :callback="deleteAction"/> 
+    <delete-button
+      name="delete"
+      color="red"
+      :callback="deleteAction"
+    /> 
   </div>
 </template>
 

@@ -1,11 +1,32 @@
 <template>
-  <button @click="callback">{{ name }}</button>
+  <div
+    @click="callback"
+    :class="'button '+color"
+  >
+  {{ name }}
+  </div>
 </template>
 
 <style lang="scss">
-button {
+.button {
   width: 100%;
-  height: 40px;
+  height: 20px;
+  text-align: center;
+  padding: 10px 0px;
+  transition: all ease .25s;
+  font-weight: 600;
+
+  &.white {
+    background-color: white;
+  }
+
+  &.red {
+    background-color: #E82C0C;
+  }
+
+  &:hover {
+    background-color: #5E5E5E;
+  }
 }
 </style>
 
@@ -22,6 +43,11 @@ export default {
       type: Function,
       required: false,
       default: () => {}
+    },
+    color: {
+      type: String,
+      required: false,
+      default: 'white'
     }
   }
 }
