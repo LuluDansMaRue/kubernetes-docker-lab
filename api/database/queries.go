@@ -55,8 +55,10 @@ func (db *BobbaCon) GetAllBobba() ([]bobba.Bobba, error) {
 		b := bobba.Bobba{
 			ID:     id,
 			Name:   name,
+			Price:  price,
 			Shop:   shop,
 			Flavor: flavor,
+			Calory: calory,
 		}
 
 		bobbas = append(bobbas, b)

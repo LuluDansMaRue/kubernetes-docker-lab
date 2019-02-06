@@ -1,20 +1,40 @@
 <template>
   <div>
-    <h2>Bubble tea lister</h2>
-    <button @click="testApi">Test API</button>
+    <navigation />
+    <router-view></router-view>
   </div>
 </template>
 
+<style lang="scss">
+body {
+  background-color: #eddfd4;
+  font-family: 'Major Mono Display', 'sans-serif';
+  padding: 0;
+  margin: 0;
+}
+</style>
+
 <script>
 import axios from 'axios'
+import { fetch } from './core/request'
+
+// components
+import Navigation from './component/Navigation.vue'
 
 export default {
   name: 'App',
-  methods: {
-    testApi() {
-      axios.get('http://localhost:8000')
-        .then(res => console.warn(res))
-    }
+  components: {
+    Navigation
+  },
+  /**
+   * Created
+   *    Trigger by the VueJS hook
+   *    At this stage we're fetching the API in order to populate the store
+   */
+  created: function() {
+    fetch('bobba')
+      .then(res => this.$store.dispatch('populateBobba', res.data))
+      .catch(err => console.warn(err))
   }
 }
 </script>
