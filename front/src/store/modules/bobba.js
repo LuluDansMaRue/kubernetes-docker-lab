@@ -41,20 +41,90 @@ const getters = {
   }
 }
 
+/**
+ * Actions
+ *    A set of method that can interact with the mutations
+ */
 const actions = {
-  fetch({ commit }, bobba) {
-    // commit
-    commit()
+  /**
+   * Fetch
+   * 
+   * @param {Object}
+   * @param {Object} bobba
+   */
+  add({ commit }, bobba) {
+    commit('add', bobba)
+  },
+  /**
+   * Delete
+   * 
+   * @param {Object}
+   * @param {Number} id
+   */
+  delete({ commit }, id) {
+    commit('remove', id)
+  },
+  /**
+   * Populate
+   *  
+   * @param {Object} 
+   * @param {Array} bobbas 
+   */
+  populate({ commit }, bobbas) {
+    if (isEmpty(bobbas)) {
+      return
+    }
+
+    commit('populate', bobbas)
   }
 }
 
+/**
+ * Mutations
+ *    A set of mthod that interact with the store
+ */
 const mutations = {
-  setAction() {
+  /**
+   * Add
+   * 
+   * @param {Object} state
+   * @param {Object} bobba
+   */
+  add(state, bobba) {
+    state.bobbas.push(bobba)
+  },
+  /**
+   * Delete
+   * 
+   * @param {Object} state
+   * @param {Number} id
+   */
+  delete(state, id) {
+    const bobbas = [...state.bobbas]
+    const idx = state.bobbas.findIndex(bobba => bobba.id === id )
+    if (idx === -1) {
+      return
+    }
 
+    bobbas.splice(idx, 1)
+    state.bobbas = bobbas
+  },
+  /**
+   * Populate
+   *    Populate the bobbas state
+   *    Only use during the initialization
+   * 
+   * @param {Object} state
+   * @param {Array} bobbas
+   */
+  populate(state, bobbas) {
+    state.bobbas = bobbas
   }
 }
 
-export {
+export default {
+  namespaced: true,
+  state,
   getters,
   actions,
   mutations,
