@@ -9,6 +9,8 @@
 body {
   background-color: #eddfd4;
   font-family: 'Major Mono Display', 'sans-serif';
+  padding: 0;
+  margin: 0;
 }
 </style>
 

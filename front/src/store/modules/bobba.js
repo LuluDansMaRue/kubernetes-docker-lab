@@ -23,7 +23,7 @@ const getters = {
       }
 
       return state.bobbas.filter(bobba => {
-        return bobba.name.includes(query.toLowerCase())
+        return bobba.name.toLowerCase().includes(query.toLowerCase())
       })
     }
   },
