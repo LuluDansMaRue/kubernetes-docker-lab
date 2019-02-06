@@ -24,9 +24,9 @@ export default {
   components: {
     Navigation
   },
-  created: () => {
+  created: function() {
     fetch('bobba')
-      .then(res => console.warn(res))
+      .then(res => this.$store.dispatch('populateBobba', res.data))
       .catch(err => console.warn(err))
   }
 }

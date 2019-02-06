@@ -7,11 +7,22 @@
 
 <style lang="scss">
 .navbar {
-  width: 300px;
+  width: 100px;
+  height: 300px;
   background-color: white;
   position: fixed;
-  top: calc(50% - 300px);
+  top: calc(50%);
+  margin-top: -150px;
   left: 0;
+  padding-left: 20px;
+  
+  a {
+    display: block;
+    color: black;
+    font-size: 1.2em;
+    text-decoration: none;
+    padding: 10px 0px;
+  }
 }
 </style>
 

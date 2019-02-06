@@ -19,7 +19,7 @@ const getters = {
   filteredBobbas(state) {
     return query => {
       if (isEmpty(query)) {
-        return state.bobba
+        return state.bobbas
       }
 
       return state.bobbas.filter(bobba => {
@@ -47,30 +47,30 @@ const getters = {
  */
 const actions = {
   /**
-   * Fetch
+   * Add Bobba
    * 
    * @param {Object}
    * @param {Object} bobba
    */
-  add({ commit }, bobba) {
+  addBobba({ commit }, bobba) {
     commit('add', bobba)
   },
   /**
-   * Delete
+   * Delete Bobba
    * 
    * @param {Object}
    * @param {Number} id
    */
-  delete({ commit }, id) {
+  deleteBobba({ commit }, id) {
     commit('remove', id)
   },
   /**
-   * Populate
+   * Populate Bobba
    *  
    * @param {Object} 
    * @param {Array} bobbas 
    */
-  populate({ commit }, bobbas) {
+  populateBobba({ commit }, bobbas) {
     if (isEmpty(bobbas)) {
       return
     }
@@ -123,7 +123,6 @@ const mutations = {
 }
 
 export default {
-  namespaced: true,
   state,
   getters,
   actions,
