@@ -66,7 +66,6 @@ export default {
       fetch('bobba', 'delete', this.id)
         .then(res => {
           this.$store.dispatch('deleteBobba', this.id)
-          console.warn(this.$router)
           this.$router.push({
             path: '/'
           })
