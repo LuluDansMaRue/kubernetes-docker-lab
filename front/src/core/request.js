@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { isEmpty } from 'lodash'
+import { isNumber } from 'lodash'
 
 const URI = 'http://localhost:9000'
 
@@ -14,7 +14,7 @@ const URI = 'http://localhost:9000'
  */
 const fetch = (endpoint, method = 'get', id = '',) => {
   let url = URI
-  if (isEmpty(id)) {
+  if (!isNumber(id)) {
     url += `/${endpoint}`
   } else {
     url += `/${endpoint}/${id}`

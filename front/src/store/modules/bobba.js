@@ -62,7 +62,7 @@ const actions = {
    * @param {Number} id
    */
   deleteBobba({ commit }, id) {
-    commit('remove', id)
+    commit('delete', id)
   },
   /**
    * Populate Bobba

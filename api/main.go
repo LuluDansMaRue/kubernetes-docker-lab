@@ -14,7 +14,10 @@ func main() {
 	r := routing()
 
 	// Create a handler for the CORS
-	handler := cors.Default().Handler(r)
+	handler := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "DELETE"},
+	}).Handler(r)
 
 	// Bind the router to the http module
 	srv := &http.Server{

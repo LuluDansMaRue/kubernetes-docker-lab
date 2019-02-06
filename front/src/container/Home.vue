@@ -13,6 +13,7 @@
           v-for="bobba in bobbas"
           v-bind:key="bobba.id"
           class="wrapper"
+          @click="toDetailRoute(bobba.id)"
         >
           <card
             :bobba="bobba"
@@ -67,8 +68,23 @@ export default {
     }
   },
   methods: {
+    /**
+     * Refresh Data
+     * 
+     * @param {String} value
+     */
     refreshData(value) {
       this.name = value
+    },
+    /**
+     * To Detail Route
+     * 
+     * @param {String} id
+     */
+    toDetailRoute(id) {
+      this.$router.push({
+        path: `bobba/${id}`,
+      })
     }
   }
 }
