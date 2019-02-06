@@ -26,6 +26,11 @@ export default {
   components: {
     Navigation
   },
+  /**
+   * Created
+   *    Trigger by the VueJS hook
+   *    At this stage we're fetching the API in order to populate the store
+   */
   created: function() {
     fetch('bobba')
       .then(res => this.$store.dispatch('populateBobba', res.data))

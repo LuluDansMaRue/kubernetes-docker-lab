@@ -1,13 +1,25 @@
 <template>
-  <input
-    type="text"
-    :value="value"
-    @input="$emit('input', $event.target.value)"
-    placeholder="type your favorite name"
-  />
+  <div class="field__wrapper">
+    <p v-if="label">{{ label }}</p>
+    <input
+      type="text"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
+      placeholder="type your favorite name"
+    />
+  </div>
 </template>
 
 <style lang="scss">
+.field__wrapper {
+  display: flex;
+  align-items: center;
+
+  p {
+    width: 20%;
+  }
+}
+
 input {
   display: block;
   width: 500px;
@@ -25,6 +37,10 @@ export default {
     value: {
       type: null,
       default: undefined
+    },
+    label: {
+      type: String,
+      required: false
     }
   }
 }

@@ -35,12 +35,14 @@ const fetch = (endpoint, method = 'get', id = '',) => {
  *    Post a to an endpoint
  * 
  * @param {String} endpoint
- * @param {String} method [default='post']
  * @param {Object} data
+ * @param {String} method [default='post']
  * @return {Promise}
  */
-const post = (endpoint, method = 'post', data) => {
+const post = (endpoint, data, method = 'post') => {
   let url = `${URI}/${endpoint}`
+
+  console.warn(data)
 
   return axios({
     method,

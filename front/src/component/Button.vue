@@ -24,6 +24,10 @@
     background-color: #E82C0C;
   }
 
+  &.green {
+    background-color: rgb(89, 197, 89);
+  }
+
   &:hover {
     background-color: #5E5E5E;
   }
