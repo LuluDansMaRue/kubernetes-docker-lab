@@ -8,4 +8,5 @@ cd select && go get ./... && cd ..
 cd temporary && go get ./... && cd ..
 
 # Run the crontab
+# -f (Foregroud) option is used in order for Docker to not kill the container
 crond -f -l 8

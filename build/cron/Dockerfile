@@ -24,7 +24,5 @@ RUN touch /var/log/bobba-cron.log
 # Register the crontab to the cron file
 RUN /usr/bin/crontab bobba-cron.txt
 
-# Run the crontab
-# -f is used in order to run it in foreground
-# A crontab is usually run in background but in order for Docker to not kill our container we need to run it in foreground mode
+# Run the startup
 CMD ["sh", "startup.sh"]
