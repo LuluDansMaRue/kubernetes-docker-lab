@@ -1,0 +1,1 @@
+* * * * * echo "hello-world" >> /var/log/bobba-cron.log

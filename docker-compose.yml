@@ -6,20 +6,27 @@ services:
     build: build/api/
     image: 'bobba/api'
     container_name: 'bobba_go_api'
+    env_file:
+      - .env
     volumes: 
       - ./api:/data
     ports:
       - "9000:8000"
     depends_on:
       - db
-    # Unable to pass the .env file to the container
-    environment:
-      MYSQL_DATABASE: ${database}
-      MYSQL_USER: ${username}
-      MYSQL_PASSWORD: ${password}
-      MYSQL_PORT: ${port}
-      MYSQL_HOST: ${host}
-  
+
+  # Cron task on a seperate container
+  crons:
+    build: build/cron/
+    image: 'bobba/cron'
+    container_name: 'bobba_cron_task'
+    env_file:
+      - .env
+    volumes:
+      - ./cron:/task
+    depends_on:
+      - db
+
   # Front VueJS
   web:
     build: build/node/
@@ -39,7 +46,7 @@ services:
     volumes:
       - ./sql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
     environment:
-      MYSQL_ROOT_PASSWORD: ${root_password}
-      MYSQL_DATABASE: ${database}
-      MYSQL_USER: ${username}
-      MYSQL_PASSWORD: ${password}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}

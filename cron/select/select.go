@@ -13,13 +13,17 @@ import (
 
 // Main function
 func main() {
+	f := utils.SetLogOutput()
+	defer f.Close()
+	log.SetOutput(f)
+
 	rand := utils.GetRandInt(50, 150)
 	idx := 0
 	var wg sync.WaitGroup
 	wg.Add(rand)
 
 	log.Printf("Start CRON Task. Making " + strconv.Itoa(rand) + " Select on bobba database")
-	db := utils.GetCon()
+	db := utils.GetCon(false)
 
 	for idx <= rand {
 		go func(id int) {
@@ -37,9 +41,13 @@ func main() {
 				return
 			}
 
+			log.Println("Finishing testing select for ID " + strconv.Itoa(id))
+
 			wg.Done()
 			return
 		}(idx)
+
+		idx++
 	}
 
 	wg.Wait()

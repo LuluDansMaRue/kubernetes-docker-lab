@@ -4,48 +4,20 @@
 package main
 
 import (
-	"database/sql"
 	"log"
-	"os"
 	"strconv"
 	"sync"
 
 	"../utils"
-	"github.com/brianvoe/gofakeit"
+	_ "github.com/go-sql-driver/mysql"
 )
-
-const (
-	driver string = "mysql"
-)
-
-// Build DB Endpoint
-// Return string
-func buildDBEndpoint() string {
-	username := gofakeit.Username()
-	pwd := gofakeit.Password(true, true, true, true, true, 32)
-
-	host := os.Getenv("MYSQL_HOST")
-	db := os.Getenv("MYSQL_DATABASE")
-
-	return username + ":" + pwd + "@tcp(" + host + ")/" + db
-}
-
-// GetCon
-// Get the connection instance to the database
-// Return database *sql.DB
-func getCon() *sql.DB {
-	endpoint := buildDBEndpoint()
-	db, err := sql.Open(driver, endpoint)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return db
-}
 
 // Main function
 func main() {
+	f := utils.SetLogOutput()
+	defer f.Close()
+	log.SetOutput(f)
+
 	rand := utils.GetRandInt(100, 300)
 	idx := 0
 	var wg sync.WaitGroup
@@ -55,16 +27,21 @@ func main() {
 
 	for idx <= rand {
 		go func(idx int) {
-			db := getCon()
+			db := utils.GetCon(true)
 
 			err := db.Ping()
 
 			if err == nil {
 				log.Fatal("User has been able to connect with wrong credentials")
+				// Close db (not handling error)
+				db.Close()
 				wg.Done()
 			}
 
 			log.Printf("Connection testing" + strconv.Itoa(idx) + " pass")
+			// Close db (not handling error)
+			db.Close()
+
 			wg.Done()
 		}(idx)
 
