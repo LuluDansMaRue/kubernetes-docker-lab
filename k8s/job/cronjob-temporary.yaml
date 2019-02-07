@@ -1,0 +1,25 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: temporary
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: temporary
+            image: bobba/cron:latest
+            imagePullPolicy: Never
+            volumeMounts:
+            - mountPath: /task
+              name: cron-volume-host
+            args:
+            - /bin/sh
+            - startup.sh
+          restartPolicy: OnFailure
+          volumes:
+          - name: cron-volume-host
+            hostPath:
+              path: /Users/marcintha/workspace/kubbie/cron
