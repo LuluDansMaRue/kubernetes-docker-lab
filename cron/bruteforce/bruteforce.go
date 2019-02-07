@@ -38,7 +38,7 @@ func main() {
 				wg.Done()
 			}
 
-			log.Printf("Connection testing" + strconv.Itoa(idx) + " pass")
+			log.Printf("Connection testing " + strconv.Itoa(idx) + " pass")
 			// Close db (not handling error)
 			db.Close()
 
