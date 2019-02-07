@@ -11,7 +11,7 @@ spec:
           containers:
           - name: temporary
             image: bobba/cron:latest
-            imagePullPolicy: Never
+            imagePullPolicy: IfNotPresent
             volumeMounts:
             - mountPath: /task
               name: cron-volume-host
