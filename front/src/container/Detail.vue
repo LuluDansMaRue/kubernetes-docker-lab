@@ -37,7 +37,7 @@ import DeleteButton from '../component/Button.vue'
 
 export default {
   name: 'Detail',
-  mixin: [
+  mixins: [
     Modal
   ],
   components: {
