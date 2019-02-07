@@ -12,7 +12,7 @@
       name="delete"
       color="red"
       :callback="deleteAction"
-    /> 
+    />
   </div>
 </template>
 
@@ -30,11 +30,16 @@
 <script>
 import { isEmpty } from 'lodash'
 import { fetch } from '../core/request'
+import Modal from '../mixins/modal'
+
 import DeleteButton from '../component/Button.vue'
 
 
 export default {
   name: 'Detail',
+  mixin: [
+    Modal
+  ],
   components: {
     DeleteButton
   },
@@ -70,10 +75,13 @@ export default {
             path: '/'
           })
         })
-        .catch(err => console.warn(err))
+        .catch(err => this.show('error-modal', {
+          content: err.message
+        }))
     }
   },
   created() {
+    this.setModal(this.$modal)
     this.id = parseInt(this.$route.params.id, 10)
   }
 }

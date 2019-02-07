@@ -32,10 +32,14 @@
 
 
 <script>
-import Field from '../component/Field.vue'
-import SubmitButton from '../component/Button.vue'
 import { post } from '../core/request'
 import Validation from '../mixins/validation'
+import Modal from '../mixins/modal'
+
+// Components
+import Field from '../component/Field.vue'
+import SubmitButton from '../component/Button.vue'
+
 
 // FormData a list of constraint with it's set of Value
 const formData = [
@@ -50,7 +54,10 @@ const formData = [
  * @TODO refactor the HTML integration.
  */
 export default {
-  mixins: [Validation],
+  mixins: [
+    Validation,
+    Modal
+  ],
   components: {
     Field,
     SubmitButton
@@ -102,8 +109,13 @@ export default {
             path: '/'
           })
         })
-        .catch(err => console.warn(err))
+        .catch(err => this.show('error-modal', {
+          content: err.message
+        }))
     }
+  },
+  created: function() {
+    this.setModal(this.$modal)
   }
 }
 </script>

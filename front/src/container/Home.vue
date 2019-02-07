@@ -34,6 +34,7 @@
 .content {    
   .card__container {
     display: flex;
+    flex-wrap: wrap;
 
     .wrapper {
       padding: 10px;

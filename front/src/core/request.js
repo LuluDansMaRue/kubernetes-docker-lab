@@ -26,7 +26,7 @@ const fetch = (endpoint, method = 'get', id = '',) => {
   })
     .then(res => Promise.resolve(res.data))
     .catch(err => Promise.reject({
-      err: err
+      message: err.message
     }))
 }
 
@@ -42,8 +42,6 @@ const fetch = (endpoint, method = 'get', id = '',) => {
 const post = (endpoint, data, method = 'post') => {
   let url = `${URI}/${endpoint}`
 
-  console.warn(data)
-
   return axios({
     method,
     url,
@@ -51,7 +49,7 @@ const post = (endpoint, data, method = 'post') => {
   })
     .then(res => Promise.resolve(res.data))
     .catch(err => Promise.reject({
-      err: err
+      message: err.message
     }))
 }
 
