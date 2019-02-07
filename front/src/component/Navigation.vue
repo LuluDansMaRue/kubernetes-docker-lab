@@ -19,7 +19,7 @@
   &__link {
     background-color: white;
     width: 50%;
-    padding: 10px 0px;
+    padding: 20px 10px;
     text-align: right;
 
     a {
@@ -27,6 +27,12 @@
       font-size: 1.2em;
       text-decoration: none;
       padding: 0px 20px;
+      border-bottom: 1px solid white;
+      transition: all ease .25s;
+
+      &:hover {
+        border-bottom: 1px solid black;
+      }
     }
   }
 

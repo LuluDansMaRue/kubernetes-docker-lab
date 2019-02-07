@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VModal from 'vue-js-modal'
+
 import store from './store'
 import router from './core/router'
 
@@ -10,6 +12,7 @@ Vue.config.productionTip = false
 
 // Use the router
 Vue.use(VueRouter)
+Vue.use(VModal)
 
 new Vue({
   store,

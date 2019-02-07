@@ -3,35 +3,18 @@
     <div class="add__container--whitebox">
       <h2>Add a bobba</h2>
       <field
-        :value="form.name"
-        label="name"
-        @input="event => updateField('name', event)"
-      />
-      <field
-        :value="form.flavor"
-        label="flavor"
-        @input="event => updateField('flavor', event)"
-      />
-      <field
-        :value="form.calory"
-        label="calory"
-        @input="event => updateField('calory', event)"
-      />
-      <field
-        :value="form.price"
-        label="price"
-        @input="event => updateField('price', event)"
-      />
-      <field
-        :value="form.shop"
-        label="shop"
-        @input="event => updateField('shop', event)"
+        v-for="(field, idx) in constraint"
+        v-bind:key="idx"
+        :value="field.value"
+        :label="field.name"
+        @input="event => updateField(field.name, event)"
       />
     </div>
     <submit-button
       name="submit"
       :callback="postForm"
       color="green"
+      :activate="validate"
     />
   </div>
 </template>
@@ -49,27 +32,40 @@
 
 
 <script>
+import { post } from '../core/request'
+import Validation from '../mixins/validation'
+import Modal from '../mixins/modal'
+
+// Components
 import Field from '../component/Field.vue'
 import SubmitButton from '../component/Button.vue'
-import { post } from '../core/request'
+
+
+// FormData a list of constraint with it's set of Value
+const formData = [
+  { name: 'name', type: 'string', value: '' },
+  { name: 'flavor', type: 'string', value: '' },
+  { name: 'calory', type: 'number', value: 0 },
+  { name: 'price', type: 'number', value: 0 },
+  { name: 'shop', type: 'string', value: '' }
+]
 
 /**
  * @TODO refactor the HTML integration.
  */
 export default {
+  mixins: [
+    Validation,
+    Modal
+  ],
   components: {
     Field,
     SubmitButton
   },
   data() {
     return {
-      form: {
-        name: '',
-        flavor: '',
-        calory: 0,
-        price: 0,
-        shop: ''
-      }
+      validate: true,
+      constraint: formData.slice(),
     }
   },
   methods: {
@@ -77,30 +73,49 @@ export default {
      * Update Field
      * 
      * @TODO do a validation on the field... for the time being it's going to be done manually
-     * @param {String} name
+     * @param {Number} name
      * @param {String|Number} value
      */
     updateField(name, value) {
-      if (name === 'calory' || name === 'price') {
-        this.form[name] = parseFloat(value, 10)
-        return
-      }
+      this.setValue(name, value)
+      this.validate = this.checkAllConstraint()
+    },
+    /**
+     * Build Object
+     *    Build the obejct that is going to be send to the APi
+     * 
+     * @return {Object} data
+     */
+    buildObject() {
+      const data = this.constraint
+        .map(c => ({ name: c.name, value: c.value }))
+        .reduce((prev, curr) => {
+          prev[curr.name] = curr.value 
+          return prev
+        }, {})
 
-      this.form[name] = value
+      return data
     },
     /**
      * Post Form
      */
     postForm() {
+      const data = this.buildObject()
       // @TODO do a validation on the form...
-      post('bobba/add', this.form)
+      post('bobba/add', data)
         .then(res => {
+          this.$store.dispatch('addBobba', data)
           this.$router.push({
             path: '/'
           })
         })
-        .catch(err => console.warn(err))
+        .catch(err => this.show('error-modal', {
+          content: err.message
+        }))
     }
+  },
+  created: function() {
+    this.setModal(this.$modal)
   }
 }
 </script>
