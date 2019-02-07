@@ -4,62 +4,20 @@
 package main
 
 import (
-	"database/sql"
 	"log"
-	"math/rand"
-	"os"
 	"strconv"
 	"sync"
-	"time"
+
+	"../utils"
 )
-
-const (
-	driver string = "mysql"
-)
-
-// Build DB Endpoint
-// Return string
-func buildDBEndpoint() string {
-	username := os.Getenv("MYSQL_USER")
-	pwd := os.Getenv("MYSQL_PASSWORD")
-	host := os.Getenv("MYSQL_HOST")
-	db := os.Getenv("MYSQL_DATABASE")
-
-	return username + ":" + pwd + "@tcp(" + host + ")/" + db
-}
-
-// GetCon
-// Get the connection instance to the database
-// Return database *sql.DB
-func getCon() *sql.DB {
-	endpoint := buildDBEndpoint()
-	db, err := sql.Open(driver, endpoint)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return db
-}
-
-// GetRandInt
-// Generate a random number from 1 to 15
-// Return int
-func getRandInt() int {
-	rand.Seed(time.Now().UnixNano())
-	min := 1
-	max := 15
-
-	return rand.Intn(max-min) + min
-}
 
 // Main function
 func main() {
-	rand := getRandInt()
+	rand := utils.GetRandInt(1, 20)
 	idx := 0
 	log.Printf("Start CRON task. Creating " + strconv.Itoa(rand) + " temporary table")
 
-	db := getCon()
+	db := utils.GetCon()
 
 	var wg sync.WaitGroup
 	wg.Add(rand)

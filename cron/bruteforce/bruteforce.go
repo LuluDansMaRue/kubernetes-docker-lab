@@ -6,28 +6,24 @@ package main
 import (
 	"database/sql"
 	"log"
-	"math/rand"
 	"os"
 	"strconv"
 	"sync"
-	"time"
 
+	"../utils"
 	"github.com/brianvoe/gofakeit"
 )
 
 const (
 	driver string = "mysql"
-	min    int    = 100
-	max    int    = 300
 )
 
 // Build DB Endpoint
-// Param string username
-// Param string password
 // Return string
-func buildDBEndpoint(user string, password string) string {
-	username := user
-	pwd := password
+func buildDBEndpoint() string {
+	username := gofakeit.Username()
+	pwd := gofakeit.Password(true, true, true, true, true, 32)
+
 	host := os.Getenv("MYSQL_HOST")
 	db := os.Getenv("MYSQL_DATABASE")
 
@@ -38,10 +34,7 @@ func buildDBEndpoint(user string, password string) string {
 // Get the connection instance to the database
 // Return database *sql.DB
 func getCon() *sql.DB {
-	username := gofakeit.Username()
-	password := gofakeit.Password(true, true, true, true, true, 32)
-
-	endpoint := buildDBEndpoint(username, password)
+	endpoint := buildDBEndpoint()
 	db, err := sql.Open(driver, endpoint)
 
 	if err != nil {
@@ -51,18 +44,9 @@ func getCon() *sql.DB {
 	return db
 }
 
-// GetRandInt
-// Generate a random number from 1 to 15
-// Return int
-func getRandInt() int {
-	rand.Seed(time.Now().UnixNano())
-
-	return rand.Intn(max-min) + min
-}
-
 // Main function
 func main() {
-	rand := getRandInt()
+	rand := utils.GetRandInt(100, 300)
 	idx := 0
 	var wg sync.WaitGroup
 	wg.Add(rand)
