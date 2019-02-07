@@ -14,21 +14,27 @@ import (
 
 // Main function
 func main() {
+	// set the logger output
 	f := utils.SetLogOutput()
 	defer f.Close()
 	log.SetOutput(f)
 
 	rand := utils.GetRandInt(10, 30)
 	idx := 0
+
+	// Create a waiting group that will defer the execution of the rest of the code
 	var wg sync.WaitGroup
 	wg.Add(rand)
 
 	log.Printf("Start CRON task. Testing " + strconv.Itoa(rand) + " connection to the database")
 
+	// Execute a goroutine foreach index
 	for idx <= rand {
 		go func(idx int) {
 			db := utils.GetCon(true)
 
+			// We ping the database in order to know if we're able to connect
+			// Note: the ping will appear as an administrator command on the metrics
 			err := db.Ping()
 
 			if err == nil {
