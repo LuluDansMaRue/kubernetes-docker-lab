@@ -1,3 +1,6 @@
+// Temporary.go is a CRON task
+// This cron file will create a random number of Temporary table
+// The goal is to see if there's any significient by a monitoring tool
 package main
 
 import (
@@ -74,11 +77,14 @@ func main() {
 
 			if execErr != nil {
 				log.Fatal(execErr.Error())
+				wg.Done()
 			}
 
 			log.Printf("Finishing creating temporary table bobba_temp" + strconv.Itoa(idx))
 			wg.Done()
 		}(idx)
+
+		idx++
 	}
 
 	wg.Wait()
