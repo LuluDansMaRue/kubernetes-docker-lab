@@ -17,7 +17,7 @@ func main() {
 	defer f.Close()
 	log.SetOutput(f)
 
-	rand := utils.GetRandInt(50, 150)
+	rand := utils.GetRandInt(10, 30)
 	idx := 0
 	var wg sync.WaitGroup
 	wg.Add(rand)

@@ -19,7 +19,7 @@ func main() {
 	log.SetOutput(f)
 
 	// Choose the number of iteration that this teste will run
-	rand := utils.GetRandInt(1, 40)
+	rand := utils.GetRandInt(1, 30)
 	idx := 0
 	log.Printf("Start CRON task. Creating " + strconv.Itoa(rand) + " temporary table")
 
