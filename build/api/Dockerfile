@@ -1,6 +1,7 @@
 FROM golang:1.11-alpine3.8
 
 ENV APP_PATH /data
+ENV CRON_PATH /task
 
 # Install git
 RUN apk update && apk upgrade && \
@@ -8,6 +9,9 @@ RUN apk update && apk upgrade && \
 
 # Create src dir
 RUN mkdir ${APP_PATH}
+
+# Create path for cron
+RUN mkdir ${CRON_PATH}}
 
 # Set workdir to back
 WORKDIR ${APP_PATH}

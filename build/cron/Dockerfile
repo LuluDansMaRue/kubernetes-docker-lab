@@ -14,15 +14,3 @@ WORKDIR ${APP_PATH}
 
 # Copy the folder to the task folder
 COPY cron /task
-
-# Give right to the crontab so that it can be exec
-RUN chmod 755 bobba-cron.txt
-
-# Create log for crontab
-RUN touch /var/log/bobba-cron.log
-
-# Register the crontab to the cron file
-RUN /usr/bin/crontab bobba-cron.txt
-
-# Run the startup
-CMD ["sh", "startup.sh"]

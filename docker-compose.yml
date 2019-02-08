@@ -10,22 +10,11 @@ services:
       - .env
     volumes: 
       - ./api:/data
+      - ./cron:/task
     ports:
       - "9000:8000"
     depends_on:
       - db
-
-  # Cron task on a seperate container
-  #  crons:
-  #    build: build/cron/
-  #    image: 'bobba/cron'
-  #    container_name: 'bobba_cron_task'
-  #    env_file:
-  #      - .env
-  #    volumes:
-  #      - ./cron:/task
-  #    depends_on:
-  #      - db
 
   # Front VueJS
   web:
