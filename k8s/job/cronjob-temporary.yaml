@@ -18,5 +18,4 @@ spec:
             - go
             - run
             - temporary/temporary.go
-            - crond -f -l 8
           restartPolicy: OnFailure

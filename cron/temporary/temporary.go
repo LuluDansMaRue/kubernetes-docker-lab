@@ -14,9 +14,9 @@ import (
 // Main function
 func main() {
 	// Set the log output
-	// f := utils.SetLogOutput()
-	// defer f.Close()
-	// log.SetOutput(f)
+	f := utils.SetLogOutput()
+	defer f.Close()
+	log.SetOutput(f)
 
 	// Choose the number of iteration that this teste will run
 	rand := utils.GetRandInt(1, 30)

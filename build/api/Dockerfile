@@ -10,9 +10,6 @@ RUN apk update && apk upgrade && \
 # Create src dir
 RUN mkdir ${APP_PATH}
 
-# Create path for cron
-RUN mkdir ${CRON_PATH}}
-
 # Set workdir to back
 WORKDIR ${APP_PATH}
 
