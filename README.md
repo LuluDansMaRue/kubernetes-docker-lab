@@ -65,4 +65,6 @@ All of these data will be store in a postgres database
 
 This project is inspired by the great repository of topheman [Docker experiments by Topheman](https://github.com/topheman/docker-experiments)
 
-Copyrights Lulu dans ma rue
+## Copyrights
+
+All right reserved. Lulu dans ma rue

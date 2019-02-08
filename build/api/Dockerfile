@@ -1,6 +1,7 @@
 FROM golang:1.11-alpine3.8
 
 ENV APP_PATH /data
+ENV CRON_PATH /task
 
 # Install git
 RUN apk update && apk upgrade && \

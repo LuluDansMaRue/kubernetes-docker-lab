@@ -4,67 +4,50 @@
 package main
 
 import (
-	"database/sql"
 	"log"
-	"os"
 	"strconv"
 	"sync"
 
 	"../utils"
-	"github.com/brianvoe/gofakeit"
+	_ "github.com/go-sql-driver/mysql"
 )
-
-const (
-	driver string = "mysql"
-)
-
-// Build DB Endpoint
-// Return string
-func buildDBEndpoint() string {
-	username := gofakeit.Username()
-	pwd := gofakeit.Password(true, true, true, true, true, 32)
-
-	host := os.Getenv("MYSQL_HOST")
-	db := os.Getenv("MYSQL_DATABASE")
-
-	return username + ":" + pwd + "@tcp(" + host + ")/" + db
-}
-
-// GetCon
-// Get the connection instance to the database
-// Return database *sql.DB
-func getCon() *sql.DB {
-	endpoint := buildDBEndpoint()
-	db, err := sql.Open(driver, endpoint)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return db
-}
 
 // Main function
 func main() {
-	rand := utils.GetRandInt(100, 300)
+	// set the logger output
+	f := utils.SetLogOutput()
+	defer f.Close()
+	log.SetOutput(f)
+
+	rand := utils.GetRandInt(10, 30)
 	idx := 0
+
+	// Create a waiting group that will defer the execution of the rest of the code
 	var wg sync.WaitGroup
 	wg.Add(rand)
 
 	log.Printf("Start CRON task. Testing " + strconv.Itoa(rand) + " connection to the database")
 
+	// Execute a goroutine foreach index
 	for idx <= rand {
 		go func(idx int) {
-			db := getCon()
+			db := utils.GetCon(true)
 
+			// We ping the database in order to know if we're able to connect
+			// Note: the ping will appear as an administrator command on the metrics
 			err := db.Ping()
 
 			if err == nil {
 				log.Fatal("User has been able to connect with wrong credentials")
+				// Close db (not handling error)
+				db.Close()
 				wg.Done()
 			}
 
-			log.Printf("Connection testing" + strconv.Itoa(idx) + " pass")
+			log.Printf("Connection testing " + strconv.Itoa(idx) + " pass")
+			// Close db (not handling error)
+			db.Close()
+
 			wg.Done()
 		}(idx)
 
