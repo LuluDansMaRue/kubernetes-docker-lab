@@ -10,16 +10,11 @@ spec:
         spec:
           containers:
           - name: temporary
-            image: bobba/cron:latest
-            imagePullPolicy: IfNotPresent
-            volumeMounts:
-            - mountPath: /task
-              name: cron-volume-host
+            image: sesame_minikube_second
+            imagePullPolicy: Never
             args:
-            - /bin/sh
+            - sh
             - startup.sh
+            - kube
+            - temporary
           restartPolicy: OnFailure
-          volumes:
-          - name: cron-volume-host
-            hostPath:
-              path: /Users/marcintha/workspace/kubbie/cron

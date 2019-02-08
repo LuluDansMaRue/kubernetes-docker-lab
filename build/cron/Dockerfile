@@ -12,8 +12,8 @@ RUN mkdir ${APP_PATH}
 # Set workdir to back
 WORKDIR ${APP_PATH}
 
-# Copy the crontab file
-COPY bobba-cron.txt bobba-cron.txt
+# Copy the folder to the task folder
+COPY cron /task
 
 # Give right to the crontab so that it can be exec
 RUN chmod 755 bobba-cron.txt
