@@ -6,7 +6,11 @@ In this page we will take a quick look at the internal architecture of Kubernete
 
 Kubernetes is a master-slave architecture centric service. A master-slave architecture is a kind of architecture where the main process has the control of all the other child process.
 
-Within Kubernetes we have a set of **master components** which will give instruction to the **nodes components**. The **master components** are regarded as the master and the **nodes components** act as the slaves
+Within Kubernetes we have a set of **master components** which will give instruction to the **nodes components**. The **master components** are regarded as the master and the **nodes components** act as the slaves.
+
+Below is big picture of the architecture of Kubernetes
+
+![Kubernetes architecture](../img/architecture.png)
 
 ## Components
 
@@ -14,29 +18,44 @@ Understanding kubernetes components will allow you to better understand what hap
 
 ### Master components
 
-#### kube apiserver
+#### kube api-server
 
-The kube api server is a CRUD operations that allows operation on the Kubernetes API Object such as adding a configuration, validating it.
+The API server is one of the most important components in the Kubernetes architecture. Indeed this API server communicate with every component of the **master components**.
 
-This API is the main entry point to the components of Kubernetes. Indeed it allow you the administrator to communicate to your cluster through kubectl.
+Function wise the api-server is a REST api where it's simple functionnality is to validate, update or even send the datas that are send to the api server.
 
-It's also use internally by the component of the Node (kubelet) to check the node's status
+As the API server is tightly coupled to every components of Kubernetes it use an external database named Etcd for saving the state of the cluster.
+
+To see how crucial is the api-server please take a look at this schema:
+
+![pod flow](../img/podflow.png)
+
+Create Pod Flow: Source: heptio.com
 
 #### etcd
 
-Etcd is an external library that is used by Kubernetes and most particularly by the API server. Indeed kube api server is stateless which mean that nothing is saved on the kube apiserver. In order to store the state of every components of the cluster. API Server is using the etcd database library which will store the cluster data
+Etcd is a high performance key value database written in Go by etcd. It's only used by the api-server. The database is used for saving the cluster state, the configuration of your pods, services and the metdata 
 
-#### controller-manager
+For more information about etcd please visit the etcd repo [Etcd repo](https://github.com/etcd-io/etcd) or you could also take a look at this article: [How kubernetes use etcd](https://matthewpalmer.net/kubernetes-app-developer/articles/how-does-kubernetes-use-etcd.html)
+
+#### controller manager
+
+The controller manager is a daemon (list a background process) that is executed and use by Kubernetes. It's actually a controller that watches the state of the cluster throughout api server. If any difference happened within the state of the cluster it'll try to move the current state to the desired state. Executed as a single process it's actually a list of controller that you can get the list [over here](https://github.com/kubernetes/kubernetes/blob/7c75723867e9e431da323b8cc410bab928cada17/cmd/kube-controller-manager/app/controllermanager.go#L330)
 
 #### scheduler
 
+The scheduler is an other component of the **master components**. It's role is to watch for unscheduled pod. When this happened the scheduler will try to find the proper node to bind it depending on several criteria.
+
+The binding happened through the ```/binding``` subresources. For more information regarding how the scheduling work a fantastic article is available [here](https://kublr.com/blog/implementing-advanced-scheduling-techniques-with-kubernetes/)
+
 ### Child components
 
-## Resources
+## Resources used. Big kudos for their work.
 
 [Description of kubernetes architecture](https://elastisys.com/wp-content/uploads/2018/01/kubernetes-ha-setup.pdf?x83281)
 [Kubernetes documentation](https://kubernetes.io/docs/concepts/overview/components/)
 [Learning kubernetes architetcture](https://medium.com/jorgeacetozi/kubernetes-master-components-etcd-api-server-controller-manager-and-scheduler-3a0179fc8186)
+[Scheduler detailed explanation](https://kublr.com/blog/implementing-advanced-scheduling-techniques-with-kubernetes/)
 
 
 
