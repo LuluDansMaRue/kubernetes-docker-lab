@@ -11,8 +11,8 @@ Within Kubernetes we have a set of **master components** which will give instruc
 Below is big picture of the architecture of Kubernetes
 
 <div style="text-align:center">
-  <img src="../img/architecture.png" alt="drawing" width="800" align="center"/>
-  <p align="center">Kubernetes architecture</p>
+  <img src="../img/architecture.png" alt="drawing" width="800"/>
+  <p align="center"><b>Kubernetes architecture</b></p>
 </div>
 
 ## Components
@@ -34,8 +34,8 @@ As the API server is tightly coupled to every components of Kubernetes it use an
 To see how crucial is the api-server please take a look at this schema:
 
 <div style="text-align:center">
-  <img src="../img/pod_flow.png" alt="drawing" width="500" align="center"/>
-  <p align="center">Create Pod Flow: Source: heptio.com</p>
+  <img src="../img/pod_flow.png" alt="drawing" width="500"/>
+  <p align="center"><b>Create Pod Flow: Source: heptio.com</b></p>
 </div>
 
 #### Etcd
@@ -74,8 +74,8 @@ The kubelet is a **critical component** in Kubernetes which is located on each N
 - Retrieve metrics from the pods container
 
 <div style="text-align:center">
-  <img src="../img/nodes.svg" alt="drawing" width="400" align="center"/>
-  <p align="center">Representation of a Node. Kubernetes documentation</p>
+  <img src="../img/nodes.svg" alt="drawing" width="400"/>
+  <p align="center"><b>Representation of a Node. Kubernetes documentation</b></p>
 </div>
 
 #### Kube proxy
