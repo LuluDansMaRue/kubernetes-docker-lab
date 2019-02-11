@@ -12,6 +12,11 @@ In order to control all of these components Docker is using a rest api endpoint 
 
 An interesting article regarding this topic can be founded here: [Communicate with the Docker rest API](https://blog.trifork.com/2013/12/24/docker-from-a-distance-the-remote-api/)
 
+<p align="center"> 
+  <img src="../img/docker.png" alt="drawing" width="400"/>
+</p>
+<p align="center"><b>Docker architecture. Docker documentation</b></p>
+
 # Components
 
 In order to use Docker we need to know the several components that has Docker.
