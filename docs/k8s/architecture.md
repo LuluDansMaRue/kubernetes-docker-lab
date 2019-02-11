@@ -11,12 +11,15 @@ Within Kubernetes we have a set of **master components** which will give instruc
 Below is big picture of the architecture of Kubernetes
 
 ![Kubernetes architecture](../img/architecture.png)
+<p align="center">Kubernetes architecture</p>
 
 ## Components
 
-Understanding kubernetes components will allow you to better understand what happened behind. First we will see the **master components**. Later on the **node component** which are the slaves
+Understanding kubernetes components will allow you to better understand what happened behind. First we will see the **master components**. Later on the **node component**
 
 ### Master components
+
+Master component represents the components that are running on the cluster it's pretty much the brain of the cluster.
 
 #### Kube api-server
 
@@ -30,7 +33,7 @@ To see how crucial is the api-server please take a look at this schema:
 
 ![pod flow](../img/pod_flow.png)
 
-Create Pod Flow: Source: heptio.com
+<p align="center">Create Pod Flow: Source: heptio.com</p>
 
 #### Etcd
 
@@ -40,7 +43,7 @@ For more information about etcd please visit the etcd repo [Etcd repo](https://g
 
 #### Controller manager
 
-The controller manager is a daemon (list a background process) that is executed and use by Kubernetes. It's actually a controller that watches the state of the cluster throughout api server. If any difference happened within the state of the cluster it'll try to move the current state to the desired state. Executed as a single process it's actually a list of controller that you can get the list [over here](https://github.com/kubernetes/kubernetes/blob/7c75723867e9e431da323b8cc410bab928cada17/cmd/kube-controller-manager/app/controllermanager.go#L330)
+The controller manager is a daemon (list a background process) that is executed and use by Kubernetes. It's actually a controller that watches the state of the cluster throughout api server. If any difference happened within the state of the cluster it'll try to move the current state to the desired state. Executed as a single process it's actually a list of controller that you can get the list [over here](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/kube-controller-manager/app/controllermanager.go#L339)
 
 #### Scheduler
 
@@ -54,9 +57,33 @@ The cloud controller manager is a set of controller that embeds cloud specific c
 
 A list of available controller is available here: [Cloud controller manager](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/cloud-controller-manager/app/controllermanager.go#L270)
 
-### Child components
+### Node components
 
-## Resources used. Big kudos for their work.
+Node components refer to the several components running into a Node. A Node is a layer that contain your pod and possess the components allowing you to use docker, how to access to your app..
+
+#### Kubelet
+
+The kubelet is a **critical component** in Kubernetes which is located on each Node. It's the main component of the Node. It's task is to watch continuously the Kube api-server for monitoring the pods and send datas to kube api-server. The kubelet will also make sure that the pod is running and take he proper action if the pod get shutdown. Pods's responsability are
+
+- Run the pods container on the right engine
+- Restart the pod if failure happened
+- Report status of the node and each pod to kube api-server
+- Retrieve metrics from the pods container
+
+![Image of a node](../img/nodes.svg)
+<p align="center">Representation of a Node. Kubernetes documentation</p>
+
+#### Kube proxy
+
+The kube proxy is a component responsible for watching change from the kube api-server regarding the definition of the service or the pod in order to maintain the desired network configuration.
+
+This component also expose the pod to the correct backend which allow you to exposes the pods by manipulating the iptables and assigning IP addresses so that you can easily access to your pods
+
+#### Container runtime
+
+The container runtime is the engine use for running the container pod. E.g: docker, rkt and many more...
+
+## Resources used
 
 [Description of kubernetes architecture](https://elastisys.com/wp-content/uploads/2018/01/kubernetes-ha-setup.pdf?x83281)
 
