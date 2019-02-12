@@ -1,5 +1,7 @@
 # Introduction
 
+In this article we will take 
+
 # Type of deployments
 
 # Example

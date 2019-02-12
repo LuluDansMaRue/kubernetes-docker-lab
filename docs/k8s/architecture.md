@@ -1,14 +1,14 @@
 # Architecture
 
-In this page we will take a quick look at the internal architecture of Kubernetes. This will allow us to understand the different components of this containarized deployment services.
+In this article we'll take a look at Kubernetes's architecture. This will enable us to understand how is working Kubernetes.
 
 ## Type of architecture
 
-Kubernetes is a master-slave architecture centric service. A master-slave architecture is a kind of architecture where the main process has the control of all the other child process.
+Kubernetes is highly based on the master-slave architecture. A master-slave architecture is a type of architecture where the ```master``` decide the actions that the ```slave``` will do.
 
-Within Kubernetes we have a set of **master components** which will give instruction to the **nodes components**. The **master components** are regarded as the master and the **nodes components** act as the slaves.
+Within Kubernetes the ```master``` is name ```master components```. Slaves components are named ```node components```.
 
-Below is big picture of the architecture of Kubernetes
+There are many components within each of these layers. Below is a simplify presentation of Kubernetes's architecture.
 
 <p align="center">
   <img src="../img/architecture.png" alt="drawing" width="800"/>
@@ -17,21 +17,21 @@ Below is big picture of the architecture of Kubernetes
 
 ## Components
 
-Understanding kubernetes components will allow you to better understand what happened behind. First we will see the **master components**. Later on the **node component**
+By understanding Kuberntes's components this will allow us to understand what's happening behind the scene.
 
 ### Master components
 
-Master component represents the components that are running on the cluster it's pretty much the brain of the cluster.
+Master components are a set of components which are running within the Cluster. These master components is pretty much the brain of the Cluster and therefore are critical components to Kubernetes.
 
-#### Kube api-server
+#### Kube-api-server
 
-The API server is one of the most important components in the Kubernetes architecture. Indeed this API server communicate with every component of the **master components**.
+Kube-api-server is an critial components of the Kubernetes architecture. This API is use by every components of the **master components**. It's also use by the kubelet process which is located in the Node.
 
-Function wise the api-server is a REST api where it's simple functionnality is to validate, update or even send the datas that are send to the api server.
+So what's behind. Kube-api-server is a simple REST API with it's main purposes is to validate, saving Kubernetes's cluster state. It's also use for saving metadata, configuration of your pods & services
 
-As the API server is tightly coupled to every components of Kubernetes it use an external database named Etcd for saving the state of the cluster.
+As Kube-api-server is stateless. Kube-api-server is tightly coupled to an external database component also located in the master named etcd. See etcd section for more information.
 
-To see how crucial is the api-server please take a look at this schema:
+In order to understand how crucial Kube-api-server is important. Please take a look at the schema below:
 
 <p align="center">
   <img src="../img/pod_flow.png" alt="drawing" width="500"/>  
@@ -40,33 +40,41 @@ To see how crucial is the api-server please take a look at this schema:
 
 #### Etcd
 
-Etcd is a high performance key value database written in Go by etcd. It's only used by the api-server. The database is used for saving the cluster state, the configuration of your pods, services and the metdata 
+Etcd is a high performance key value database written in Go. This database is only use by kube-api-server.
 
 For more information about etcd please visit the etcd repo [Etcd repo](https://github.com/etcd-io/etcd) or you could also take a look at this article: [How kubernetes use etcd](https://matthewpalmer.net/kubernetes-app-developer/articles/how-does-kubernetes-use-etcd.html)
 
 #### Controller manager
 
-The controller manager is a daemon (list a background process) that is executed and use by Kubernetes. It's actually a controller that watches the state of the cluster throughout api server. If any difference happened within the state of the cluster it'll try to move the current state to the desired state. Executed as a single process it's actually a list of controller that you can get the list [over here](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/kube-controller-manager/app/controllermanager.go#L339)
+The controller manager is a daemon, a background process which is located on the master. The controller manager is actually a list of several controller launch in a single process.
+
+What it does is in a few words. Watches for any changes on the state of the cluster by querying ```kube-api-server```. If any changes happened the controller manager will move the current state to the desired state. 
+
+The list of controller use by the controller manager is available [over here](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/kube-controller-manager/app/controllermanager.go#L339)
 
 #### Scheduler
 
-The scheduler is an other component of the **master components**. It's role is to watch for unscheduled pod. When this happened the scheduler will try to find the proper node to bind it depending on several criteria.
+The scheduler is an other component of the **master component**. It's task is to watch for unscheduled pod. When an unscheduled pod exist, the scheduler will try to find the proper node and will try to to bind it depending on several criteria such as the resources and more...
 
-The binding happened through the ```/binding``` subresources. For more information regarding how the scheduling work a fantastic article is available [here](https://kublr.com/blog/implementing-advanced-scheduling-techniques-with-kubernetes/)
+Binding an unscheduled pod to a node happened through the ```/binding``` subresources. For more information regarding how the scheduling work a fantastic article is available [here](https://kublr.com/blog/implementing-advanced-scheduling-techniques-with-kubernetes/)
 
 #### Cloud controller manager
 
-The cloud controller manager is a set of controller that embeds cloud specific control loops. This set of controller allow cloud provider to make their own set of controller while satisfying the cloud controller interfaces. (E.g, a foo cloud provider implement their own node controller)
+The cloud controller manager is a set of controller of customize cloud specific control loops. This set of controller allow cloud provider to make their own set of controller while satisfying the cloud controller interfaces. (E.g, a foo cloud provider implement their own node controller)
 
 A list of available controller is available here: [Cloud controller manager](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/cloud-controller-manager/app/controllermanager.go#L270)
 
 ### Node components
 
-Node components refer to the several components running into a Node. A Node is a layer that contain your pod and possess the components allowing you to use docker, how to access to your app..
+Node components refer to the components running into a Node. A Node is the second layer of Kubernetes (slave in the master-slave architecture) where your pods are running. Pods are controlled and monitored by Kubelet
 
 #### Kubelet
 
-The kubelet is a **critical component** in Kubernetes which is located on each Node. It's the main component of the Node. It's task is to watch continuously the Kube api-server for monitoring the pods and send datas to kube api-server. The kubelet will also make sure that the pod is running and take he proper action if the pod get shutdown. Pods's responsability are
+The kubelet is a **critical component** in Kubernetes which is located on each Node. It's the main component of the Node. 
+
+It's purpose is to watch continuously the state of the pods and to send these information back to the kube-api-server (monitoring). Kubelet is also responsible at taking the proper action if something happened to a pod e.g: restarting a pod when a pod is getting shutdown.
+
+TL;DR Kubelet responsability are:
 
 - Run the pods container on the right engine
 - Restart the pod if failure happened
@@ -80,9 +88,9 @@ The kubelet is a **critical component** in Kubernetes which is located on each N
 
 #### Kube proxy
 
-The kube proxy is a component responsible for watching change from the kube api-server regarding the definition of the service or the pod in order to maintain the desired network configuration.
+The Kube proxy is a component which it's purpose is to watch changes in the definition of the service of the pods in order to maintain the desired network configuration by querying kube-api-server. 
 
-This component also expose the pod to the correct backend which allow you to exposes the pods by manipulating the iptables and assigning IP addresses so that you can easily access to your pods
+This component also expose the pod to the correct back-end which allow you to exposes the pods by manipulating the iptables and assigning IP addresses so that you can easily access to your pods
 
 #### Container runtime
 
