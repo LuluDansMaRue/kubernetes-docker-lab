@@ -8,6 +8,17 @@ This project's aim to people who want to learn how to deploy a web application w
 - Docker for your development environment
 - Kubernetes for your production environment on GCloud
 
+
+## Table of contents
+
+* [Docker](./docker/intro.md)
+* * [Use case example of Docker](./docker/example.md)
+* [Kubernetes](./k8s/intro.md)
+* * [Architecture of Kubernetes](./k8s/architecture.md)
+* * [Type of deployment](./k8s/deployment.md)
+* * [Minikube for prototyping](./k8s/minikube.md)
+
+
 ## Objectives
 
 At the end of this project you should be able to get a good grasp on Docker, Kubernetes and GCloud.
