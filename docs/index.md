@@ -17,7 +17,7 @@ Below are the objectives that we should have reach
 ```
 - Be able to deploy an app on Docker
 - Understand the architecture of Kubernetes
-- Understand the difference between Kubernetes & Docker swarm
+- Understand the difference between Kubernetes & Docker Swarm
 - Know how to use minikube for local prototyping
 - Know how to deploy a web app from A to B with kubernetes within GCloud
 - Understand when & how to scale a cluster on multiple pods & on several timezone.
