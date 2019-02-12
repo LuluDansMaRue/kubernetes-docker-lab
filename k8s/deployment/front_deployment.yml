@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-vue
+  labels:
+    app: vue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vue
+  template:
+    metadata:
+      labels:
+        app: vue
+    spec:
+      containers:
+      - name: bobba-front
+        image: sesame_front:latest
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 8080
+        args:
+          - sh
+          - start.sh
