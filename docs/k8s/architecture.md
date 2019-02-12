@@ -52,6 +52,14 @@ What it does is in a few words. Watches for any changes on the state of the clus
 
 The list of controller use by the controller manager is available [over here](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/kube-controller-manager/app/controllermanager.go#L339)
 
+Technically a controller these controllers are a set of control loop that are non terminating that regulates the state of the system.
+
+**Kubernetes's controller definition:**
+
+```
+In Kubernetes, a controller is a control loop that watches the shared state of the cluster through the API server and makes changes attempting to move the current state towards the desired state. Examples of controllers that ship with Kubernetes today are the replication controller, endpoints controller, namespace controller, and serviceaccounts controller.
+```
+
 #### Scheduler
 
 The scheduler is an other component of the **master component**. It's task is to watch for unscheduled pod. When an unscheduled pod exist, the scheduler will try to find the proper node and will try to to bind it depending on several criteria such as the resources and more...
@@ -106,7 +114,4 @@ The container runtime is the engine use for running the container pod. E.g: dock
 
 [Scheduler detailed explanation](https://kublr.com/blog/implementing-advanced-scheduling-techniques-with-kubernetes/)
 
-
-
-
-
+[Creating it's own controller](https://engineering.bitnami.com/articles/a-deep-dive-into-kubernetes-controllers.html)
