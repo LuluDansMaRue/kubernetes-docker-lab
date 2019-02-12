@@ -2,7 +2,7 @@
 
 In this article we'll talk about how to deploy an application on Kubernetes by taking a look at the list of options that Kubernetes is offering.
 
-# Type of controller & API Objects use for deploying a Kubernetes app
+# Controllers & API Objects
 
 ## Controller
 
@@ -27,7 +27,7 @@ API Object are usually a wrapper around those controller. It add additional func
 - Job
 - CronJob
 
-# Explanation of each controllers
+# Explanation of the controllers
 
 First of all let's undersand in a few lines what's the purposes of these roles.
 
