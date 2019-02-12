@@ -16,11 +16,10 @@ spec:
     spec:
       containers:
       - name: bobba-front
-        image: sesame_front
+        image: sesame_front:latest
         imagePullPolicy: Never
         ports:
           - containerPort: 8080
         args:
           - sh
           - start.sh
-        restartPolicy: OnFailure

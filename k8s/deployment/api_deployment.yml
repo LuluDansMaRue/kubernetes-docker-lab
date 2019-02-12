@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bobba-api
+  labels:
+    app: bobba-api-go
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: bobba-api-go
+    template:
+      metadata:
+        labels:
+          app: bobba-api-go
+      spec:
+        containers:
+        - name: bobba-api
+          image: sesame_api:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPorts: 8000
+          args:
+            - sh
+            - start.sh
