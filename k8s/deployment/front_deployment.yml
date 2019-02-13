@@ -4,6 +4,7 @@ metadata:
   name: frontend-vue
   labels:
     app: vue
+    environment: minikube
 spec:
   replicas: 2
   selector:

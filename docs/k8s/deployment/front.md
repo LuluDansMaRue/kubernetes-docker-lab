@@ -1,62 +1,124 @@
+# Front description
 
-# Example
+Deploying an application to Kubernetes required you several things
 
-1. Create docker image
+- kubectl
+- minikube
+- a docker image
+- a yaml deployment configuration file
 
-```shell
-docker build -t sesame_front -f build/node/Dockerfile.release /Users/marcintha/workspace/kubbie
-```
+# Building our Docker image
 
-2. Create the configuration
+For the sake of the demo a Dockerfile.release is available in the ```build/front/``` folder. This Dockerfile doesn't differ that much from the original dockerfile. It just add the project to the Dockerfile.
 
-3. Launch the deployment
-
-```shell
-kubectl create -f k8s/deployment/<deployment_yaml_file.yml>
-```
-
-4. Watch the deployment
+First of all from the root of the folder run this command
 
 ```shell
-kubectl rollout status deployment.v1.apps/<name_of_deployment>
+docker build -t sesame_front -f build/node/Dockerfile.release <path to roo folder>/kubernetes-docker-lab
 ```
 
-5. Check if the pods are running properly
+What this command does ?
+
+- We ask docker to build an image
+- -t we provide the name in this case sesame_front
+- -f We're providing the context of building the dockerfile. In this case from the root folder
+
+Once the image is build run the command ```docker images```. and you should see the docker image available in the list of images like below.
+
+<p align="center">
+  <img src="../../img/sesame_front_img.png" />
+</p>
+
+# Create the deployment configuration
+
+As we said earlier we will use the type ```deployment``` for deploying our front. Let's do it !
+
+```yaml
+apiVersion: apps/v1
+# This is the type of deployment we talked earlier
+kind: Deployment
+# Defining metadata allow us to recognize our application easily (can be use by external tools such as Stackdriver, kubectl)
+metadata:
+  # Name of your deployment
+  name: frontend-vue
+  # A set of identifier that can help you to identify the pods
+  labels:
+    app: vue
+    environment: minikube
+# Spec is where you are configuring your deployment
+spec:
+  # number of replicas
+  replicas: 2
+  # Selector is use for the deployment to apply to the pod
+  # Using matchLabels it must match at least one of the label defined earlier
+  selector:
+    matchLabels:
+      app: vue
+    # Definition of your pod here
+    template:
+      metadata:
+        labels:
+          app: vue
+      spec:
+        containers:
+          - name: bobba-front
+            image: sesame_front:latest
+            # This line enabled us to use a local image and not to fetch one coming from a server
+            imagePullPolicy: Never
+            # Expose the container port to the cluster
+            ports:
+              - containerPort: 8080
+            # a list of arguments that you can use at the startup of your pods
+            args:
+              - sh
+              - start.sh
+```
+
+The file is available in the ```k8s/deployment/front_deployment.yml```
+
+# Deploying our application to Minikube
+
+Now that we have our yaml configuration file and our docker image. Let's deploy our app. Run the following command
+
+```shell
+kubectl create -f k8s/deployment/front_deployment.yml
+```
+
+Secondly listen the deployment status of the pod
+
+```shell
+kubectl rollout status deployment.v1.apps/frontend-vue
+```
+
+You should get a success message that said that your deployment is successfull. 
+
+Finally check if your pod are running by using the command
 
 ```shell
 kubectl get pods
 ```
 
-See status. If different from 'running'. Then check the pod event or log
+Et voilà you made your first deployment !
 
-Pod event
+## Error
 
-```shell
-kubectl logs -p <pod_name>
-```
-
-Event
+If you have any error you can check the event status of your pods by running this command.
 
 ```shell
+# Get the list of available pods
+kubectl get pods
+
+# Get the event of a pod
 kubectl describe pod <pod_name>
+
+# Now look at the events section (should be at the end)
+# You could also check the pod's log by running this command
+kubectl logs -p <pod_name>
+
+# if the pod is killed you could get the logs of a pod like this too
+kubectl logs <pod_name>
 ```
 
-6. Expose the deployment to the localhost (creating loadbalancer on minikube)
+# Resources
 
-- First check if the deployment is already exposed
-
-```shell
-kubectl get svc
-```
-
-- If the deployment is not present run this command
-
-```shell
-kubectl expose deployment frontend-vue --type=NodePort
-```
-
-- Then you can generate an URL in order to access to your deployment
-
-```shell
-minikube service <deployment> --url
-```
+[Labels, Selector, Metadata explained](https://medium.com/@zwhitchcox/matchlabels-labels-and-selectors-explained-in-detail-for-beginners-d421bdd05362)
