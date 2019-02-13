@@ -12,4 +12,4 @@ WORKDIR ${APP_PATH}
 COPY front /data
 
 # Run the app
-CMD ["sh", "start.sh"]
+CMD ["sh", "start.sh minikube"]

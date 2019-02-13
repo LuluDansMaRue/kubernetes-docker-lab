@@ -2,4 +2,9 @@
 npm install
 
 # Run the serve
-npm run serve
+if [ "$1" = "minikube"]
+then
+  npm run serve-kube
+else
+  npm run serve
+fi
