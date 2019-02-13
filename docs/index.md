@@ -17,6 +17,7 @@ This project's aim to people who want to learn how to deploy a web application w
 * * [Architecture of Kubernetes](./k8s/architecture.md)
 * * [Type of deployment](./k8s/deployment.md)
 * * [Minikube for prototyping](./k8s/minikube.md)
+* * [Example of a deployment](./k8s/deployment/example.md)
 
 
 ## Objectives
