@@ -26,17 +26,16 @@ Our database is a statefull kind of service. With Kubernetes we have the option 
 
 A deep explanation has been made on the subreddit of Kubernetes. **Credits to nkrgovic for it's detailed explanation**
 
-```
-Stateful services, especially databases, rely on keeping state on a reliable media - in most cases disk (ssd or spinning rust). Also, in most cases, database performance is a big issue affecting system performance. This is partly due to design, and partly due to inherent inability of relational databases to scale horizontally.
+> Stateful services, especially databases, rely on keeping state on a reliable media - in most cases disk (ssd or spinning rust). Also, in most cases, database performance is a big issue affecting system performance. This is partly due to design, and partly due to inherent inability of relational databases to scale horizontally.
 
-Simple put, the most common bottleneck in databases is the disk performance. In order to get good database performance you need disk performance. This means predictable latency and good throughput - which usually means dedicated volumes with QoS, not sharing out of a pool.
+> Simple put, the most common bottleneck in databases is the disk performance. In order to get good database performance you need disk performance. This means predictable latency and good throughput - which usually means dedicated volumes with QoS, not sharing out of a pool.
 
-Other issues have to do with databases using a lot of memory, and also not being good to spin up and spin down new instances quickly, exactly because of the state: They need to copy the entire data set over and that takes time.
+> Other issues have to do with databases using a lot of memory, and also not being good to spin up and spin down new instances quickly, exactly because of the state: They need to copy the entire data set over and that takes time.
 
-When you put all those together a relational database is a very bad candidate for running in a container - it just doesn't make sense. If you have a lot of data spinning up and down, starting, everything takes time, and a lot of time.
+> When you put all those together a relational database is a very bad candidate for running in a container - it just doesn't make sense. If you have a lot of data spinning up and down, starting, everything takes time, and a lot of time.
 
-If you have a little bit of data, like in a test or CI environment, then database in a container is a great tool. But in a production environment databases and containers just don't mix.
-```
+> If you have a little bit of data, like in a test or CI environment, then database in a container is a great tool. But in a production environment databases and containers just don't mix.
+
 
 Moreover Kelsey Hightower a developer advocate on the GCP advise to also not use Kubernetes for deploying a database. See his [tweet](https://twitter.com/kelseyhightower/status/963413508300812295?lang=en)
 

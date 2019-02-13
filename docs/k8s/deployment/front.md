@@ -1,4 +1,4 @@
-# Front description
+# Front deployment description
 
 Deploying an application to Kubernetes required you several things
 
@@ -14,7 +14,7 @@ For the sake of the demo a Dockerfile.release is available in the ```build/front
 First of all from the root of the folder run this command
 
 ```shell
-docker build -t sesame_front -f build/node/Dockerfile.release <path to roo folder>/kubernetes-docker-lab
+docker build -t sesame_front -f build/node/Dockerfile.release <path to root folder>/kubernetes-docker-lab
 ```
 
 What this command does ?
