@@ -50,4 +50,5 @@ As our front is tightly coupled to our API we will need to connect these 2 deplo
 Please refer to these articles for each deployment environment
 
 [Deploying the front](./front.md)
+
 [Deploying the back](./api.md)
