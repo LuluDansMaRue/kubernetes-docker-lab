@@ -1,19 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-vue
+  name: bobba-vue
   labels:
-    app: vue
-    environment: minikube
+    app: bobba-vue
+    tier: frontend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: vue
+      app: bobba-vue
+      tier: frontend
   template:
     metadata:
       labels:
-        app: vue
+        app: bobba-vue
+        tier: frontend
     spec:
       containers:
       - name: bobba-front

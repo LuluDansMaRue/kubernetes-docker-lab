@@ -2,7 +2,7 @@ version: '3'
 
 services:
   # Golang API
-  api:
+  bobba-api:
     build: build/api/
     image: 'bobba/api'
     container_name: 'bobba_go_api'
@@ -11,7 +11,7 @@ services:
     volumes:
       - ./api:/data
     ports:
-      - "9000:8000"
+      - "80:8000"
     depends_on:
       - db
 

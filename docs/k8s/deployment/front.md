@@ -40,7 +40,7 @@ kind: Deployment
 # Defining metadata allow us to recognize our application easily (can be use by external tools such as Stackdriver, kubectl)
 metadata:
   # Name of your deployment
-  name: frontend-vue
+  name: bobba-vue
   # A set of identifier that can help you to identify the pods
   labels:
     app: vue
@@ -87,7 +87,7 @@ kubectl create -f k8s/deployment/front_deployment.yml
 Secondly listen the deployment status of the pod
 
 ```shell
-kubectl rollout status deployment.v1.apps/frontend-vue
+kubectl rollout status deployment.v1.apps/bobba-vue
 ```
 
 You should get a success message that said that your deployment is successfull. 
