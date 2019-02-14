@@ -14,3 +14,9 @@ Below is an example on OSX:
 ```shell
 rm -rf ~/.minikube/machines/minikube/hyperkit.pid
 ```
+
+On the same window terminal we need to set the docker environment within our local cluster. Run the following command:
+
+```shell
+eval $(minikube docker-env)
+```

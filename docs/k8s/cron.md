@@ -28,12 +28,6 @@ Start minikube with the following command:
 minikube start
 ```
 
-On the same window terminal we need to set the docker environment within our local cluster. Run the following command:
-
-```shell
-eval $(minikube docker-env)
-```
-
 Now if you do 
 ```shell
 docker ps
