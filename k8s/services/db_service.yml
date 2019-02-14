@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: bobba-db
+spec:
+  selector:
+    app: db
+    tier: database
+  ports:
+  # Expose outside of the cluster
+  - protocol: TCP
+    # port expose to the cluster
+    port: 3306
+    # Port of the pods
+    targetPort: 3306
