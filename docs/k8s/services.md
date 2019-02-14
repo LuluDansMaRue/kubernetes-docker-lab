@@ -10,7 +10,7 @@ As per CoreOS definition of Service:
 
 > Services provide important features that are standardized across the cluster: load-balancing, service discovery between applications, and features to support zero-downtime application deployments.
 
-Moreover pod's lifetime are mortal. Which mean that you can't count at using pod's IP in order to connect your stack between them. Service are micro services that support zero-downtime deployments. Meaning that they have an unlimited lifespans
+Moreover pod's lifetime are ephemeral. Which mean that you can't count at using pod's IP in order to connect your stack between them. Service are micro services that support zero-downtime deployments. Meaning that they have an unlimited lifespans
 
 # Type of services
 
@@ -18,9 +18,9 @@ Kubernetes provide many types of services. In this section we'll explore all of 
 
 - ClusterIP: Exposes the service on a Cluster internal IP. This mean that by choosing this kind of service will make your pods available within the Cluster
 
-- NodePort: This exposes the service on each Node's IP. Moreover a ClusterIP service which is bind to the NodeIP will be create automatically allowing you to reach your service from outside of the Cluster.
+- NodePort: This exposes the service on each Node's IP. Moreover a ClusterIP service which is bind to the NodeIP will be create automatically allowing you to reach your service from outside of the Cluster to any nodes.
 
-- LoadBalancer: This exposes the services to an external Load Balancer provider. This mean that the external load balancer will be in charge of handling the traffic to your services
+- LoadBalancer: This type offer the same functionality as the NodePort. It add an other layer where your services are exposed to an external Load Balancer provider. This mean that the external load balancer will be in charge of handling the traffic to your services
 
 - ExternalName: As per Kubernetes's documentation: > Maps the service to the contents of the externalName field (e.g. foo.bar.example.com), by returning a CNAME record with its value. No proxying of any kind is set up. This requires version 1.7 or higher of kube-dns.
 

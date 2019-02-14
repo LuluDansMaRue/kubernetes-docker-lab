@@ -3,12 +3,11 @@ apiVersion: v1
 metadata:
   name: bobba-vue
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: bobba-vue
     tier: frontend
   ports:
-  - nodePort: 31317
-    protocol: TCP
-    port: 8080
+  - protocol: TCP
+    port: 80
     targetPort: 8080
