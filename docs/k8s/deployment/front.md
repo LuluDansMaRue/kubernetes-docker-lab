@@ -43,8 +43,8 @@ metadata:
   name: bobba-vue
   # A set of identifier that can help you to identify the pods
   labels:
-    app: vue
-    environment: minikube
+    app: bobba-vue
+    tier: frontend
 # Spec is where you are configuring your deployment
 spec:
   # number of replicas
@@ -53,15 +53,15 @@ spec:
   # Using matchLabels it must match at least one of the label defined earlier
   selector:
     matchLabels:
-      app: vue
+      app: bobba-vue
     # Definition of your pod here
     template:
       metadata:
         labels:
-          app: vue
+          app: bobba-vue
       spec:
         containers:
-          - name: bobba-front
+          - name: bobba-vue
             image: sesame_front:latest
             # This line enabled us to use a local image and not to fetch one coming from a server
             imagePullPolicy: Never

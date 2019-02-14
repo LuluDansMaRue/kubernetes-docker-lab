@@ -18,9 +18,9 @@ Kubernetes provide many types of services. In this section we'll explore all of 
 
 - ClusterIP: Exposes the service on a Cluster internal IP. This mean that by choosing this kind of service will make your pods available within the Cluster
 
-- NodePort: This exposes the service on each Node's IP. Moreover a ClusterIP service which is bind to the NodeIP will be create automatically allowing you to reach your service from outside of the Cluster to any nodes.
+- NodePort: This expose the service on each Node's IP at a static port. A ClusterIP will be create to which the NodePort service will be route is automatically created. The kube-proxy will manage which pod to transmit the packet...
 
-- LoadBalancer: This type offer the same functionality as the NodePort. It add an other layer where your services are exposed to an external Load Balancer provider. This mean that the external load balancer will be in charge of handling the traffic to your services
+- LoadBalancer: This type offer the same functionality as the NodePort. It add an other layer where your services are exposed to an external Load Balancer provider. This mean that the external load balancer will be in charge of handling the traffic to your services 
 
 - ExternalName: As per Kubernetes's documentation: > Maps the service to the contents of the externalName field (e.g. foo.bar.example.com), by returning a CNAME record with its value. No proxying of any kind is set up. This requires version 1.7 or higher of kube-dns.
 
@@ -43,3 +43,5 @@ Creating a services is simple. Please check the example [over here](deployment/s
 [Learning routing tables](https://www.youtube.com/watch?v=g8eP4fhrx3I)
 
 [Kube Proxy, Services networking](https://medium.com/google-cloud/understanding-kubernetes-networking-services-f0cb48e4cc82)
+
+[Which service should I choose](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)

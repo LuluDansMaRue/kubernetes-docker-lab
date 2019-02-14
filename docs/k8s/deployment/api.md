@@ -33,16 +33,19 @@ kind: Deployment
 metadata:
   name: bobba-api
   labels:
-    app: bobba-api-go
+    app: bobba-api
+    tier: backend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: bobba-api-go
+      app: bobba-api
+      tier: backend
   template:
     metadata:
       labels:
-        app: bobba-api-go
+        app: bobba-api
+        tier: backend
     spec:
       containers:
       - name: bobba-api
