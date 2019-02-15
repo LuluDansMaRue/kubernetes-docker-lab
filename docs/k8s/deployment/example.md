@@ -67,3 +67,9 @@ Please refer to these articles for each deployment environment
 [Linking the front and the back with services](./service_api.md)
 
 [Access our front from outside of the cluster](./service_front.md)
+
+# Cleanup
+
+TODO
+
+Cleanup database, front & back, removing deployment, storage & services
