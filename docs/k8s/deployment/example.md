@@ -36,10 +36,19 @@ A deep explanation has been made on the subreddit of Kubernetes. **Credits to nk
 
 > If you have a little bit of data, like in a test or CI environment, then database in a container is a great tool. But in a production environment databases and containers just don't mix.
 
-
 Moreover Kelsey Hightower a developer advocate on the GCP advise to also not use Kubernetes for deploying a database. See his [tweet](https://twitter.com/kelseyhightower/status/963413508300812295?lang=en)
 
-Therefore we're going to seperate our database from the Kubernetes and for the sake of this demo run the database on our own host. However for the sake of the demo provided in the k8s/database folder **(WIP)**.
+At first glance we thought that it would be a good idea to connect a local database hosted on your computer. However due to the network isolation that minikube does like Docker it wouldn't be possible to do this kind of infrastructure.
+
+An other possibility would be to use an external database hosted on a server which is not a suitable solution for just prototyping.
+
+Let's take into account what our database is:
+
+- One table
+- Few operations
+- Only for testing purposes
+
+Thus based on the comment above it would be a better idea to use Minikube to create our database. However on GCP we'll use an external database.
 
 # Linking
 

@@ -1,5 +1,7 @@
 FROM golang:1.11-alpine3.8
 
+# Set environment variables
+# App
 ENV APP_PATH /data
 
 # Install git

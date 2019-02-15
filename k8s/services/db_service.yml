@@ -1,8 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: bobba-db
+  name: db
 spec:
+  # Disable the cluster ip
+  clusterIP: None
   selector:
     app: db
     tier: database
