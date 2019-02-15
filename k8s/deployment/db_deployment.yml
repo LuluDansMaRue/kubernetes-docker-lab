@@ -6,7 +6,7 @@ metadata:
     app: db
     tier: database
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: db
@@ -24,3 +24,15 @@ spec:
         imagePullPolicy: Never
         ports:
           - containerPort: 3306
+        volumeMounts:
+          - name: pv-sql
+            mountPath: /var/lib/mysql/
+  volumeClaimTemplates:
+    - metadata: 
+        name: pv-sql
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 60Mi
