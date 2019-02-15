@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: bobba-api
+spec:
+  type: NodePort
+  selector:
+    app: bobba-api
+    tier: backend
+  ports:
+  # Expose outside of the cluster
+  - nodePort: 31320
+    protocol: TCP
+    # port expose to the cluster
+    port: 80
+    # Port of the pods
+    targetPort: 8000

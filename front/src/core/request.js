@@ -1,7 +1,12 @@
 import axios from 'axios'
 import { isNumber } from 'lodash'
 
-const URI = 'http://localhost:9000'
+let URI = ''
+
+if (process.env.MODE !== 'development')
+  URI = 'http://192.168.64.2:31320'
+else
+  URI = 'http://localhost:9000'
 
 /**
  * Fetch
