@@ -3,68 +3,38 @@
   <img src="stack.png" width="400" height="400" alt="logo">
 </div>
 
-## Structure of the project
+# Introduction ✍️
 
-- api/*.go (The back-end will be there made in GoLang)
-- front/*.js (The front-end will be there made with VueJS)
-- docker/ (The list of dockerfiles used to build the project)
-- k8s/ (List of file regarding kubernetes)
-- docker-compose.yml a simple docker-compose that will be use to organize our containers
+Kubernetes is one of the most famous container orchestration. It allow you to deploy your container and scale it based on your needs throught several available components.
 
-## Prerequisites
+While Kubernetes is maintained by Google and other contributors, Kubernetes is available on multiple platform such as Aws and many more providers
 
-- Docker
-- GCloud
-- Kubernetes cmd line
+# Example project 👨‍💻👩‍💻
 
-## Description
+In order to demonstrate the knowledges we learn throught this learning process. We are providing you with an example project that we're deploying together in Docker, Minikube but also within GCloud.
 
-The goal of this web app is to list several informations regarding the available bubble tea around the world.
+This example project contain the following parts:
 
-### Back-end
+- Backend in Golang
+- Front-end in VueJS
+- Database in MySQL
 
-The back-end will provide 4 APIs in Go:
+# Overview 💪
 
-- Add a / multiple Bubble tea
-- Remove a Bubble tea
-- List the available Bubble tea
-- Get the detail information of a Bubble tea
+Kubernetes is a complex piece of software. Therefore it's essential for anybody to learn a minimum set of knowledges before being able to do anything on Kubernetes.
 
-### Front-end
+Moreover it's important to know how to use Docker. Indeed Kubernetes is managing container and Docker is one of the most popular container system out there.
 
-The front-end will be made in VueJS. This app will provide 3 views.
+> Disclaimer: We're far from being an expert in Kubernetes. However face to the complexity of Kubernetes we want to provide a simple way of learning Kubernetes from a web developer point of view.
 
-- The home view where you will be able to get the list of the bubble tea (search).
-- The add view which will allow you to add bubble tea
-- The detail view which will let you see the detail of a bubble tea
+* [Docker](docker/intro.md)
+* [Kubernetes](k8s/intro.md)
+* [GCP](gcp/intro.md)
 
-### Database
-
-All of those data are stored in a postgres database
-
-## Environment
-
-### Docker
-
-- 3 containers will be used
-
-### Docker swarm
-
-- We will try to deploy our application on docker swarm and see the differences between kubernetes & docker swarm
-
-### Kubernetes
-
-* One cluster will be available
-* 2 set of containers
-* * 1 for the back-end (each container will have 2 pods ) maybe several timezone ?
-* * 1 for the front-end (each container will have 2 pods) maybe several timezone ?
-* * The database will run on Google Cloud SQL
-* * To access the database, we will use the Cloud SQL Proxy
-
-## Inspiration
+# Inspiration 📖
 
 This project is inspired by the great repository of topheman [Docker experiments by Topheman](https://github.com/topheman/docker-experiments)
 
-## Copyrights
+# Copyrights
 
 All right reserved. Lulu dans ma rue
