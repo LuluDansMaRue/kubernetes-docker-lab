@@ -33,7 +33,13 @@ Moreover it's important to know how to use Docker. Indeed Kubernetes is managing
 
 ## Inspiration 📖
 
-This project is inspired by the great repository of @topheman [Docker experiments by Topheman](https://github.com/topheman/docker-experiments)
+This project is inspired by the great repository of [topheman](https://github.com/topheman) [Docker experiments by Topheman](https://github.com/topheman/docker-experiments)
+
+## Contributors
+
+A big thanks to all the contributors:
+
+- [Kinok](https://github.com/kinok)
 
 ## Copyrights
 
