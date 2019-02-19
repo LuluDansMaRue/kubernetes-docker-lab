@@ -1,26 +1,38 @@
-# Kubernetes Docker experiments
+# Kubernetes Docker experiments 🎋
 
 ## Introduction
 
 Welcome fan of Bubble tea.
-This project's aim to people who want to learn how to deploy a web application with several environments:
+
+This project is for people who are curious and want to learn how to deploy an application from A to B to several environements such as: 
 
 - Docker for your development environment
+- Minikube for emuling your Kubernetes production environment
 - Kubernetes for your production environment on GCloud
 
+Throughout this guide we'll learn several thing which are describe in the table of contents below
 
 ## Table of contents
 
-* [Docker](./docker/intro.md)
-* * [Use case example of Docker](./docker/example.md)
-* [Kubernetes](./k8s/intro.md)
-* * [Architecture of Kubernetes](./k8s/architecture.md)
-* * [Type of deployment](./k8s/deployment.md)
-* * [Minikube for prototyping](./k8s/minikube.md)
-* * [Example of a deployment](./k8s/deployment/example.md)
+* [Introduction to Docker](docker/intro.md)
+* * [Example of deployment with Docker](docker/example.md)
+* [A quick look at Docker Swarm](k8s/swarm.md)
+* [Architecture](k8s/architecture.md)
+* [Deployment](k8s/deployment.md)
+* [Service](k8s/services.md)
+* [Persistent volume](k8s/storage.md)
+* [Cron task](k8s/cron.md)
+* [Minikube](k8s/minikube.md)
+* [Example with Minikube](k8s/deployment/example.md)
+* * [Front deployment](k8s/deployment/front.md)
+* * [API deployment](k8s/deployment/api.md)
+* * [Service front deployment](k8s/deployment/service_front.md)
+* * [Service API deployment](k8s/deployment/service_api.md)
+* * [Database](k8s/deployment/database.md)
+* * [Deploying on GCP]()
 
 
-## Objectives
+## Objectives ✅
 
 At the end of this project you should be able to get a good grasp on Docker, Kubernetes and GCloud.
 
@@ -40,35 +52,4 @@ Below are the objectives that we should have reach
 - Create Cron task on GCloud 
 ```
 
-## The stack
-
-As describe on the main Readme our web application is divide in 3 parts.
-
-- The back-end API which is made in Go
-- The front-end which is small app made with VueJS
-- A simple MySQL database
-
-Everything is build up with a Docker :). Take a look at the docker-compose for more information or check out the related Docker page for more information
-
-### Back-end
-
-The back-end contains 4 APIs that are used by the front-end. A postman collection is available within the ```postman``` folder. I invite you to test the APIs :).
-
-### Front-end
-
-WIP
-
-### Database
-
-The database is a simple MySQL database with one table named Bobba.
-This table store the information related to the bubble tea which are:
-
-```shell
-- Id <int>
-- Name <string>
-- Price <double>
-- Shop <string>
-- Flavor <string>
-- Calory <double>
-```
-
+## Enjoy ! 🎎

@@ -1,8 +1,8 @@
-# Example of creating a development environment with Docker
+## Example of creating a development environment with Docker 🐳
 
 This project come with a set of small projects that are bundled together by using Docker.
 
-## Dockerfile
+### Dockerfile
 
 Using a raw image can be useful for quick prototyping. However when you need to make internal work (e.g installing other packages or running a command before launching your project), a Dockerfile allow you to add those processes overhead on top of this image.
 

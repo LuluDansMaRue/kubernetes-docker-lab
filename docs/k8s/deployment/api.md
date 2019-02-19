@@ -1,15 +1,13 @@
-# API deployment Description
+## Deploying the API 🖥️
 
-Deploying the API to Kubernetes required you several things
+Like the front-end project. Deploying the API required you to have several files like so:
 
-- kubectl
-- minikube
 - a docker image
 - a yaml deployment configuration file
 
-# Building our Docker image
+## Building our Docker image 🐣
 
-For the sake of the demo a Dockerfile.release is available in the ```build/api/``` folder. This Dockerfile doesn't differ that much from the original dockerfile. It just add the project to the Dockerfile.
+For the sake of the demo a Dockerfile.release is available in the ```build/api/``` folder. This Dockerfile doesn't differ that much from the original dockerfile.
 
 First of all from the root of the folder run this command
 
@@ -18,13 +16,11 @@ docker build -t sesame_api -f build/api/Dockerfile.release <path to root folder>
 ```
 
 For an explanation of the command please check the [front deployment](front.md) article
-
 Once the image is build check if the docker image is present by using the ```docker images``` command.
 
-# Create the deployment configuration
+## Create the deployment configuration 🐥
 
-Like the front-end deployment we will also use the ```Deployment``` type for deploying our API
-
+Our API is also stateless. Therefore we're also going to use the ```Deployment``` type of deployment.
 For a detailed explanation of the yaml file please check the [front deployment](front.md) article
 
 ```yaml
@@ -58,15 +54,16 @@ spec:
           - start.sh
 ```
 
-# Deploying our application to Minikube
+## Deploying our application to Minikube
 
-Now that we have our yaml configuration file and our docker image. Let's deploy our app. Run the following command
+Now that we have our yaml configuration file and our docker image. 
+Let's deploy our app. Run the following command
 
 ```shell
 kubectl create -f k8s/deployment/api_deployment.yml
 ```
 
-Secondly listen the deployment status of the pod
+Secondly listen to the deployment status of the pod by running this command
 
 ```shell
 kubectl rollout status deployment.v1.apps/bobba-api
@@ -80,18 +77,23 @@ Finally check if your pod are running by using the command
 kubectl get pods
 ```
 
-An other step we can do is to check one of the pod itself by using this command
+#### Et voila the API is deployed. Now let's deploy the front [service](service_front.md)
+
+## Errors
+
+If you have any error you can check the event status of your pods by running this command.
 
 ```shell
-kubectl exec -ti <pod_name> -- /bin/sh
+# Get the list of available pods
+kubectl get pods
+
+# Get the event of a pod
+kubectl describe pod <pod_name>
+
+# Now look at the events section (should be at the end)
+# You could also check the pod's log by running this command
+kubectl logs -p <pod_name>
+
+# if the pod is killed you could get the logs of a pod like this too
+kubectl logs <pod_name>
 ```
-
-This will enable us to inspect the pod itself. Now let's check if the ```CompileDaemon``` process is running
-
-```shell
-ps aux
-```
-
-If you see the ```CompileDaemon``` process this mean that our application is running !
-
-Et voilà you made your second deployment is done !

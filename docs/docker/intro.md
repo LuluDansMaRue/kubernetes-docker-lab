@@ -1,10 +1,10 @@
-# Docker
+## Docker 🐳
 
 Docker is a container-based virtualization software that allows users to easily create a development environment without installing any virtualization software (e.g. VirtualBox).
 
 This allows developers to create multiple test environments on the fly and to share them with others, without too much headaches.
 
-# Architecture
+## Architecture
 
 Docker architecture is centralized on the daemon, which is used by all of Docker's components.
 
@@ -17,7 +17,7 @@ An interesting article regarding this topic here: [Communicate with the Docker r
 </p>
 <p align="center"><b>Docker architecture. Docker documentation</b></p>
 
-# Components
+## Components
 
 In order to use Docker, we need to know what components it has.
 
@@ -26,7 +26,7 @@ In order to use Docker, we need to know what components it has.
 - Data volumes: they are used to persist the data of your containers
 - Network: When instantiating multiple containers, docker allows you to connect them all together by creating a network system. Docker will manipulate ip tables in order to provide network isolation.
 
-# Using Docker
+## Using Docker 🐳
 
 There are many ways of using Docker: from creating a simple container to testing a script on the fly with ```docker run ...```, or creating a complex development environment with ```docker-compose```. Even creating a custom environment on an OS by using ```Dockefile```. Docker allows us to simplify how we work and should provides us an out of the box development environment.
 

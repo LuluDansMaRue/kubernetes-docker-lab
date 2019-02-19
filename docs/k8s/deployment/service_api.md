@@ -1,14 +1,10 @@
-# Services api
+## Services API 🎒
 
-As explained on the services main articles. We need to define services that will group our pods in order to make them accessible.
+Regarding our API (back-end) we're not required to deploy our API in a special port. This mean that we could use the ```NodePort``` withot any headache. Let's configured the service so that it will use the NodePort
 
-In our case we want to make them accessible outside of the Cluster. As we saw earlier one of the type that allow us to do that is the ```NodePort```. This type allow us to expose our Node's API throught a ClusterIP which make them available through a single endpoint. This is an interesting kind as Nodes are mortal like pods.
+## Configuration of the api service ⚒️
 
-Using NodePort allow the ```kube-proxy``` to handle this issue in an automatic way.
-
-# Example
-
-We're going to expose our bobba-api deployment by creating a service with the NodePort type. Let's do it
+As always we're going to describe how the ```yaml``` file is. The original file is available in the ```k8s/services/api_service.yml``` folder
 
 ```yaml
 kind: Service
@@ -24,7 +20,7 @@ spec:
     app: bobba-api
     tier: backend
   ports:
-  # If no IP. Kubernetes will assign a random nodeport
+  # If no IP. Kubernetes will assign a random port
   - nodePort: 31320
     protocol: TCP
     # port expose to the cluster
@@ -33,7 +29,7 @@ spec:
     targetPort: 8000
 ```
 
-Pretty simple isn't it ?
+Now let's create our service
 
 Create your service with this command
 
@@ -59,9 +55,13 @@ minikube ip
 
 Then you are able to target the backend with this url with ```<minikube_ip>:port/{route}```
 
-# Drawbacks
+If you try to fetch a route like ```/bobbas``` you'll see that we have an error regarding our database. Indeed we haven't create our database yet ! Let's do it
 
-While it does what we want it's far from being a safe solution. Moreover we also have theses drawbacks:
+#### Let's create our [database](database.md)
+
+## Drawbacks 🔮
+
+While it does what we want it does has some drawbacks. Moreover we also have theses drawbacks:
 
 - One service per port
 - Can only use port from 30000 - 32767

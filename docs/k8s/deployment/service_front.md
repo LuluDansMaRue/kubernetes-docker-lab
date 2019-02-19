@@ -1,14 +1,21 @@
-# Services front
+## Front service 🐥
 
-As explained on the services main articles. We need to define services that will group our pods in order to make them accessible.
+As describe earlier a service allow you to group a certain number of pods in order to make them accessible to in different level. In the case of our Front we want it to be reachable from the outside. As our front-end is the main entry point to our system we want it to be able to reach it with a simple url on the port 80.
 
-In our case we want to make them accessible outside of the Cluster. As we saw earlier one of the type that allow us to do that is the ```LoadBalancer```. This type has the same property as the ```NodePort```. However we aren't limited by the ```port``` issue of the NodePort.
+In order to expose our front deployment we could use 2 types of services
 
-Indeed by using the ```NodePort``` we are restricted by the usage of which port to use. Which in production mode is problematic.
+- ```NodePort```: NodePort is use for exposing the node's port to the cluster. However the NodePort is limited by which port we should use and unfortunately port 80 is not available.
+- ```LoadBalancer```: The loadbalancer mode has the same advantages as the NodePort with one more advantage. The Loadbalancer allow us to use any port. However it required us to have an existing LoadBalancer provider
 
-# Example (description of the existing yaml file)
+💡 Thanks to minikube. We could emulate a LoadBalancer by using the ```minikube tunnel``` command.
 
-We're going to expose our bobba-vue (front) deployment by creating a ```LoadBalancer``` service
+In our case as minikube provide a LoadBalancer out of the box we could use the LoadBalancer option for our deployment.
+
+In order to create our *service* we only need one thing. A Yaml configuration file which is describe below:
+
+## Configuration of the front service ⚒️
+
+As always we're going to describe how the ```yaml``` file is. The original file is available in the ```k8s/services/front_service.yml``` folder
 
 ```yaml
 kind: Service
@@ -30,9 +37,8 @@ spec:
     targetPort: 8080
 ```
 
-Pretty simple isn't it ?
-
-Create your service with this command
+Pretty simple isn't it ? Let's create our service
+Create your service with this command by running this command
 
 ```shell
 kubectl create -f k8s/services/front_service.yml
@@ -44,12 +50,14 @@ Now we need to check that our services is created and exposed our Nodes by runni
 kubectl get services
 ```
 
-As **minikube doesn't get access to GCP*** we need to run the command ```minikube tunnel``` which will create our LoadBalancer
+As **minikube doesn't get access to GCP** we need to run the command ```minikube tunnel``` which will create our LoadBalancer
 
 Now if you check the services again you should see an ```externalIP``` for our ```bobba-vue``` service !
 
 ![bobba vue](../../img/bobba-vue.png)
 
-# Drawbacks
+#### Now let's check the API for our service [API Service](service_api.md)
 
-One drawbacks of this method is that you need to deploy a load balancer for each services which can get quite expensive if you have multiple services
+## Drawbacks 🔮
+
+While this method is useful in development mode. It might not be suitable for a production environment as every time you use the LoadBalancer mode a new LoadBalancer will be create. This operation can be quite expensive if you have many load balancer to create.

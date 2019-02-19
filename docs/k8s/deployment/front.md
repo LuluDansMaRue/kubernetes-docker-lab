@@ -1,37 +1,41 @@
-# Front deployment description
+## Deploying the front-end 🦅
 
-Deploying an application to Kubernetes required you several things
+Deploying an application to Kubernetes required you to have at least those components
 
-- kubectl
-- minikube
 - a docker image
 - a yaml deployment configuration file
 
-# Building our Docker image
+We'll take a look at these components steps by steps
 
-For the sake of the demo a Dockerfile.release is available in the ```build/front/``` folder. This Dockerfile doesn't differ that much from the original dockerfile. It just add the project to the Dockerfile.
+## Building our Docker image 🐣
 
-First of all from the root of the folder run this command
+As said earlier we're using the Docker runtime environment for our small deployment example. In order for minikube to be able to use the image. We will build a Docker image for the front-end.
+
+A front-end Dockerfile is available for the example. It's pretty simple we create the folder, copy the project and the start.sh will be the script which will install the npm dependencies & run the project.
+
+Run the command below from the root of the project. This will build a docker image for the front-end
 
 ```shell
 docker build -t sesame_front -f build/node/Dockerfile.release <path to root folder>/kubernetes-docker-lab
 ```
 
-What this command does ?
+What this command does ? 🤔
 
-- We ask docker to build an image
-- -t we provide the name in this case sesame_front
-- -f We're providing the context of building the dockerfile. In this case from the root folder
+- We ask docker to build an image wit the options
+- ```-t``` we provide the name in this case sesame_front
+- ```-f``` We're providing the context of building the dockerfile. In this case from the root folder
 
-Once the image is build run the command ```docker images```. and you should see the docker image available in the list of images like below.
+Once the image is build run the command ```docker images```. and you should see the docker image available in the list of images like below. Houra ! 😁
 
 <p align="center">
   <img src="../../img/sesame_front_img.png" />
 </p>
 
-# Create the deployment configuration
+## Create the deployment configuration 🐥
 
-As we said earlier we will use the type ```deployment``` for deploying our front. Let's do it !
+Our front-end application is a stateless app. Indeed we're storing nothing on our pods. Therefore the most suitable type of deployment is the ```Deployment``` type. 
+
+As configurating the yaml file can be a bit complex we're providing the front-end yaml deployment file. Below is how it looks with some information about each fields. The deployment file is available in the folder ```k8s/deployment/front_deployment```
 
 ```yaml
 apiVersion: apps/v1
@@ -74,33 +78,36 @@ spec:
               - start.sh
 ```
 
-The file is available in the ```k8s/deployment/front_deployment.yml```
+## Deploying our front-end
 
-# Deploying our application to Minikube
+Now that you understand what's inside a deployment configuration file. Let's deploy our app. 🐤
 
-Now that we have our yaml configuration file and our docker image. Let's deploy our app. Run the following command
+Run the following command: 
 
 ```shell
 kubectl create -f k8s/deployment/front_deployment.yml
 ```
 
-Secondly listen the deployment status of the pod
+> This command call the kube-api-server which will validate the configuration file. Once validate Kubernetes will create our deployment
+
+Secondly listen to the deployment status of the pod by running this command:
 
 ```shell
 kubectl rollout status deployment.v1.apps/bobba-vue
 ```
 
 You should get a success message that said that your deployment is successfull. 
-
 Finally check if your pod are running by using the command
 
 ```shell
 kubectl get pods
 ```
 
-Et voilà you made your first deployment !
+Et voilà you made your first deployment ! 😃
 
-## Error
+#### Now let's deploy our [API](api.md)
+
+## Error 🚫
 
 If you have any error you can check the event status of your pods by running this command.
 
@@ -119,6 +126,6 @@ kubectl logs -p <pod_name>
 kubectl logs <pod_name>
 ```
 
-# Resources
+## Resources
 
 [Labels, Selector, Metadata explained](https://medium.com/@zwhitchcox/matchlabels-labels-and-selectors-explained-in-detail-for-beginners-d421bdd05362)
