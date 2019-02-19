@@ -14,18 +14,21 @@ Throughout this guide we'll learn several thing which are describe in the table 
 
 ## Table of contents
 
-* [Architecture](architecture.md)
-* [Deployment](deployment.md)
-* [Service](services.md)
-* [Persistent volume](storage.md)
-* [Cron task](cron.md)
-* [Minikube](minikube.md)
-* [Example with Minikube](deployment/example.md)
-* * [Front deployment](deployment/front.md)
-* * [API deployment](deployment/api.md)
-* * [Service front deployment](deployment/service_front.md)
-* * [Service API deployment](deployment/service_api.md)
-* * [Database](deployment/database.md)
+* [Introduction to Docker](docker/intro.md)
+* * [Example of deployment with Docker](docker/example.md)
+* [A quick look at Docker Swarm](k8s/swarm.md)
+* [Architecture](k8s/architecture.md)
+* [Deployment](k8s/deployment.md)
+* [Service](k8s/services.md)
+* [Persistent volume](k8s/storage.md)
+* [Cron task](k8s/cron.md)
+* [Minikube](k8s/minikube.md)
+* [Example with Minikube](k8s/deployment/example.md)
+* * [Front deployment](k8s/deployment/front.md)
+* * [API deployment](k8s/deployment/api.md)
+* * [Service front deployment](k8s/deployment/service_front.md)
+* * [Service API deployment](k8s/deployment/service_api.md)
+* * [Database](k8s/deployment/database.md)
 * * [Deploying on GCP]()
 
 

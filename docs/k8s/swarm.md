@@ -1,6 +1,6 @@
-## Introduction
+## A small word regarding Docker swarm
 
-Previously we made our deployment on Docker. While docker is good in in development environment there are other platform available in order to deploy your app in production
+Previously we made our deployment on Docker locally. While docker is good in in development environment there are other platform available in order to deploy your app in production
 
 Some of the most known is Docker Swarm and Kubernetes. Let's see the difference between them
 
@@ -38,21 +38,3 @@ TL;DR
 - Small communities -> harder to get support
 
 While Docker swarm is an interesting tool we have a database which we need to deploy with Kubernetes for the sake of the exercise. If we wanted to run it outside then Docker swarm could have been a good candidate though not a lot of company support it out of the box.
-
-## Learning Kubernetes 🧠
-
-As said in the main README. Kubernetes is a complex piece of software. Therefore we need to get a good grasp of it's internal before doing anything. Let's check these parts together 👏
-
-* [Architecture](architecture.md)
-* [Deployment](deployment.md)
-* [Service](services.md)
-* [Persistent volume](storage.md)
-* [Cron task](cron.md)
-* [Minikube](minikube.md)
-* [Example with Minikube](deployment/example.md)
-* * [Front deployment](deployment/front.md)
-* * [API deployment](deployment/api.md)
-* * [Service front deployment](deployment/service_front.md)
-* * [Service API deployment](deployment/service_api.md)
-* * [Database](deployment/database.md)
-* * [Deploying on GCP]()
