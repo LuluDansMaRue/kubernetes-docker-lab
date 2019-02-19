@@ -27,9 +27,7 @@ Moreover it's important to know how to use Docker. Indeed Kubernetes is managing
 
 > Disclaimer: We're far from being an expert in Kubernetes. However face to the complexity of Kubernetes we want to provide a simple way of learning Kubernetes from a web developer point of view.
 
-* [Docker](docker/intro.md)
-* [Kubernetes](k8s/intro.md)
-* [GCP](gcp/intro.md)
+## [Take a look at the learning guide here](https://luludansmarue.github.io/kubernetes-docker-lab/)
 
 ## Inspiration 📖
 
