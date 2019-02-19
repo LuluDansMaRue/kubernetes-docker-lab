@@ -157,4 +157,4 @@ If the pod is in terminated status or not running you could use this command
 kubectl logs <pod_name>
 ```
 
-Now you know how to deploy a CronJob with minikube !
+🎉 Now you know how to deploy a CronJob with minikube ! 🎉

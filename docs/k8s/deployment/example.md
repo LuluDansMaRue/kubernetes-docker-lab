@@ -1,26 +1,22 @@
-# Example
+## Deployment exercise ⚙️
 
-In order to understand how to deploy a full web app in Kubernetes I provide a small example which is make up of :
+We saw many theorical information. Now it's time to apply these knowledges in a small project example. Today our example is a simple web app which need to be deploy with Kubernetes. Each layer of the app need to be deploy seperately within the same cluster due to Minikube's limitation.
 
 - front: a small front-end made with VueJS
 - back: a small back-end which contain Rest API made with Go
 - database: a simple MySQL database with only one table
 
-# How are we going to deploy this web app
+## How are we going to deploy this web app
 
-Based on what we learn so far. We know that a cluster is made of several Nodes where in each of these Nodes there are multiples pods which are managed by the Kubelet.
+Based on what we learn so far. We know that a cluster is made of several Nodes where in each of these Nodes there are multiples pods which are managed by the Kubelet. Moreover we also saw different kind of deployment that allow us to manage the behavior of our pods by using different type of controller.
 
-Moreover we also saw different kind of deployment that allow us to manage the behavior of our pods by using different type of controller.
-
-Let's define the constraint of our web app:
-
-- stateless, everything is stored in the database
-- we need to have the same amount of pods available
+- stateless: nothing is stored which can be useful for the api and the front
+- we need to have the same amount of pods available so that if one fail the other can take the load
 - for our convenience we need to be able to update, rollback our deployment if anything happened
 
-Based on the types of deployment we know the one that fits the best is the ```deployment``` types.
+Based on the types of deployment we know the one that fits the best is the ```deployment``` types at least for the front and the api.
 
-***What about our database ?***
+## How about the database ?
 
 Our database is a statefull kind of service. With Kubernetes we have the option to create a stateful service with the ```statefulSet``` controller. However the community is divide at the idea of running a database in Kubernetes.
 
@@ -38,38 +34,63 @@ A deep explanation has been made on the subreddit of Kubernetes. **Credits to nk
 
 Moreover Kelsey Hightower a developer advocate on the GCP advise to also not use Kubernetes for deploying a database. See his [tweet](https://twitter.com/kelseyhightower/status/963413508300812295?lang=en)
 
-At first glance we thought that it would be a good idea to connect a local database hosted on your computer. However due to the network isolation that minikube does like Docker it wouldn't be possible to do this kind of infrastructure.
+At first glance we thought that it would be a good idea to connect a local database hosted on your computer. However due to the network isolation that minikube does like Docker it wouldn't be possible to do this kind of infrastructure. Futhermore this is only a small database with one table for testing purposes. Thus deploying the database within the Kubernetes environment is not a big issue.
 
-An other possibility would be to use an external database hosted on a server which is not a suitable solution for just prototyping.
+## Let's deploy !
 
-Let's take into account what our database is:
+Yes let's deploy first by deploying the [front-end](front.md). A link for the next part will be available on each of the next articles
 
-- One table
-- Few operations
-- Only for testing purposes
 
-Thus based on the comment above it would be a better idea to use Minikube to create our database. However on GCP we'll use an external database.
+## Accessing to the project
 
-# Linking
+As you have a LoadBalancer available by running the ```minikube tunnel``` you should be able to access to the front-end by using the IP address that minikube has generated.
 
-As our front is tightly coupled to our API we will need to connect these 2 deployment altogether. In order to do that we'll use a service. **(WIP)**
+Minikube should have generate an address with a bitmask of 12 like the image below
 
-# Demonstration
+<p align="center">
+  <img src="../../img/balancing.png" alt="drawing" width="350"/>  
+</p>
 
-Please refer to these articles for each deployment environment
+Now get the service of the front-end by running
 
-[Deploying the front](./front.md)
+```shell
+kubectl get services
+```
 
-[Deploying the back](./api.md)
+You should see the ```External IP``` for the bobba-vue services. Copy and paste it into your browser and you should be able to access to the front like the image below
 
-[Deploying the database](./database.md)
+<p align="center">
+  <img src="../../img/screen.png" alt="drawing" width="550"/>  
+</p>
 
-[Linking the front and the back with services](./service_api.md)
+## CronTask
 
-[Access our front from outside of the cluster](./service_front.md)
+If you want to deploy a CronTask a guide based on our example is available [here](cron.md)
 
-# Cleanup
+## Cleanup 🔌
 
-TODO
+Now that you have finish the deployment it's important to cleanup it's workspace.
 
-Cleanup database, front & back, removing deployment, storage & services
+First remove the services by running this command
+
+```shell
+kubectl delete service <service_name>
+```
+
+then delete the deployemnts
+
+```shell
+kubectl delete deployment <deployment_name>
+```
+
+then delete the stateful sets
+
+```shell
+kubectl delete statefulset <statefulset_name>
+```
+
+then delete the pvc sets
+
+```shell
+kubectl delete pvc <pvc_name>
+```

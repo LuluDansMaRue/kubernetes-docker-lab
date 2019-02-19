@@ -105,6 +105,8 @@ kubectl get pods
 
 Et voilà you made your first deployment ! 😃
 
+#### Now let's deploy our [API](api.md)
+
 ## Error 🚫
 
 If you have any error you can check the event status of your pods by running this command.

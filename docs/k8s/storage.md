@@ -55,6 +55,8 @@ Creating a storage required you to define an access mode to your storage. Curren
 - ReadOnlyMany: a volume can be mounted read-only by many nodes
 - ReadWriteMany: a volume can be mounted as read-write by many nodes
 
+> ⚠️ From Kubernetes docs: A volume can only be mounted using one access mode at a time, even if it supports many. For example, a GCE Persistent Disk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
+
 ## Resources
 
 [Kubernetes storage introduction by IBM](https://console.bluemix.net/docs/containers/cs_storage_basics.html#kube_concepts)
