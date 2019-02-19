@@ -44,6 +44,12 @@ This kind of deployment is useful for statful application e.g: a photoshop appli
 
 Note: You could setup a database with Kubernetes by using this option. However database resources can grow rapidly which a container is at some point limited. However for the purposes of the demo we will use it
 
+<p align="center">
+  <img src="../img/statefulset.png" alt="drawing" width="450"/>  
+  <p align="center"><b>Representation of a statefulset with a storage</b></p>
+</p>
+
+
 ### DaemonSets
 
 A DaemonSet is a kind of controller that will deploy a pod into each Node that exist on the cluster. If a node get removed then the DaemonSet pod will get garbage collected.
