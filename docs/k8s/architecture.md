@@ -39,11 +39,11 @@ Master components are a set of components which are running within the Cluster. 
 
 #### Kube-api-server 
 
-Kube-api-server is an critial components of the Kubernetes architecture. This API is use by every components of the **master components**. It's also use by the kubelet process which is located in the Node.
+Kube-api-server is a critial component of the Kubernetes architecture. The Kube-api-server is an API use by every components of the **master components**. It's also use by the kubelet process which is located in the Node.
 
-So what's behind. Kube-api-server is a simple REST API with it's main purposes is to validate, saving Kubernetes's cluster state. It's also use for saving metadata, configuration of your pods & services
+So how does it works ❔. Kube-api-server is a simple REST API which it's main purposes is to validate, saving Kubernetes's cluster state. It's also use for saving metadata, configuration of your pods & services
 
-As Kube-api-server is stateless. Kube-api-server is tightly coupled to an external database component also located in the master named etcd. See etcd section for more information.
+As Kube-api-server is stateless (does not save any datas). Kube-api-server is tightly coupled to an external database component also located in the *master* named **Etcd**. See etcd section for more information.
 
 In order to understand how crucial Kube-api-server is important. Please take a look at the schema below:
 
@@ -54,35 +54,32 @@ In order to understand how crucial Kube-api-server is important. Please take a l
 
 #### Etcd
 
-Etcd is a high performance key value database written in Go. This database is only use by kube-api-server.
+Etcd is a high performance key value database written in Go. This database is only use by kube-api-server in order to save the state of the cluster of your cluster. I suggest you to read this good article about what does Etcd: [How kubernetes use etcd](https://matthewpalmer.net/kubernetes-app-developer/articles/how-does-kubernetes-use-etcd.html)
 
-For more information about etcd please visit the etcd repo [Etcd repo](https://github.com/etcd-io/etcd) or you could also take a look at this article: [How kubernetes use etcd](https://matthewpalmer.net/kubernetes-app-developer/articles/how-does-kubernetes-use-etcd.html)
+Moreover if you're curious about how works Etcd you could check the repo [Etcd repo](https://github.com/etcd-io/etcd)
 
 #### Controller manager
 
-The controller manager is a daemon, a background process which is located on the master. The controller manager is actually a list of several controller launch in a single process.
+The controller manager is a daemon (a background process) which is located on the master. 
 
-What it does is in a few words. Watches for any changes on the state of the cluster by querying ```kube-api-server```. If any changes happened the controller manager will move the current state to the desired state. 
+What it does is that it watches for any changes on the state of the cluster by querying ```kube-api-server```. If any changes happened the controller manager will move the current state to the desired state. 
 
-The list of controller use by the controller manager is available [over here](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/kube-controller-manager/app/controllermanager.go#L339)
+The controller manager is actually a list of several controller launch in a single process 
+the list of controllers use by the controller manager is available [over here](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/kube-controller-manager/app/controllermanager.go#L339)
 
-Technically a controller these controllers are a set of control loop that are non terminating that regulates the state of the system.
+For a full technical description of the controller here is the definition right from the Kubernetes documentation: 
 
-**Kubernetes's controller definition:**
-
-```
-In Kubernetes, a controller is a control loop that watches the shared state of the cluster through the API server and makes changes attempting to move the current state towards the desired state. Examples of controllers that ship with Kubernetes today are the replication controller, endpoints controller, namespace controller, and serviceaccounts controller.
-```
+> In Kubernetes, a controller is a control loop that watches the shared state of the cluster through the API server and makes changes attempting to move the current state towards the desired state. Examples of controllers that ship with Kubernetes today are the replication controller, endpoints controller, namespace controller, and serviceaccounts controller.
 
 #### Scheduler
 
-The scheduler is an other component of the **master component**. It's task is to watch for unscheduled pod. When an unscheduled pod exist, the scheduler will try to find the proper node and will try to to bind it depending on several criteria such as the resources and more...
+The scheduler is an other component of the **master component**. It's task is to watch for unscheduled pod. When an unscheduled pod pops up, the scheduler will try to find the proper node. It will try to to bind to a node it depending on several criteria
 
-Binding an unscheduled pod to a node happened through the ```/binding``` subresources. For more information regarding how the scheduling work a fantastic article is available [here](https://kublr.com/blog/implementing-advanced-scheduling-techniques-with-kubernetes/)
+Binding an unscheduled pod to a node happened through the ```/binding``` subresources. While this seems to be a bit obscure an article with tremendous amount of knowledges regarding the Scheduler is avalaible [here](https://kublr.com/blog/implementing-advanced-scheduling-techniques-with-kubernetes/)
 
 #### Cloud controller manager
 
-The cloud controller manager is a set of controller of customize cloud specific control loops. This set of controller allow cloud provider to make their own set of controller while satisfying the cloud controller interfaces. (E.g, a foo cloud provider implement their own node controller)
+The cloud controller manager is a manager for cloud specific control loops. This controller manager allow cloud provider to make their own set of controller while satisfying the cloud controller interfaces. (E.g, a foo cloud provider implement their own node controller)
 
 A list of available controller is available here: [Cloud controller manager](https://github.com/kubernetes/kubernetes/blob/6671d2556f1af67e703c329b1186896d7c6f9f4d/cmd/cloud-controller-manager/app/controllermanager.go#L270)
 
@@ -90,23 +87,23 @@ A list of available controller is available here: [Cloud controller manager](htt
 
 Node components refer to the components running into a Node. A Node is the second layer of Kubernetes (slave in the master-slave architecture) where your pods are running. Pods are controlled and monitored by Kubelet
 
+<p align="center"> 
+  <img src="../img/nodes.svg" alt="drawing" width="400"/>
+</p>
+<p align="center"><b>Representation of a Node. Kubernetes documentation</b></p>
+
 #### Kubelet
 
-The kubelet is a **critical component** in Kubernetes which is located on each Node. It's the main component of the Node. 
+The kubelet is the main component of the Node which is located on each Node.
 
-It's purpose is to watch continuously the state of the pods and to send these information back to the kube-api-server (monitoring). Kubelet is also responsible at taking the proper action if something happened to a pod e.g: restarting a pod when a pod is getting shutdown.
+It's purpose is to watch continuously the state of the pods and to send these information such as monitoring back to the kube-api-server. Kubelet is also responsible at taking the proper action if something happened to a pod e.g: restarting a pod when a pod is getting shutdown.
 
-TL;DR Kubelet responsability are:
+TL;DR Kubelet is responsible of:
 
 - Run the pods container on the right engine
 - Restart the pod if failure happened
 - Report status of the node and each pod to kube api-server
 - Retrieve metrics from the pods container
-
-<p align="center"> 
-  <img src="../img/nodes.svg" alt="drawing" width="400"/>
-</p>
-<p align="center"><b>Representation of a Node. Kubernetes documentation</b></p>
 
 #### Kube proxy
 
