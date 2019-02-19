@@ -61,4 +61,6 @@ Creating a storage required you to define an access mode to your storage. Curren
 
 [Kubernetes storage documentation](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
+[Static or dynamic](https://cloud.netapp.com/blog/dynamic-kubernetes-persistent-volume-provisioning)
+
 
