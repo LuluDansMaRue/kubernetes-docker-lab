@@ -56,7 +56,7 @@ Now if you check the services again you should see an ```externalIP``` for our `
 
 ![bobba vue](../../img/bobba-vue.png)
 
-### Now let's check the API for our service [API Service](service_api.md)
+#### Now let's check the API for our service [API Service](service_api.md)
 
 ## Drawbacks 🔮
 

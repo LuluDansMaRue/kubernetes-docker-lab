@@ -166,4 +166,4 @@ kubectl get pvc
 
 ![pvc](../../img/db_pvc.png)
 
-🎉 Et voilà you have a database which is running ! 🎉 go back to the [example](example.md) page in order to see how to access to the project front-end
+#### 🎉 Et voilà you have a database which is running ! 🎉 go back to the [example](example.md) page in order to see how to access to the project front-end

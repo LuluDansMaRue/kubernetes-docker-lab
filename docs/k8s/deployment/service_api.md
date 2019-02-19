@@ -57,7 +57,7 @@ Then you are able to target the backend with this url with ```<minikube_ip>:port
 
 If you try to fetch a route like ```/bobbas``` you'll see that we have an error regarding our database. Indeed we haven't create our database yet ! Let's do it
 
-### Let's create our [database](database.md)
+#### Let's create our [database](database.md)
 
 ## Drawbacks 🔮
 
