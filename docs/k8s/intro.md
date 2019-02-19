@@ -46,7 +46,7 @@ As said in the main README. Kubernetes is a complex piece of software. Therefore
 * [Architecture](architecture.md)
 * [Deployment](deployment.md)
 * [Service](services.md)
-* [Storage](storage.md)
+* [Persistent volume](storage.md)
 * [Cron task](cron.md)
 * [Minikube](minikube.md)
 * [Example with Minikube](deployment/example.md)
