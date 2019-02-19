@@ -2,11 +2,15 @@
 
 Minikube is a local Kubernetes environment which come with one cluster allowing you to test your deployment. It allow fast prototyping before deploying your app in real Kubernetes provider such as Google cloud console or Amazon EKS and many others...
 
+### Install
+
 In order to realize the deloyment example that we're going to do I highly suggest you to download minikube based on your operating system. [Download minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 
 Minikube need an Hypervisor in order to work. Please check the hypervisor you need to install for your OS [List of hypervisor](https://kubernetes.io/docs/tasks/tools/install-minikube/#install-a-hypervisor)
 
 > Note: The deployment example has been made by using Hypervisor. Choosing an other shouldn't change the behavior of minikube
+
+Moreover you'll need to install the ```kubernetes-cli``` follow this guide for downloading the cli for your platoform: [guide](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 ## Starting Minikube 🤖
 
