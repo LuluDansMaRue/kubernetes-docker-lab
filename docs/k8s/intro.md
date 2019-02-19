@@ -42,3 +42,17 @@ While Docker swarm is an interesting tool we have a database which we need to de
 ## Learning Kubernetes 🧠
 
 As said in the main README. Kubernetes is a complex piece of software. Therefore we need to get a good grasp of it's internal before doing anything. Let's check these parts together 👏
+
+* [Architecture](architecture.md)
+* [Deployment](deployment.md)
+* [Service](services.md)
+* [Storage](storage.md)
+* [Cron task](cron.md)
+* [Minikube](minikube.md)
+* [Example with Minikube](deployment/example.md)
+* * [Front deployment](deployment/front.md)
+* * [API deployment](deployment/api.md)
+* * [Service front deployment](deployment/service_front.md)
+* * [Service API deployment](deployment/service_api.md)
+* * [Database](deployment/database.md)
+* * [Deploying on GCP]()

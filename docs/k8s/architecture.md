@@ -1,29 +1,43 @@
-# Architecture
+## Architecture ⚙️
 
-In this article we'll take a look at Kubernetes's architecture. This will enable us to understand how is working Kubernetes.
+In this article we'll take a look at Kubernetes's architecture. This will enable us to understand how Kubernetes is working.
 
-## Type of architecture
+## Type of architecture 🔍
 
-Kubernetes is highly based on the master-slave architecture. A master-slave architecture is a type of architecture where the ```master``` decide the actions that the ```slave``` will do.
+Kubernetes is based on the master-slave architecture.
+A master-slave architecture is a type of architecture where the ```master``` components decide the actions which will influence the task that will do ```slave``` components.
 
 Within Kubernetes the ```master``` is name ```master components```. Slaves components are named ```node components```.
 
-There are many components within each of these layers. Below is a simplify presentation of Kubernetes's architecture.
+Within each of these layers there are multiples components that we'll look into. These components are represented within this schema below  🛠️:
 
 <p align="center">
   <img src="../img/architecture.png" alt="drawing" width="800"/>
 </p>
 <p align="center"><b>Kubernetes architecture</b></p>
 
-## Components
+## Components 🛠️
 
-By understanding Kuberntes's components this will allow us to understand what's happening behind the scene.
+### Cluster
 
-### Master components
+The cluster is a environment where you're deploying your application. It contain the master components as well as multiples nodes which are direct by the master components.
 
-Master components are a set of components which are running within the Cluster. These master components is pretty much the brain of the Cluster and therefore are critical components to Kubernetes.
+```
+It's possible to create a virtual Cluster called Namespace. It's used for application where the load is important which is not the case for this learning tutorial
+```
 
-#### Kube-api-server
+Below is the representation of the cluster
+
+<p align="center">
+  <img src="../img/cluster.svg" alt="cluster" width="500"/>
+</p>
+<p align="center"><b>Cluster representation, Kubernetes documentation</b></p>
+
+### Master components ⚙️
+
+Master components are a set of components which are running within the Cluster. These master components are pretty much the brain of the Cluster and therefore are critical components to Kubernetes.
+
+#### Kube-api-server 
 
 Kube-api-server is an critial components of the Kubernetes architecture. This API is use by every components of the **master components**. It's also use by the kubelet process which is located in the Node.
 
