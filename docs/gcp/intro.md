@@ -61,3 +61,50 @@ gcloud auth login
 ### Configure your cluster
 
 If you already have and know how to create a Cluster into GCP, you can also skip this section.
+
+All right, let's create a Cluster
+
+- Go to your GCP Account
+- Go to **Kubernetes engine section**
+- Go to the **Cluster** option
+- Click on the **CREATE CLUSTER** button
+- Choose the **Your first cluster** option on the left sidebar & give it a name
+- Deploy the ```Advanced options``` menu at the bottom of the webpage
+
+Check the options like below
+
+<p align="center">
+  <img src="../img/gcp-config.png" alt="drawing" width="500"/>
+</p>
+
+- Click on the create a button and wait a few minutes for your cluster to be created
+
+Once the Cluster is created click on your cluster and click on the **CONNECT** button.
+You should see a popup with a section named **Command line access** which should look like below
+
+<p align="center">
+  <img src="../img/gcp-cluster-connect.png" alt="drawing" width="500"/>
+</p>
+
+Copy, paste the ```command-line access``` to your terminal. You should get a message like so.
+
+<p align="center">
+  <img src="../img/gcp-success-kcs.png" alt="drawing" width="500"/>
+</p>
+
+Now if you run the command
+
+```shell
+kubctl config view
+```
+
+You should see the cluster to your list of context like the image below
+
+```yaml
+- cluster:
+    certificate-authority-data: REDACTED
+    server: <IP_ADDRESS>
+  name: gke_kubernetes-demo-232217_us-central1-a_bobba-cluster
+```
+
+All right we're nearly all set for deploying our application into Kubernetes. Let's move on and create our [Docker images](images.md)
