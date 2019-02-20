@@ -68,7 +68,7 @@ All right, let's create a Cluster
 - Go to **Kubernetes engine section**
 - Go to the **Cluster** option
 - Click on the **CREATE CLUSTER** button
-- Choose the **Your first cluster** option on the left sidebar & give it a name
+- Use the standard cluster (should be already selected)
 - Deploy the ```Advanced options``` menu at the bottom of the webpage
 
 Check the options like below

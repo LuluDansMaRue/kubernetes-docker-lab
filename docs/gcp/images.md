@@ -39,7 +39,7 @@ docker build -t sesame_api -f build/api/Dockerfile.release <path to root folder>
 Now tag the images with a version so that we can define a special version to use for our Deployment.
 
 ```shell
-docker tag sesame_api gcr.io/kubernetes-demo-232217/sesame_api:v1
+docker tag sesame_api gcr.io/<projet_name>/sesame_api:v1
 ```
 
 Finally push your image into GCR

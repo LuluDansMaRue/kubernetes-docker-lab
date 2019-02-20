@@ -1,0 +1,42 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: bobba-vue
+spec:
+  type: LoadBalancer
+  selector:
+    app: bobba-vue
+    tier: frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bobba-vue
+  labels:
+    app: bobba-vue
+    tier: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bobba-vue
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: bobba-vue
+        tier: frontend
+    spec:
+      containers:
+      - name: bobba-front
+        image: gcr.io/kubernetes-demo-232217/sesame_front:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8080
+        args:
+          - sh
+          - start.sh
