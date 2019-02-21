@@ -50,4 +50,4 @@ Now you have a database with a table great isn't it ?
 There are 2 ways of connecting your database with GCP. The first one is by using a private IP which is the most straightforward way.
 However Google is proposing an other way of connecting your database. This one is named CloudSQL Proxy and it's made to be use with Kubernetes in mind. Therefore we're going to take a look at how to implement the CloudSQL Proxy.
 
-CloudSQL Proxy come with a seperate image that's going to be installed as a sidecar in your pod. In order to understand what a Sidecar is. Take a look to the related article [What's a sidecar](../k8s/sidecar.md)
+CloudSQL Proxy come with a seperate image that's going to be installed as a sidecar in your pod. In order to understand what a Sidecar is. Take a look to the related article [What's a sidecar](../architecture.md#Pod)
