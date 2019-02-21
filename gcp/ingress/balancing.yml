@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: bobba-api-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: bobba-ip
+spec:
+  rules:
+    - http:
+        paths:
+        - path: /*
+          backend:
+            serviceName: bobba-api
+            servicePort: 80
