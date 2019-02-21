@@ -29,7 +29,10 @@ Throughout this guide we'll learn several thing which are describe in the table 
 * * [Service front deployment](k8s/deployment/service_front.md)
 * * [Service API deployment](k8s/deployment/service_api.md)
 * * [Database](k8s/deployment/database.md)
-* * [Deploying on GCP]()
+* [Deploying on Google Cloud Platform](gcp/intro.md)
+* * [Building docker images](gcp/images.md)
+* * [Deploying to Google Cloud Platform](gcp/deployment.md)
+* * [Configuring an Ingress resources](gcp/ingress.md)
 
 
 ## Objectives ✅

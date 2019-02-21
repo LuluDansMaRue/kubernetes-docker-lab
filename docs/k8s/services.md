@@ -22,7 +22,9 @@ Expose the service on a Cluster internal IP. This mean that by choosing this kin
 
 ### NodePort
 
-This expose the service on each Node's IP static port. A ClusterIP will be create automatically to which the NodePort service will be created. The kube-proxy will manage which pod to transmit the packet
+This expose the service on each Node's IP static port. A ClusterIP will be create automatically to which the NodePort service will be created.
+
+E.g: 3 Nodes -> 3 NodeIP created binded to the Cluster.
 
 ### LoadBalancer
 
