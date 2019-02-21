@@ -54,3 +54,5 @@ kubectl get nodes --output wide
 ```
 
 You should see a list of 3 nodes with an ExternalIP which you can reach the API throughout the NodePort (31320)
+
+#### Now let's take a [look at Ingress](ingress.md)
