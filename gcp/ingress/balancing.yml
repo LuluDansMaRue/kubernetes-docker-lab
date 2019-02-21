@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: bobba-api-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: bobba-ip
+    kubernetes.io/ingress.global-static-ip-name: bobba-api-ip
 spec:
   rules:
     - http:
