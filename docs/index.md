@@ -30,9 +30,12 @@ Throughout this guide we'll learn several thing which are describe in the table 
 * * [Service API deployment](k8s/deployment/service_api.md)
 * * [Database](k8s/deployment/database.md)
 * [Deploying on Google Cloud Platform](gcp/intro.md)
-* * [Building docker images](gcp/images.md)
-* * [Deploying to Google Cloud Platform](gcp/deployment.md)
-* * [Configuring an Ingress resources](gcp/ingress.md)
+* * [Build the API docker image](gcp/api.md)
+* * [Configuring the SQL Database](gcp/sql.md)
+* * [Deploying the API](gcp/deployment_api.md)
+* * [Configure an Ingress resources](gcp/ingress.md)
+* * [Build the Front docker image](gcp/front.md)
+* * [Deploy the front image](gcp/deployment_front.md)
 
 
 ## Objectives ✅

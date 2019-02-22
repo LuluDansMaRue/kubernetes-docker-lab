@@ -1,4 +1,4 @@
-## Deploying the front
+## Deploying the front 🖼️
 
 Like the API we will deploy the front in the same way
 

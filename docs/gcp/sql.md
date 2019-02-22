@@ -1,4 +1,4 @@
-## MySQL on GCP
+## MySQL on GCP 
 
 In today's article we're going to set up a MySQL database which is going to be use by our pods's API.
 
@@ -8,7 +8,7 @@ With Minikube we create a seperate StatefulSets deployment which contain a volum
 
 GCP has a service name Storage where we can create a relational database like MySQL or PostgreSQL
 
-## Creating our MySQL database
+## Creating our MySQL database 💾
 
 Let's create our database by naming it ```db``` with the password which is ```bobbaroot```.
 
@@ -45,14 +45,14 @@ CREATE TABLE bobba (
 
 Now you have a database with a table great isn't it ?
 
-## Connecting our database with Cloud SQL Proxy
+## Connecting our database with Cloud SQL Proxy 🙆‍
 
 There are 2 ways of connecting your database with GCP. The first one is by using a private IP which is the most straightforward way.
 However Google is proposing an other way of connecting your database. This one is named CloudSQL Proxy and it's made to be use with Kubernetes in mind. Therefore we're going to take a look at how to implement the CloudSQL Proxy.
 
 CloudSQL Proxy come with a seperate image that's going to be installed as a sidecar in your pod. In order to understand what a Sidecar is. Take a look to the related article [What's a sidecar](../architecture.md#Pod).
 
-### Creating a new user
+### Creating a new user 💁‍
 
 Firstly, we're going to create a new user that's going to be used by the CloudSQL Proxy. In order to create a user click on your ```database``` then click on the ```users``` tab. Create a new user with the following credentials
 
@@ -75,7 +75,7 @@ Now let's activate the **cloud sql admin api** by going into the **API** section
 - Get the instance connection name by running the command ```gcloud sql instances describe db```
 - The name should be equal to the ```connectionName``` property within your yaml
 
-### Create the credentials
+### Create the credentials 🗝️
 
 We're going to need 2 types of secrets:
 
@@ -101,7 +101,7 @@ kubectl create secret generic cloudsql-db-credentials --from-literal=username=al
 # secret "cloudsql-db-credentials" created
 ```
 
-### Update the configuration file
+### Update the configuration file ✒️
 
 Now that we have create our credentials let's take a look at how the configuration is going to be. The ```api.yml``` deployment file already contain the configuration for configuration for cloudsql-proxy.
 
