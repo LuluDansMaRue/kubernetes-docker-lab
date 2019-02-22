@@ -1,40 +1,48 @@
 ## A small word regarding Docker swarm
 
-Previously we made our deployment on Docker locally. While docker is good in in development environment there are other platform available in order to deploy your app in production
+Previously we made our deployment with Docker locally. Regarding the production environment Docker offer the Swarm mode which allow you to orchestrate container just like Kubernetes & Mesos. However Swarm is lesser use than Kubernetes.
 
-Some of the most known is Docker Swarm and Kubernetes. Let's see the difference between them
+<p align="center">
+  <img src="../img/usage.png" alt="drawing" width="500"/>
+</p>
 
-## Docker swarm 🐳
+Nevertheless it's interesting to understand the usage & the difference between Docker Swarm & Kubernetes
 
-Docker Swarm is a container orchestrator that is integrated to Docker. It aim to simplify the management of multiple containers just like what Kubernetes does.
+## A brief look of Docker swarm 🐳
 
-Kubernetes is also a container orchestrator. However it differ from Docker swarm in some ways.
+Docker Swarm is a container orchestrator that is ship by default with Docker. It aim to simplify the management of multiple containers just like what Kubernetes does.
 
-Indeed Docker swarm has the advantages of being tightly integrated with Docker. This mean that Docker swarm can effectively use the Docker API which lead to an easier usage of Docker swarm than Kubernetes
+At the core Docker Swarm is a master-slave architecture that contains a set of clusters consistings of a Docker engine that is deployed on multiples nodes. Manager nodes perform orchestration and cluster management while the worker nodes receive & execute tasks from the manager nodes.
 
-As docker swarm is tightly coupled to the machine it run. This mean that swarm is platform dependant. As you know sometimes it can get difficult to configure docker so you might encounter those issues with the Swarm mode too.
+In order to deploy an application to Docker Swarm. Docker offer one type of deployment which is the ```Service```. The service specify the container image to use, the number of wanted replicas.
 
-One important point in which Docker swarm differ from Kubernetes is how it's considering it's deployment system.
+> A service, which can be specified declaratively, consists of tasks that can be run on Swarm nodes. Services can be replicated to run on multiple nodes. In the replicated services model, ingress load balancing and internal DNS can be used to provide highly available service endpoints. (Source: Docker Docs: Swarm mode)
 
-As per the new stack article: 
+The service can be run in 2 different mode.
 
-> The applications can be deployed as micro-services or services in a swarm cluster in Docker Swarm. YAML(YAML Ain’t Markup Language) files can be utilized to identify multi-container. Moreover, Docker compose can install the application.
+- Global: Services run on all nodes
+- Replicated: Run services replicas accross all nodes. (name Task)
 
-This differ from what Kubernetes does:
+> Task: A task is an atomic unit of a Service scheduled on a worker node. In the example above, two tasks would be scheduled by a master node on two worker nodes (assuming they are not scheduled on the Master itself). The two tasks will run independently of each other.
 
-Kubernetes can be deployed by using a service or by a deployment types which is creating nodes, and pods... which can be scaled up easily by using a ```yaml``` configuration file
+For a complete list of feature that Swarm offer you can check this website [Docker swarm & Kubernetes comparaison](https://platform9.com/blog/kubernetes-docker-swarm-compared/)
 
-However Docker swarm is not used widely which mean that the community isn't strong. Moreover Docker swarm doesn't provide a way to do host a stateful application while Kubernetes is providing a mode for creating Stateful application
+TL;DR:
 
-Futhermore Docker swarm doesn't come with a good monitoring service which Kubernetes is providing out of the box
+- Easy to use thanks to it's API
+- Seemless integration with already known config e.g compose
+- Ship out of the box with Docker
 
-TL;DR
+## Why using Kubernetes for this guide
 
-- Docker swarm easy to use
-- Fast configuration
-- Doesn't support stateful application
-- Doesn't provide a service for monitoring
-- Too tightly coupled to the OS
-- Small communities -> harder to get support
+As you can see on the graph. Kubernetes is much more popular than Docker Swarm. 
 
-While Docker swarm is an interesting tool we have a database which we need to deploy with Kubernetes for the sake of the exercise. If we wanted to run it outside then Docker swarm could have been a good candidate though not a lot of company support it out of the box.
+Futhermore, Docker Swarm hasn't been use to a lot of production environment with huge scale. Thus it's might be more interesting for you today, to learn Kubernetes.
+
+While this learning guide will use Kubernetes for deploying our app into a so-called production environment. Docker swarm could be perfectly use for fast and small deployment.
+
+## Resources
+
+[Docker swarm & Kubernetes comparaison](https://platform9.com/blog/kubernetes-docker-swarm-compared/)
+
+[the new stack docker swarm & kubernets comparaison](https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/)
