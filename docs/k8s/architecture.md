@@ -115,6 +115,20 @@ This component also expose the pod to the correct back-end which allow you to ex
 
 The container runtime is the engine use for running the container pod. E.g: docker, rkt and many more...
 
+## Pod
+
+A pod is the basic component of Kubernetes. This is the component where your container is running. It's represent as a process within the Kubernetes cluster.
+
+What does it contain ? Kubernetes does a good job at documenting what it does
+
+> A Pod encapsulates an application container (or, in some cases, multiple containers), storage resources, a unique network IP, and options that govern how the container(s) should run. A Pod represents a unit of deployment: a single instance of an application in Kubernetes, which might consist of either a single container or a small number of containers that are tightly coupled and that share resources.
+
+As cited earlier a pod can contain one or multiple container. Note that Kubernetes recommended to use only one pod per container which is easier to manage.
+
+However combining container can be useful for communication and storage problematic. E.g, helper container or proxy container.
+
+Within the pods world there are 3 kinds of multiple containers strategy. I'd recommend you to check the article made by Matthew Palmer which describe precisely each of these patterns [design pattern multiple containers](https://matthewpalmer.net/kubernetes-app-developer/articles/multi-container-pod-design-patterns.html)
+
 ## Resources used
 
 [Description of kubernetes architecture](https://elastisys.com/wp-content/uploads/2018/01/kubernetes-ha-setup.pdf?x83281)
@@ -126,3 +140,5 @@ The container runtime is the engine use for running the container pod. E.g: dock
 [Scheduler detailed explanation](https://kublr.com/blog/implementing-advanced-scheduling-techniques-with-kubernetes/)
 
 [Creating it's own controller](https://engineering.bitnami.com/articles/a-deep-dive-into-kubernetes-controllers.html)
+
+[Design pattern used for managing multiple containers](https://matthewpalmer.net/kubernetes-app-developer/articles/multi-container-pod-design-patterns.html)

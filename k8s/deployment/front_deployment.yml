@@ -23,6 +23,9 @@ spec:
         imagePullPolicy: Never
         ports:
           - containerPort: 8080
+        env:
+          - name: DEPLOYMENT
+            value: minikube
         args:
           - sh
           - start.sh

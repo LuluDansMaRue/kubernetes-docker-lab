@@ -1,10 +1,11 @@
 # Installing dependencies
 npm install
 
+# Create environment file
+touch .env
+
+# Set env variable
+echo "VUE_APP_DEPLOYMENT=$DEPLOYMENT" >> .env
+
 # Run the serve
-if [ "$1" = "minikube"]
-then
-  npm run serve-kube
-else
-  npm run serve
-fi
+npm run serve

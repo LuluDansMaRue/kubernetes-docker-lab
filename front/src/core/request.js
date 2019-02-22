@@ -3,7 +3,10 @@ import { isNumber } from 'lodash'
 
 let URI = ''
 
-if (process.env.MODE !== 'development')
+// @TODO change the URL and pass it to an .env might be better ?
+if (process.env.VUE_APP_DEPLOYMENT === 'gcloud')
+  URI = 'http://<EXTERNAL_IP_ADDR>'
+else if (process.env.VUE_APP_DEPLOYMENT === 'minikube')
   URI = 'http://192.168.64.2:31320'
 else
   URI = 'http://localhost:9000'
