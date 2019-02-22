@@ -100,3 +100,61 @@ kubectl create secret generic cloudsql-db-credentials --from-literal=username=al
 # If everything goes as expected the shell should print
 # secret "cloudsql-db-credentials" created
 ```
+
+### Update the configuration file
+
+Now that we have create our credentials we can update our deployment. By adding a new container into our pod. This container is based on the cloudsql-docker image.
+
+```yaml
+spec:
+    containers:
+    #... the bobba-api container
+    # Add the cloudsql-proxy below
+        - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        # Command that's going to be executed when the pod will start
+        command: ["/cloud_sql_proxy",
+                    "-instances=kubernetes-demo-232217:us-central1:db=tcp:3306",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+        securityContext:
+            runAsUser: 2  # non-root user
+            allowPrivilegeEscalation: false
+        # Reference the volume inside the container
+        volumeMounts:
+            - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+    # Link the volumes where our credentials are stored
+    volumes:
+    - name: cloudsql-instance-credentials
+        secret:
+            secretName: cloudsql-instance-credentials
+```
+
+Futhermore let's update our bobba-api container in order to pass the credentials that we generated from the ```cloudsql-db-credentials```
+
+```yaml
+containers:
+- name: bobba-api
+  image: gcr.io/kubernetes-demo-232217/sesame_api:v1
+  imagePullPolicy: IfNotPresent
+  # Override the environment file that we'd define on the Dockerfile
+  env:
+    - name: MYSQL_HOST
+        value: 127.0.0.1
+    - name: MYSQL_USER
+        valueFrom:
+        secretKeyRef:
+            name: cloudsql-db-credentials
+            key: username
+    - name: MYSQL_PASSWORD
+        valueFrom:
+        secretKeyRef:
+            name: cloudsql-db-credentials
+            key: password    
+  ports:
+    - containerPort: 8000
+  args:
+    - sh
+    - start.sh
+```
