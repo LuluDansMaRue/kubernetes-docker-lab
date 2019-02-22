@@ -33,7 +33,7 @@ use thebestbobba;
 
 # then
 CREATE TABLE bobba (
-    ID int NOT NULL,
+    ID int NOT NULL AUTO_INCREMENT,
     name varchar(255),
     price decimal,
     shop varchar(255),
