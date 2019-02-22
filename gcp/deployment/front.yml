@@ -37,6 +37,9 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
+        env:
+          - name: DEPLOYMENT
+            value: gcloud
         args:
           - sh
           - start.sh

@@ -3,7 +3,9 @@ import { isNumber } from 'lodash'
 
 let URI = ''
 
-if (process.env.MODE !== 'development')
+if (process.env.DEPLOYMENT === 'gcloud')
+  URI = 'http://34.95.83.5'
+else if (process.env.DEPLOYMENT === 'minikube')
   URI = 'http://192.168.64.2:31320'
 else
   URI = 'http://localhost:9000'

@@ -103,7 +103,9 @@ kubectl create secret generic cloudsql-db-credentials --from-literal=username=al
 
 ### Update the configuration file
 
-Now that we have create our credentials we can update our deployment. By adding a new container into our pod. This container is based on the cloudsql-docker image.
+Now that we have create our credentials let's take a look at how the configuration is going to be. The ```api.yml``` deployment file already contain the configuration for configuration for cloudsql-proxy.
+
+First we're adding an other container to the pod definition of our ```api.yml```
 
 ```yaml
 spec:
@@ -131,7 +133,7 @@ spec:
             secretName: cloudsql-instance-credentials
 ```
 
-Futhermore let's update our bobba-api container in order to pass the credentials that we generated from the ```cloudsql-db-credentials```
+Futhermore we're updating the bobba-api container definition by providing ```env``` variables based on the ```cloudsql-db-credentials``` secret we create earlier. (This will override the original environment variables set to the Dockerfile.release)
 
 ```yaml
 containers:
@@ -158,3 +160,5 @@ containers:
     - sh
     - start.sh
 ```
+
+#### Now we can move on and deploying our front and api [Deploying our app](deployment.md)

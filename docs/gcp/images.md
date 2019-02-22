@@ -58,4 +58,4 @@ Now let's check that are being stored into GCP.
   <img src="../img/gcp-images.png" alt="drawing" width="500"/>
 </p>
 
-#### All right let's move on to the exciting part. [Deploying our application !](deployment.md)
+#### Let's move on and configure our SQL database [Deploying our application !](sql.md)
