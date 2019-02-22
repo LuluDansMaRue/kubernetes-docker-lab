@@ -100,4 +100,6 @@ curl <IP>
 Hello bubble tea server !!
 ```
 
-#### Let's move on and create our database
+### Save your address somewhere we'll reuse it for building the front image
+
+#### Now let's move on and create our [front image](front.md)

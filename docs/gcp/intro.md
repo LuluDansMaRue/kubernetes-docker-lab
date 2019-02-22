@@ -107,4 +107,4 @@ You should see the cluster to your list of context like the image below
   name: gke_kubernetes-demo-232217_us-central1-a_bobba-cluster
 ```
 
-#### All right we're nearly all set for deploying our application into Kubernetes. Let's move on and create our [Docker images](images.md)
+#### Great let's move on and create our API image [API Docker image](api.md)

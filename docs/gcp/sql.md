@@ -31,7 +31,7 @@ All right let's create our table. Run these commands
 ```shell
 use thebestbobba;
 
-# then
+# then create the table
 CREATE TABLE bobba (
     ID int NOT NULL AUTO_INCREMENT,
     name varchar(255),
@@ -161,4 +161,4 @@ containers:
     - start.sh
 ```
 
-#### Now we can move on and deploying our front and api [Deploying our app](deployment.md)
+#### Now let's deploy our [API](deployment_api.md)
