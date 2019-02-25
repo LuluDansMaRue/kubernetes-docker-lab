@@ -9,10 +9,10 @@ RUN apk update && apk upgrade && \
     apk add --no-cache git
 
 # Create src dir
-RUN mkdir ${APP_PATH}
+RUN mkdir $GOPATH/${APP_PATH}
 
 # Set workdir to back
-WORKDIR ${APP_PATH}
+WORKDIR $GOPATH/${APP_PATH}
 
 # Install a hot reloading tool for our server
 RUN go get github.com/githubnemo/CompileDaemon

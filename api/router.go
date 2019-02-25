@@ -6,8 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"./bobba"
-	"./database"
+	"api/bobba"
+
+	"api/database"
 
 	"github.com/gorilla/mux"
 )

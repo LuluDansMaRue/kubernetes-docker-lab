@@ -1,6 +1,6 @@
 FROM golang:1.11-alpine3.8
 
-ENV APP_PATH /data
+ENV APP_PATH /src/api
 
 # Env for Mysql
 ENV MYSQL_USER=alison
@@ -15,16 +15,19 @@ RUN apk update && apk upgrade && \
     apk add --no-cache git
 
 # Create src dir
-RUN mkdir ${APP_PATH}
+RUN mkdir $GOPATH/${APP_PATH}
 
 # Set workdir to back
-WORKDIR ${APP_PATH}
+WORKDIR $GOPATH/${APP_PATH}
 
 # Add the src folder
-COPY api /data
+COPY api $GOPATH/${APP_PATH}
 
-# Install a hot reloading tool for our server
-RUN go get github.com/githubnemo/CompileDaemon
+# Install the dependencies
+RUN go get ./...
+
+# Build the project
+RUN go build
 
 # Run the server
-CMD ["sh", "start.sh"]
+CMD ["./api"]
