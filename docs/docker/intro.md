@@ -1,6 +1,6 @@
 ## Docker 🐳
 
-Docker is a virtualization software that run software named **container**. A container is an isolated process containing your application which can communicate with other application. This software allow you to create multiple containers easily
+Docker is a software that allows [Operating system level virtualization](https://en.wikipedia.org/wiki/Container_(virtualization)) thanks to user space instances called **containers**. These containers are isolated processes containing applications that can communicate with each other and with other applications outside of their container thanks to Docker networking.
 
 Thus this allows developers to create multiple test environments on the fly and to share them with others, without too much headaches with a few configurations files.
 
