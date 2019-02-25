@@ -1,7 +1,7 @@
 package database
 
 import (
-	"../bobba"
+	"api/bobba"
 )
 
 // AddBobba add a bubble tea into the database

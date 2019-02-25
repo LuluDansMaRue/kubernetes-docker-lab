@@ -23,6 +23,3 @@ spec:
         imagePullPolicy: Never
         ports:
           - containerPort: 8000
-        args:
-          - sh
-          - start.sh
