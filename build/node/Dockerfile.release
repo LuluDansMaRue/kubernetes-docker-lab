@@ -11,5 +11,11 @@ WORKDIR ${APP_PATH}
 # Copy front end directory
 COPY front /data
 
+# Install the dependencies
+RUN npm install
+
+# Install serve globally
+RUN npm install -g serve
+
 # Run the app
-CMD ["sh", "start.sh minikube"]
+CMD ["sh", "start.sh"]
