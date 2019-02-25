@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: bobba-front
-        image: gcr.io/kubernetes-demo-232217/sesame_front:v2
+        image: gcr.io/kubernetes-demo-232217/sesame_front:v3.1
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
