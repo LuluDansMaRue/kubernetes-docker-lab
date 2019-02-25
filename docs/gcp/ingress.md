@@ -4,6 +4,8 @@ As we saw earlier we'd create our API service based on the NodePort type. Howeve
 
 Here come Ingress, an API Object that allow us to define access to our services from a Single IP. The Ingress controller will be responsible for fullfilling the [Ingress](https://www.webopedia.com/TERM/I/ingress_traffic.html) by spawing a LoadBalancer and other network systems.
 
+If you don't know what a LoadBalancer is. Please check this great article about LoadBalancing [Digital Ocean Loadbalancer explanation](https://www.digitalocean.com/community/tutorials/what-is-load-balancing)
+
 When generating a default Ingress configuration. Ingress come with a ```ephemeral``` IP. Which mean that your single endpoint that manage the services can change at any time.
 
 However with GCP we have the possibility to create **Static IP** which is free if you used it. Let's firstable generate our Static IP
