@@ -1,6 +1,6 @@
 ## A small word regarding Docker swarm
 
-Previously we made our deployment with Docker locally. Regarding the production environment Docker offer the Swarm mode which allow you to orchestrate container just like Kubernetes & Mesos. However Swarm is lesser use than Kubernetes.
+Previously we made our deployment with docker-compose locally. Regarding the production environment Docker offer the Swarm mode which allow you to orchestrate container just like Kubernetes & Mesos. However Swarm is lesser use than Kubernetes.
 
 <p align="center">
   <img src="../img/usage.png" alt="drawing" width="500"/>
