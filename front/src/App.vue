@@ -16,7 +16,6 @@ body {
 </style>
 
 <script>
-import axios from 'axios'
 import { fetch } from './core/request'
 import Modal from './mixins/modal'
 

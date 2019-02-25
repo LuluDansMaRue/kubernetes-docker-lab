@@ -28,7 +28,7 @@
 </style>
 
 <script>
-import { isEmpty } from 'lodash'
+import { isEmpty } from 'lodash'
 import { fetch } from '../core/request'
 import Modal from '../mixins/modal'
 
@@ -69,7 +69,7 @@ export default {
     // @TODO add warning notification...
     deleteAction() {
       fetch('bobba', 'delete', this.id)
-        .then(res => {
+        .then(() => {
           this.$store.dispatch('deleteBobba', this.id)
           this.$router.push({
             path: '/'

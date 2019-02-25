@@ -32,7 +32,7 @@
 
 
 <script>
-import { post } from '../core/request'
+import { post } from '../core/request'
 import Validation from '../mixins/validation'
 import Modal from '../mixins/modal'
 
@@ -103,7 +103,7 @@ export default {
       const data = this.buildObject()
       // @TODO do a validation on the form...
       post('bobba/add', data)
-        .then(res => {
+        .then(() => {
           this.$store.dispatch('addBobba', data)
           this.$router.push({
             path: '/'
