@@ -46,3 +46,5 @@ While this learning guide will use Kubernetes for deploying our app into a so-ca
 [Docker swarm & Kubernetes comparaison](https://platform9.com/blog/kubernetes-docker-swarm-compared/)
 
 [the new stack docker swarm & kubernets comparaison](https://thenewstack.io/kubernetes-vs-docker-swarm-whats-the-difference/)
+
+[Docker swarm doc](https://docs.docker.com/engine/swarm/)
