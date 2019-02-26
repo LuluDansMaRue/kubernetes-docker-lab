@@ -1,6 +1,6 @@
 ## Debugging your pods
 
-During each steps of the deployment on Minikube and GCP we gave you some sample command about how to debug your project. Below is a summary of the available things you can do in order to diagnose your deployment
+During any step of our adventure with Minikube & GCP we gave you some sample command regarding how to debug your project. Below is the list of command that can be useful to debug your Kubernetes environment.
 
 ### Watch for your deployment
 
