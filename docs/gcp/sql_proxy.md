@@ -1,6 +1,6 @@
 ## CloudSQL Proxy 🚧
 
-Previously in our SQL article we saw how to implement a CloudSQL Proxy in our pods. Now it's time to see how and how does it work.
+Previously in our [SQL article](sql.md) we saw how to implement a CloudSQL Proxy in our pods. Now it's time to see how and how does it work.
 
 CloudSQL proxy should offer much more advantages than the private IP. Here are Google's arguments regarding this subject
 
