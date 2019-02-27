@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: bobba-api-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: bobba-api-ip
+    kubernetes.io/ingress.class: gce-multi-cluster
+spec:
+  backend:
+    serviceName: bobba-api
+    servicePort: 80

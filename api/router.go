@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"time"
 
 	"api/bobba"
 
@@ -38,7 +39,8 @@ var (
 // Param w http.ResponseWriter
 // Param r *http.Request
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello bubble tea server !!"))
+	t := time.Now()
+	w.Write([]byte("Hello bubble tea server !! time: "+t.String()))
 }
 
 // Add Bobba
