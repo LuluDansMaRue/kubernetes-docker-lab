@@ -37,3 +37,4 @@ CloudSQL Proxy come with a seperate image that's going to be installed as a side
 
 [Google documentation](https://cloud.google.com/sql/docs/mysql/sql-proxy?hl=en)
 
+[Secure connections citation](https://cloud.google.com/sql/docs/mysql/sql-proxy?hl=en#what_the_proxy_provides)
