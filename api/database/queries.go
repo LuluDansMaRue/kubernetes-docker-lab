@@ -1,7 +1,7 @@
 package database
 
 import (
-	"api/bobba"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/bobba"
 )
 
 // AddBobba add a bubble tea into the database

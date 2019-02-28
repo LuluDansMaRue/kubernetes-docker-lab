@@ -5,11 +5,12 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
-	"time"
+	
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/bobba"
 
-	"api/bobba"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/database"
 
-	"api/database"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/ip"
 
 	"github.com/gorilla/mux"
 )
@@ -39,8 +40,8 @@ var (
 // Param w http.ResponseWriter
 // Param r *http.Request
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	t := time.Now()
-	w.Write([]byte("Hello bubble tea server !! time: "+t.String()))
+	location := ip.GetIPLocation()
+	w.Write([]byte("Hello bubble tea server !! location: "+location))
 }
 
 // Add Bobba

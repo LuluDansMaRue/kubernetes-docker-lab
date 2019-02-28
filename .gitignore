@@ -1,2 +1,6 @@
 front/node_modules
 api/data
+pkg
+bin
+mci
+src

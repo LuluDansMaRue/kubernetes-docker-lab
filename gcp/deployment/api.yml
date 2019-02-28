@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: bobba-api
-        image: gcr.io/kubernetes-demo-232217/sesame_api:v3
+        image: gcr.io/kubernetes-demo-232217/sesame_api:v3.1
         imagePullPolicy: IfNotPresent
         env:
           - name: MYSQL_HOST
