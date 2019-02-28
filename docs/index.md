@@ -36,6 +36,7 @@ Throughout this guide we'll learn several thing which are describe in the table 
 * * [Configure an Ingress resources](gcp/ingress.md)
 * * [Build the Front docker image](gcp/front.md)
 * * [Deploy the front image](gcp/deployment_front.md)
+* * [Load balance multiple cluster](gcp/mci.md)
 
 
 ## Objectives ✅
@@ -54,6 +55,7 @@ Below are the objectives that we should have reach
 - Be able to add an other service to an existing GCloud product (e.g: GCloud SQL) 
 - Be able to understand & implement a deamon, service & side-car (e.g: Cloud SQL Proxy)
 - Understand & know how to deploy a load balancer
+- Deploy a load balancer for multiple cluster
 - Be able to know implement a monitoring process by using stackdriver & grafana.
 - Create Cron task on GCloud 
 ```

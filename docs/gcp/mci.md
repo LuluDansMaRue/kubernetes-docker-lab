@@ -1,4 +1,4 @@
-## Multiple cluster with Ingress
+## Multiple cluster with Ingress 📚
 
 During these tests we only did our tests with only **1 cluster**. However for an application with an important volume of traffic one cluster might not be suitable.
 
@@ -10,11 +10,11 @@ For now our application is only deployed in the us with our cluster located in `
 
 Combine with a LoadBalancer the load balancer will decide how to distribute the traffic.
 
-## Creating an other cluster
+## Creating an other cluster 💾
 
 Let's create an other cluster. This time we'll choose a cluster based in the region ```asia-east1-c``` which is based in Taiwan. For our cluster set the same settings as we did with the us cluster.
 
-## Configuration
+## Configuration 🔧
 
 First let's switch to the context of our new cluster. Run these commands below 
 
@@ -39,7 +39,7 @@ kubectl create -f gcp/deployment/api.yml
 
 If everything goes fine we can move to Kubemci
 
-## Kubemci
+## Kubemci ⏹️
 
 Kubemci (Kubernetes multicluster ingress) is a **Beta** CLI tool that help us to configure a load balancer which is using multiple clusters.
 
@@ -66,7 +66,7 @@ As per Google documentations we need to ensure that our service respect these ru
 
 As we didn't touch our service configuration file we're already respecting the rules ! How great we are bubble-tea lover !
 
-## Get the credentials
+## Get the credentials 💳
 
 In order for Kubemci to work it need to have a **credentials of our cluster**. 
 
@@ -194,8 +194,30 @@ NAME                IP           CLUSTERS
 bobba-api-ingress   <staticIP>   <cluster asia or us>, <cluster asia or us>, 
 ```
 
-## healthcheck
+## Healthcheck ✔️
 
-We have configure our Ingress ressources and it's working properly. However we need to do one more thing. Configure the healthcheck.
+We have configure our Ingress ressources and it's working properly. However we need to do one more thing. Configure the healthcheck of our Ingress. Indeed for the moment our Ingress will check the services by default should check the health of our pods every ```30 seconds``` with a delay of ```30 seconds``` with a limit of trial of ```3 times```. Which mean that after 3 attempt the services will be considered as unhealthy.
 
+In order to accelerate this (because our app is highly use). We need to set a lower healthcheck timeout.
 
+Go to the ```Compute engines > Healthcheck``` section and select our Ingress ressources ```mci-...-bobba-api-ingress```. Your page should look like this
+
+<p align="center">
+  <img src="../img/mci-first.png" alt="drawing" width="500"/>
+</p>
+
+Now let's edit it. Click on the button ```Edit``` and update the ```Health criteria``` with the following parameters:
+
+- Check interval: 10 (every 10 seconds a health check is send)
+- Timeout interval: 10 (wait 10s before k8s consider the request as a failure)
+- Unhealthy thresold: 1 (Maximum number of failure before considering the instance unhealthy)
+
+Once you finish click on the ```Save``` button. You should get an output like so
+
+<p align="center">
+  <img src="../img/mci-second.png" alt="drawing" width="200"/>
+</p>
+
+#### Now when your user will visit your web app from asia the LoadBalancer will redirect the traffic to the asia-east1-c. When the service will be unaccessible the Loadbalancer will re-route the request to the other cluster.
+
+Et voilà our web app could handle traffic coming from asia and the us ! so nice :)
