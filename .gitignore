@@ -4,3 +4,5 @@ pkg
 bin
 mci
 src
+docs/.DS_Store
+doc/img/.DS_Store
