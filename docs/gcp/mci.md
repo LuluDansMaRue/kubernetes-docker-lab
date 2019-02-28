@@ -57,12 +57,12 @@ Ok now let's check the requirements needed to create our multicluster LoadBalanc
 
 > For each Service you are planning to use in the multi-cluster ingress, it must be configured the same across all of the clusters.
 
-As per Google documentations we need to ensure that our service respect these rules
+As per [Google documentations](https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress?hl=en#creating_a_multi-cluster_ingress) we need to ensure that our service respect these rules
 
 - Same name in every cluster
 - Same namespace (default in our case)
 - Service of type ```NodePort```
-- Use **same NodePort*** in our case ```31320```
+- Use **same NodePort** in our case ```31320```
 
 As we didn't touch our service configuration file we're already respecting the rules ! How great we are bubble-tea lover !
 
