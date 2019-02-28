@@ -40,7 +40,12 @@ var (
 // Param w http.ResponseWriter
 // Param r *http.Request
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	location := ip.GetIPLocation()
+	location, err := ip.GetIPLocation()
+	if err != nil {
+		w.Write([]byte("Hello bubble tea server !! error getting location: "+err.Error()))
+		return
+	}
+
 	w.Write([]byte("Hello bubble tea server !! location: "+location))
 }
 
