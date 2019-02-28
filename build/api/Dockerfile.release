@@ -9,10 +9,12 @@ ENV MYSQL_ROOT_PASSWORD=bobbaroot
 ENV MYSQL_HOST=db
 ENV MYSQL_PORT=3306
 ENV MYSQL_DATABASE=thebestbobba
+ENV GO111MODULE=on 
 
 # Install git
 RUN apk update && apk upgrade && \
-    apk add --no-cache git
+    apk add --no-cache git && \
+    apk add build-base
 
 # Create src dir
 RUN mkdir $GOPATH/${APP_PATH}
@@ -23,11 +25,11 @@ WORKDIR $GOPATH/${APP_PATH}
 # Add the src folder
 COPY api $GOPATH/${APP_PATH}
 
-# Install the dependencies
-RUN go get ./...
+# Install package
+RUN go build ./...
 
 # Build the project
 RUN go build
 
 # Run the server
-CMD ["./api"]
+CMD ["./kubernetes-docker-lab"]

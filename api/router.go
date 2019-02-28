@@ -5,12 +5,12 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
-	
+
 	"github.com/LuluDansMaRue/kubernetes-docker-lab/bobba"
 
 	"github.com/LuluDansMaRue/kubernetes-docker-lab/database"
 
-	"github.com/LuluDansMaRue/kubernetes-docker-lab/ip"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/node"
 
 	"github.com/gorilla/mux"
 )
@@ -40,13 +40,8 @@ var (
 // Param w http.ResponseWriter
 // Param r *http.Request
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	location, err := ip.GetIPLocation()
-	if err != nil {
-		w.Write([]byte("Hello bubble tea server !! error getting location: "+err.Error()))
-		return
-	}
-
-	w.Write([]byte("Hello bubble tea server !! location: "+location))
+	node := node.GetNodeName()
+	w.Write([]byte("Hello bubble tea server !! Node name: " + node))
 }
 
 // Add Bobba
