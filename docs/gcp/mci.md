@@ -221,3 +221,9 @@ Once you finish click on the ```Save``` button. You should get an output like so
 #### Now when your user will visit your web app from asia the LoadBalancer will redirect the traffic to the asia-east1-c. When the service will be unaccessible the Loadbalancer will re-route the request to the other cluster.
 
 Et voilà our web app could handle traffic coming from asia and the us ! so nice :)
+
+## Resources
+
+[Google documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress?hl=en)
+
+[Configuring MCI the new stack](https://thenewstack.io/deploy-a-multicluster-ingress-on-google-kubernetes-engine/)
