@@ -64,7 +64,16 @@ With GCP there are 2 types of cluster.
 
 - The first type is ```zonal```. This mean that your nodes & the master will be created in the zone that you choose. E.g you're creating a cluster in asia-east1-c, your node & master will be located in asia-east1-c
 
-- The second type is ```regional```. This regional cluster allow you to choose a region e.g ```asia-east1```. This allow you to deploy N nodes & master in several zone which lead to an increase of uptime during updates of your Nodes & Cluster. However this solution is much more expensive.
+- The second type is ```regional```. This allow you to choose which region to deploy your application. When choosing the region GCP will create your cluster across the zone of your region.
+
+E.g:
+
+- Region: asia-east1
+- Zone: asia-east1-a, asia-east1-b, asia-east1-c
+
+Creating a regional cluster this will create nodes & master in these 3 zones.
+```Region > Zones```.
+This kind of cluster has the advantage of reducing the number of downtime as low as possible. However it's more expensive to use this type of cluster
 
 For the sake of our deployment we'll choose the zonal cluster
 
