@@ -64,9 +64,11 @@ With GCP there are 2 types of cluster.
 
 - The first type is ```zonal```. This mean that your nodes & the master will be created in the zone that you choose. E.g you're creating a cluster in asia-east1-c, your node & master will be located in asia-east1-c
 
-- The second type is ```regional```. This regional cluster allow you to choose a region e.g ```asia-east1```. This allow you to deploy N nodes & master in several zone which lead to an increase of uptime during updates of your Nodes & Cluster. However this solution is much more expensive
+- The second type is ```regional```. This regional cluster allow you to choose a region e.g ```asia-east1```. This allow you to deploy N nodes & master in several zone which lead to an increase of uptime during updates of your Nodes & Cluster. However this solution is much more expensive.
 
 For the sake of our deployment we'll choose the zonal cluster
+
+For more information on regional cluster check this link [Regional cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters)
 
 ### Configure your cluster ⚙️
 
