@@ -3,7 +3,7 @@ package main
 import (
 	"sync"
 
-	"api/bobba"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/bobba"
 )
 
 // Run Add Routine

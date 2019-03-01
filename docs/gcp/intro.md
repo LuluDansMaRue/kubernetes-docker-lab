@@ -58,11 +58,32 @@ And the final step. Log into GCloud so that you can retrieve your cluster for la
 gcloud auth login
 ```
 
+### Type of cluster
+
+With GCP there are 2 types of cluster. 
+
+- The first type is ```zonal```. This mean that your nodes & the master will be created in the zone that you choose. E.g you're creating a cluster in asia-east1-c, your node & master will be located in asia-east1-c
+
+- The second type is ```regional```. This allow you to choose which region to deploy your application. When choosing the region GCP will create your cluster across the zone of your region.
+
+E.g:
+
+- Region: asia-east1
+- Zone: asia-east1-a, asia-east1-b, asia-east1-c
+
+Creating a regional cluster this will create nodes & master in these 3 zones.
+```Region > Zones```.
+This kind of cluster has the advantage of reducing the number of downtime as low as possible. However it's more expensive to use this type of cluster
+
+For the sake of our deployment we'll choose the zonal cluster
+
+For more information on regional cluster check this link [Regional cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters)
+
 ### Configure your cluster ⚙️
 
 If you already have and know how to create a Cluster into GCP, you can also skip this section.
 
-All right, let's create a Cluster
+All right, let's create a Cluster of type Zonal
 
 - Go to your GCP Account
 - Go to **Kubernetes engine section**

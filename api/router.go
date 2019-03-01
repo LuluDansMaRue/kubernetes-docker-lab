@@ -6,9 +6,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"api/bobba"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/bobba"
 
-	"api/database"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/database"
+
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/node"
 
 	"github.com/gorilla/mux"
 )
@@ -38,7 +40,8 @@ var (
 // Param w http.ResponseWriter
 // Param r *http.Request
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello bubble tea server !!"))
+	node := node.GetNodeName()
+	w.Write([]byte("Hello bubble tea server !! Node name: " + node))
 }
 
 // Add Bobba
