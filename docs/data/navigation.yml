@@ -1,0 +1,25 @@
+docs-en:
+  - title:      Docker
+    children:
+      - title:  Introduction to docker
+        url:    /docker/intro
+      - title:  Example of deployment with Docker
+        url:    /docker/example
+      - title:  Docker swarm
+        url:    /k8s/swarm
+  - title:      Kubernetes knowledges
+    children:
+      - title:  Architecture
+        url:    /k8s/architecture
+      - title:  Deployment
+        url:    /k8s/deployment
+      - title:  Service
+        url:    /k8s/services
+      - title:  Volumes
+        url:    /k8s/storage
+      - title:  Cron task
+        url:    /k8s/cron
+  - title:      Deploying an app to minikube 
+      - title:  Minikube
+        url:    /k8s/minikube
+        
