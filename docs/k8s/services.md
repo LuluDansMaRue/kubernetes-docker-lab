@@ -8,7 +8,7 @@ sidebar:
 
 A service is a microservice which is grouping numbers of pods by pods's label. Services allow you to define the access policy to your pods
 
-Services are cheaps which mean that you can have as many services as you want in your Cluster.
+Services are cheaps which mean that you can have as many services as you want in your Cluster as they're not consuming a lot of hardware resources.
 
 ## Usefulness of Service[¶](#usefulness-of-service)
 
