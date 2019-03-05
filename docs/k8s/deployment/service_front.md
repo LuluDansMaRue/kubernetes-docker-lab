@@ -19,7 +19,7 @@ In our case as minikube provide a LoadBalancer out of the box we could use the L
 
 In order to create our *service* we only need one thing. A Yaml configuration file which is describe below:
 
-## Configuration of the front service ⚒️
+## Configuration of the front service[¶](#configuration-of-the-front-services)
 
 As always we're going to describe how the ```yaml``` file is. The original file is available in the ```k8s/services/front_service.yml``` folder
 

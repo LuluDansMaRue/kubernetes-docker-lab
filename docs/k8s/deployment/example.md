@@ -12,7 +12,7 @@ We saw many theorical information. Now it's time to apply these knowledges in a 
 - back: a small back-end which contain Rest API made with Go
 - database: a simple MySQL database with only one table
 
-## How are we going to deploy this web app
+## How are we going to deploy this web app[¶](#how-are-we-going-to-deploy-this-web-app)
 
 Based on what we learn so far. We know that a cluster is made of several Nodes where in each of these Nodes there are multiples pods which are managed by the Kubelet. Moreover we also saw different kind of deployment that allow us to manage the behavior of our pods by using different type of controller.
 
@@ -22,7 +22,7 @@ Based on what we learn so far. We know that a cluster is made of several Nodes w
 
 Based on the types of deployment we know the one that fits the best is the ```deployment``` types at least for the front and the api.
 
-## How about the database ?
+## How about the database ?[¶](#how-about-the-datatabase-?)
 
 Our database is a statefull kind of service. With Kubernetes we have the option to create a stateful service with the ```statefulSet``` controller. However the community is divide at the idea of running a database in Kubernetes.
 
@@ -42,12 +42,12 @@ Moreover Kelsey Hightower a developer advocate on the GCP advise to also not use
 
 At first glance we thought that it would be a good idea to connect a local database hosted on your computer. However due to the network isolation that minikube does like Docker it wouldn't be possible to do this kind of infrastructure. Futhermore this is only a small database with one table for testing purposes. Thus deploying the database within the Kubernetes environment is not a big issue.
 
-## Let's deploy !
+## Let's deploy ![¶](#let's-deploy-!)
 
 Yes let's deploy first by deploying the [front-end](front.md). A link for the next part will be available on each of the next articles
 
 
-## Accessing to the project
+## Accessing to the project[¶](#accessing-to-the-project)
 
 As you have a LoadBalancer available by running the ```minikube tunnel``` you should be able to access to the front-end by using the IP address that minikube has generated.
 
@@ -69,11 +69,11 @@ You should see the ```External IP``` for the bobba-vue services. Copy and paste 
   <img src="../../img/screen.png" alt="drawing" width="550"/>  
 </p>
 
-## CronTask
+## CronTask[¶](#crontask)
 
 If you want to deploy a CronTask a guide based on our example is available [here](cron.md)
 
-## Cleanup 🔌
+## Cleanup[¶](#cleanup)
 
 Now that you have finish the deployment it's important to cleanup it's workspace.
 

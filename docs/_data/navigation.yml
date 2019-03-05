@@ -8,7 +8,7 @@ docs:
       - title:  Docker swarm
         url:    /k8s/swarm
 
-  - title:      Kubernetes knowledges
+  - title:      Kubernetes basic knowledges
     children:
       - title:  Architecture
         url:    /k8s/architecture
@@ -23,5 +23,38 @@ docs:
 
   - title:      Deploying an app to minikube 
     children:
-      - title:  Minikube
+      - title:  Introduction to minikube
         url:    /k8s/minikube
+      - title:  Example with minikube
+        url:    /k8s/deployment/example
+      - title:  Front deployment
+        url:    /k8s/deployment/front
+      - title:  API deployment
+        url:    /k8s/deployment/api
+      - title:  Service front deployment
+        url:    /k8s/deployment/service_front
+      - title:  Service API deployment
+        url:    /k8s/deployment/service_api
+      - title:  Database
+        url:    /k8s/deployment/database
+  
+  - title:      Deploying on Google Cloud Platform
+    children:
+      - title:  Introduction to Google Cloud Platform
+        url:    /gcp/intro
+      - title:  Build API docker image
+        url:    /gcp/api
+      - title:  Configuring the SQL database
+        url:    /gcp/sql
+      - title:  Deploying the API
+        url:    /gcp/deployment_api
+      - title:  Confige an Ingress resource
+        url:    /gcp/ingress
+      - title:  Build the front docker image
+        url:    /gcp/front
+      - title:  Deploy the front
+        url:    /gcp/deployment_front
+      - title:  Load balance multiple cluster
+        url:    /gcp/mci
+      - title:  Debug your instance
+        url:    /gcp/debug

@@ -11,7 +11,7 @@ Here come the usefulness of ```StatefulSet```.
 
 Let's take a look at how to deploy it
 
-# Creating the Docker image 🐣
+# Creating the Docker image[¶](#creating-the-docker-image)
 
 First we will create the MySQL image for minikube. Within this image we're provide the **environment** variables & the MySQL dump file. The Dockerfile is available in the ```build/db``` folder
 
@@ -24,7 +24,7 @@ docker build -t sesame_db -f build/db/Dockerfile <path to root folder>/kubernete
 Once you build the image check that the image is availble with the command ```docker images```
 Now let's first create our service.
 
-## Creating our services 🐥
+## Creating our services[¶](#creating-our-services)
 
 This is the service use by the database statefulset deployment. As always, the deployment file is available in the folder ```k8s/service/db_service.yml```
 
@@ -62,7 +62,7 @@ TL;DR: Disable the load balancing or the proxiyng for decoupling the usage of th
 
 In our example we have defined selectors which make our service available to other pods by using the selector which act as a DNS
 
-## Creating our StatefulSet config 🐥
+## Creating our StatefulSet config[¶](#creating-our-statefulset-config)
 
 As we said earlier ```StatefulSet``` will be the kind of deployment that we're going to use.
 

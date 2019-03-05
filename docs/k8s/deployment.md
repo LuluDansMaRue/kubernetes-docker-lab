@@ -8,7 +8,7 @@ sidebar:
 
 In this article we'll talk about the different type of deployment named Controller in Kubernetes
 
-## Controllers ⚡
+## Controllers[¶](#controllers)
 
 As of Feburary 2019, Kubernetes provide several types of Controllers. 
 
@@ -23,7 +23,7 @@ These controller are part of the kube-controller-manager
 - TTL Controller (see documentation as it's in alpha)
 - CronJob
 
-### ReplicaSet
+### ReplicaSet[¶](#replicaset)
 
 ReplicaSet is a type of controller that aim to surpass the previous ReplicationController. It can be used if you need to maintain a stable amount of replica Pods running at anytime.
 
@@ -36,13 +36,13 @@ Note that ReplicaSet is also ship with additional functionnalities. I suggest yo
   <p align="center"><b>ReplicaSet schema, Jiamin Ning, Medium article.</b></p>
 </p>
 
-### ReplicationController
+### ReplicationController[¶](#replicationcontroller)
 
 ReplicationController is actually an older version of ReplicaSet. While their purposes are the same they work differently ReplicationController does not support set based selector. 
 
 It's therefore recommended by Kubernetes to use the **ReplicaSet** instead of the **ReplicationController**
 
-### StatefulSets
+### StatefulSets[¶](#statefulsets)
 
 StatefulSets is a kind of controller that has the same capabilities as the ReplicaSet. However one major difference is that the StatefulSets is able to use a storage which can be use for storing datas without losing when pods are restarted / destroyed. 
 
@@ -56,7 +56,7 @@ Note: You could setup a database with Kubernetes by using this option. However d
 </p>
 
 
-### DaemonSets
+### DaemonSets[¶](#daemonsets)
 
 A DaemonSet is a kind of controller that will deploy a pod into each Node that exist on the cluster. If a node get removed then the DaemonSet pod will get garbage collected.
 
@@ -64,7 +64,7 @@ Moreover DaemonSet automatically scale based on the number of Nodes available.
 
 This kind of deployment can be useful for many type of application such as **logs collections**, **monitoring tools**
 
-## API Objects 📜
+## API Objects[¶](#api-objects)
 
 API Object are wrappers around the controllers describe above. It add additional functionnality to them. Below is the list of available API Object available in Kubernetes:
 
@@ -72,7 +72,7 @@ API Object are wrappers around the controllers describe above. It add additional
 - Job
 - CronJob
 
-### Deployment
+### Deployment[¶](#deployment)
 
 Deployment is an API Object that leverage the ReplicaSet controller by bringing additional feature such as:
 
@@ -85,17 +85,17 @@ Deployment is an API Object that leverage the ReplicaSet controller by bringing 
 
 Thus it's recommanded to use the **Deployment** instead of using the **controller** directly.
 
-### Job
+### Job[¶](#job)
 
 A Job is a kind of controller that allow you to run a number of pods. It allow you to create several pod, tracks it's completion and set a number of pod that need to be succeed in order for the Job to be considered as complete. In case of a failure the job will recreate an additional pod.
 
 Job can be use to run conccurent pod. (parallelism). A special kind of Job named CronJob exist and is based on the Job controller
 
-### CronJob
+### CronJob[¶](#cronjob)
 
 CronJob allow you to run a number of pod's replica at a certain amount of time. Like the Jobs the CronJob will attempt to recreate a numbers of pods if one of them fail. I suggest you to take a look at the CronJob section.
 
-## Resources
+## Resources[¶](#resources)
 
 [Explanation of ReplicaSet](https://medium.com/@jiamin_ning/build-your-first-kubernetes-service-with-replicaset-7c37d9be689c)
 

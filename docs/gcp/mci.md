@@ -10,17 +10,17 @@ During these tests we only did our tests with only **1 cluster**. However for an
 
 As an example your application is popular in the US and in East asia. Therefore it might be better to create an other cluster in one of those region for better load repartition. This is what we're going to do today.
 
-## Context
+## Context[¶](#context)
 
 For now our application is only deployed in the us with our cluster located in ```us-central1-a```. However as said earlier our app is really popular in Taiwan therefore we'll create an other cluster to handle that load.
 
 Combine with a LoadBalancer the load balancer will decide how to distribute the traffic.
 
-## Creating an other cluster 💾
+## Creating an other cluster[¶](#creating-an-other-cluster)
 
 Let's create an other cluster. This time we'll choose a cluster based in the region ```asia-east1-c``` which is based in Taiwan. For our cluster set the same settings as we did with the us cluster.
 
-## Configuration 🔧
+## Configuration[¶](#configuration)
 
 First let's switch to the context of our new cluster. Run these commands below 
 
@@ -45,7 +45,7 @@ kubectl create -f gcp/deployment/api.yml
 
 If everything goes fine we can move to Kubemci
 
-## Kubemci ⏹️
+## Kubemci[¶](#kubemci)
 
 Kubemci (Kubernetes multicluster ingress) is a **Beta** CLI tool that help us to configure a load balancer which is using multiple clusters.
 
@@ -72,7 +72,7 @@ As per [Google documentations](https://cloud.google.com/kubernetes-engine/docs/h
 
 As we didn't touch our service configuration file we're already respecting the rules ! How great we are bubble-tea lover !
 
-## Get the credentials 💳
+## Get the credentials[¶](#get-the-credentials)
 
 In order for Kubemci to work it need to have a **credentials of our cluster**. 
 
@@ -142,7 +142,7 @@ users:
 
 Ok now let's move on to Ingress
 
-## Configure our Ingress
+## Configure our Ingress[¶](#configure-our-ingress)
 
 Configuring an Ingress resources required a static IP. Good thing to know we have already generated our IP for our previous ingress.
 
@@ -200,7 +200,7 @@ NAME                IP           CLUSTERS
 bobba-api-ingress   <staticIP>   <cluster asia or us>, <cluster asia or us>, 
 ```
 
-## Healthcheck ✔️
+## Healthcheck[¶](#healthcheck)
 
 We have configure our Ingress ressources and it's working properly. However we need to do one more thing. Configure the healthcheck of our Ingress. Indeed for the moment our Ingress will check the services by default should check the health of our pods every ```30 seconds``` with a delay of ```30 seconds``` with a limit of trial of ```3 times```. Which mean that after 3 attempt the services will be considered as unhealthy.
 
@@ -230,7 +230,7 @@ Et voilà our web app could handle traffic coming from asia and the us ! so nice
 
 > Note: This feature is also supported by Regional Cluster.
 
-## Resources
+## Resources[¶](#resources)
 
 [Google documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress?hl=en)
 

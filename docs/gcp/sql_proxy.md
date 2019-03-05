@@ -18,7 +18,7 @@ CloudSQL proxy should offer much more advantages than the private IP. Here are G
 Note that the Proxy relies on an existing IP connectivity.
 ```
 
-### How does it work
+### How does it work[¶](#how-does-it-work)
 
 <p align="center">
   <img src="../img/proxyconnection.svg" alt="drawing" width="600"/>
@@ -35,11 +35,11 @@ In your pods you have a proxy client (sidecar container) which is used by your a
 
 For more detailed on the different options of cloudSQL-proxy take a look at the [google documentation](https://cloud.google.com/sql/docs/mysql/sql-proxy?hl=en)
 
-#### Sidecar
+#### Sidecar[¶](#sidecar)
 
 CloudSQL Proxy come with a seperate image that's going to be installed as a sidecar in your pod. In order to understand what a Sidecar is. Take a look to the related article [What's a sidecar](../k8s/architecture.md#Pod).
 
-## Resources 📕
+## Resources[¶](#resources)
 
 [Google documentation](https://cloud.google.com/sql/docs/mysql/sql-proxy?hl=en)
 

@@ -8,7 +8,7 @@ sidebar:
 
 Regarding our API (back-end) we're not required to deploy our API in a special port. This mean that we could use the ```NodePort``` withot any headache. Let's configured the service so that it will use the NodePort
 
-## Configuration of the api service ⚒️
+## Configuration of the api service[¶](#configuration-of-the-api-service)
 
 As always we're going to describe how the ```yaml``` file is. The original file is available in the ```k8s/services/api_service.yml``` folder
 
@@ -65,7 +65,7 @@ If you try to fetch a route like ```/bobbas``` you'll see that we have an error 
 
 #### Let's create our [database](database.md)
 
-## Drawbacks 🔮
+## Drawbacks[¶](#drawbacks)
 
 While it does what we want it does has some drawbacks. Moreover we also have theses drawbacks:
 

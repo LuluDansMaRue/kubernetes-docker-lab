@@ -10,11 +10,11 @@ sidebar:
 
 This project come with a set of small projects that are bundled together by using Docker.
 
-### Dockerfile
+### Dockerfile[¶](#dockerfile)
 
 Using a raw image can be useful for quick prototyping. However when you need to make internal work (e.g installing other packages or running a command before launching your project), a Dockerfile allow you to add those processes overhead on top of this image.
 
-### Example with the API
+### Example with the API[¶](#example-with-the-api)
 
 This project's API is made with Go, a programming language made by Google. For this project, we will use the ```alpine``` image. Alpine is a lightweight linux environment. In order to run our API, we need some third party plugins.
 
@@ -26,7 +26,7 @@ This can be a good way to make a custom image so we can add git !
 
 So let's create a Dockerfile
 
-#### Dockerfile
+#### Dockerfile[¶](#dockerfile)
 
 A Dockerfile always start from a base image. Therefore, we will use the keyword *FROM*
 
@@ -62,7 +62,7 @@ CMD ["sh", "start.sh"]
 
 Et voilà, we've created our Dockerfile. Let's move on to docker-compose.
 
-#### Docker-compose
+#### Docker-compose[¶](#docker-compose)
 
 Our API is not running alone. Indeed, the API is used by other projects and uses other projects. Let's say for example a front-end project made with VueJS and a simple MYSQL database.
 

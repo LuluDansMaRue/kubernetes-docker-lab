@@ -1,12 +1,11 @@
 ---
 classes: wide
+title: Kubernetes Docker experiments 🎋
 sidebar:
   nav: "docs"
 ---
 
-# Kubernetes Docker experiments 🎋
-
-## Introduction
+## Introduction[¶](#introduction)
 
 Welcome fan of Bubble tea.
 
@@ -18,7 +17,7 @@ This project is for people who are curious and want to learn how to deploy an ap
 
 Throughout this guide we'll learn several thing which are describe in the table of contents below
 
-## Table of contents
+## Table of contents[¶](#table-of-contents)
 
 * [Introduction to Docker](docker/intro.md)
 * * [Example of deployment with Docker](docker/example.md)
@@ -46,7 +45,7 @@ Throughout this guide we'll learn several thing which are describe in the table 
 * * [Debugging](gcp/debug.md)
 
 
-## Objectives ✅
+## Objectives[¶](#objectives)
 
 At the end of this project you should be able to get a good grasp on Docker, Kubernetes and GCloud.
 

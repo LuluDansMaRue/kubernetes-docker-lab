@@ -8,7 +8,7 @@ sidebar:
 
 Before deploying the front we'll firstly deploy the API. Indeed we want to make sure that our API is working properly.
 
-## Let's deploy 📤
+## Let's deploy[¶](#let's-deploy)
 
 Previously we'd create the images for kubernetes which are now stored within GCP. We also create our Database and the CloudSQL Proxy which is going to be use as a sidecar by our main application.
 
