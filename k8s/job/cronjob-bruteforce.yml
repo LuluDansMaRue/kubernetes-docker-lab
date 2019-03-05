@@ -13,8 +13,6 @@ spec:
             image: sesame_minikube
             imagePullPolicy: Never
             args:
-            - sh
-            - install.sh
             - go
             - run
             - bruteforce/bruteforce.go

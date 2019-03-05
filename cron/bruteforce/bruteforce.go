@@ -1,4 +1,3 @@
-// Bruteforce.go is a CRON task
 // This cron file will try to connect to the database with wrong credentials for a random number of access
 // The goal is to see if there's any significient pick catch by the monitoring tool
 package main
@@ -8,7 +7,7 @@ import (
 	"strconv"
 	"sync"
 
-	"../utils"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab-cron/utils"
 	_ "github.com/go-sql-driver/mysql"
 )
 
