@@ -1,0 +1,393 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Front service - kubernetes-docker-lab</title>
+<meta name="description" content="Learning how to deploy a web app from Docker to Kubernetes to GCloud">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="kubernetes-docker-lab">
+<meta property="og:title" content="Front service">
+<meta property="og:url" content="http://localhost:4000/k8s/deployment/service_front.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/k8s/deployment/service_front.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="kubernetes-docker-lab Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">kubernetes-docker-lab</a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Docker</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/intro" class="">Introduction to docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/example" class="">Example of deployment with Docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/swarm" class="">Docker swarm</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kubernetes knowledges</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/architecture" class="">Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/deployment" class="">Deployment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/services" class="">Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/storage" class="">Volumes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/cron" class="">Cron task</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deploying an app to minikube</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/minikube" class="">Minikube</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+    
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Front service">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Front service
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>As describe earlier a service allow you to group a certain number of pods in order to make them accessible to in different level. In the case of our Front we want it to be reachable from the outside. As our front-end is the main entry point to our system we want it to be able to reach it with a simple url on the port 80.</p>
+
+<p>In order to expose our front deployment we could use 2 types of services</p>
+
+<ul>
+  <li><code class="highlighter-rouge">NodePort</code>: NodePort is use for exposing the node’s port to the cluster. However the NodePort is limited by which port we should use and unfortunately port 80 is not available.</li>
+  <li><code class="highlighter-rouge">LoadBalancer</code>: The loadbalancer mode has the same advantages as the NodePort with one more advantage. The Loadbalancer allow us to use any port. However it required us to have an existing LoadBalancer provider</li>
+</ul>
+
+<p>💡 Thanks to minikube. We could emulate a LoadBalancer by using the <code class="highlighter-rouge">minikube tunnel</code> command.</p>
+
+<p>In our case as minikube provide a LoadBalancer out of the box we could use the LoadBalancer option for our deployment.</p>
+
+<p>In order to create our <em>service</em> we only need one thing. A Yaml configuration file which is describe below:</p>
+
+<h2 id="configuration-of-the-front-service-️">Configuration of the front service ⚒️</h2>
+
+<p>As always we’re going to describe how the <code class="highlighter-rouge">yaml</code> file is. The original file is available in the <code class="highlighter-rouge">k8s/services/front_service.yml</code> folder</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="c1"># Name of your service</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">bobba-vue</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="c1"># Type of service</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">LoadBalancer</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="c1"># this should match the labels define in your pods</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">bobba-vue</span>
+    <span class="na">tier</span><span class="pi">:</span> <span class="s">frontend</span>
+  <span class="na">ports</span><span class="pi">:</span>
+    <span class="c1"># No need to precise a special port. Minikube / GCP will create a load balancer on it's own.. at least on minikube :D</span>
+  <span class="pi">-</span> <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="s">80</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="s">8080</span>
+</code></pre></div></div>
+
+<p>Pretty simple isn’t it ? Let’s create our service
+Create your service with this command by running this command</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create <span class="nt">-f</span> k8s/services/front_service.yml
+</code></pre></div></div>
+
+<p>Now we need to check that our services is created and exposed our Nodes by running this command</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get services
+</code></pre></div></div>
+
+<p>As <strong>minikube doesn’t get access to GCP</strong> we need to run the command <code class="highlighter-rouge">minikube tunnel</code> which will create our LoadBalancer</p>
+
+<p>Now if you check the services again you should see an <code class="highlighter-rouge">externalIP</code> for our <code class="highlighter-rouge">bobba-vue</code> service !</p>
+
+<p><img src="/img/bobba-vue.png" alt="bobba vue" /></p>
+
+<h4 id="now-lets-check-the-api-for-our-service-api-service">Now let’s check the API for our service <a href="/k8s/deployment/service_api.html">API Service</a></h4>
+
+<h2 id="drawbacks-">Drawbacks 🔮</h2>
+
+<p>While this method is useful in development mode. It might not be suitable for a production environment as every time you use the LoadBalancer mode a new LoadBalancer will be create. This operation can be quite expensive if you have many load balancer to create.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 kubernetes-docker-lab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

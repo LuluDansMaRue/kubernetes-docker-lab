@@ -1,4 +1,10 @@
-## Persistent volume 💾
+---
+layout: single
+classes: wide
+title: Persistent volume 💾
+sidebar:
+  nav: "docs"
+---
 
 With Kubernetes and the StatefulSet deployment you are able to deploy stateful pods within your Cluster.
 

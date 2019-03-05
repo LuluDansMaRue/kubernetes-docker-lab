@@ -1,4 +1,10 @@
-## Deploying the front 🖼️
+---
+layout: single
+classes: wide
+title: Deploying the front 🖼️
+sidebar:
+  nav: "docs"
+---
 
 Like the API we will deploy the front in the same way
 

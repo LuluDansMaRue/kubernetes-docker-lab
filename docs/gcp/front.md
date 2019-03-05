@@ -1,4 +1,10 @@
-## Create our docker image for the Front 🖼️
+---
+layout: single
+classes: wide
+title: Create our docker image for the Front project
+sidebar:
+  nav: "docs"
+---
 
 This is the same process as for the API image
 

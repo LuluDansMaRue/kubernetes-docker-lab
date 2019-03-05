@@ -1,4 +1,10 @@
-## Architecture ⚙️
+---
+layout: single
+title: Kubernetes architecture
+classes: wide
+sidebar:
+  nav: "docs"
+---
 
 In this article we'll take a look at Kubernetes's architecture. This will enable us to understand how Kubernetes is working.
 

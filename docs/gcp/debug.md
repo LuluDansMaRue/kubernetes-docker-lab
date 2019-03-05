@@ -1,4 +1,10 @@
-## Debugging your Kubernetes cluster
+---
+layout: single
+classes: wide
+title: Debugging your Kubernetes cluster
+sidebar:
+  nav: "docs"
+---
 
 During any step of our adventure with Minikube & GCP we gave you some sample command regarding how to debug your project. Below is the list of command that can be useful to debug your Kubernetes environment.
 

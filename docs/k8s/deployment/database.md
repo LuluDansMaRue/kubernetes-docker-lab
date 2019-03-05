@@ -1,4 +1,10 @@
-## Database 💾
+---
+layout: single
+classes: wide
+title: Database 💾
+sidebar:
+  nav: "docs"
+---
 
 During our previous deployment we only saw *Stateless* deployment. However regarding our database it need to be *Stateful*. Indeed if anything happened to our MySQL pod we don't want to loose the datas store on the database.
 Here come the usefulness of ```StatefulSet```.

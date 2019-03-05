@@ -1,4 +1,10 @@
-## Services 🔑
+---
+layout: single
+classes: wide
+title: Services 🔑
+sidebar:
+  nav: "docs"
+---
 
 A service is a microservice which is grouping numbers of pods by pods's label. Services allow you to define the access policy to your pods
 

@@ -1,4 +1,10 @@
-## Introduction 📖
+---
+layout: single
+classes: wide
+title: Introduction 📖
+sidebar:
+  nav: "docs"
+---
 
 We saw how to deploy our small project with Docker. We also saw how to deploy our project on a local Kubernetes cluster by using Minikube. Today we're going to deploy our project into a real environment, Google Cloud Platform.
 

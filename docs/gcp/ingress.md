@@ -1,4 +1,10 @@
-## Ingress 🧠
+---
+layout: single
+classes: wide
+title: Ingress 🧠
+sidebar:
+  nav: "docs"
+---
 
 As we saw earlier we'd create our API service based on the NodePort type. However it's not suitable to use each Node's IP as they are ephemeral. In order to resolve this issue we could use an API Object that will manage the external access of the services used by a Cluster.
 

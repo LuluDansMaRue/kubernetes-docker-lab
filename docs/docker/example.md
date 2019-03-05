@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Deployment example
+sidebar:
+  nav: "docs"
+---
+
 ## Example of creating a development environment with Docker 🐳
 
 This project come with a set of small projects that are bundled together by using Docker.

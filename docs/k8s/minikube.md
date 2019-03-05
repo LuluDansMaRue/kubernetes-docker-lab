@@ -1,4 +1,10 @@
-## Minikube
+---
+layout: single
+classes: wide
+title: Minikube
+sidebar:
+  nav: "docs"
+---
 
 Minikube is a local Kubernetes environment which come with one cluster allowing you to test your deployment. It allow fast prototyping before deploying your app in real Kubernetes provider such as Google cloud console or Amazon EKS and many others...
 

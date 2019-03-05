@@ -1,0 +1,406 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Persistent volume 💾 - kubernetes-docker-lab</title>
+<meta name="description" content="Learning how to deploy a web app from Docker to Kubernetes to GCloud">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="kubernetes-docker-lab">
+<meta property="og:title" content="Persistent volume 💾">
+<meta property="og:url" content="http://localhost:4000/k8s/storage.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/k8s/storage.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="kubernetes-docker-lab Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">kubernetes-docker-lab</a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Docker</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/intro" class="">Introduction to docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/example" class="">Example of deployment with Docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/swarm" class="">Docker swarm</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kubernetes knowledges</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/architecture" class="">Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/deployment" class="">Deployment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/services" class="">Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/storage" class="">Volumes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/cron" class="">Cron task</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deploying an app to minikube</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/minikube" class="">Minikube</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+    
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Persistent volume 💾">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Persistent volume 💾
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>With Kubernetes and the StatefulSet deployment you are able to deploy stateful pods within your Cluster.</p>
+
+<p>Deploying a Stateful application mean that this will involve a storage layer. Kubernetes provide a persistent volume API option for this kind of usage.</p>
+
+<h2 id="how-does-it-work">How does it work</h2>
+
+<p>A Persistent Volume is a piece of storage located in the Cluster. As the Persistent volume isn’t volatile as the Node &amp; the pods. Persistent volume is the reason why it’s located in the Cluster and not within a Node.</p>
+
+<p>Kubernetes support the following types of storage <a href="https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes">type of storage</a></p>
+
+<p>Futhermore Persistent volume has a lifecycle. I suggest you to take a look at those <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#lifecycle-of-a-volume-and-claim">there</a></p>
+
+<p>Below is how the architecture can be between a PV and a Node</p>
+
+<p align="center">
+  <img src="../img/statefulset.png" alt="drawing" width="450" />  
+  <p align="center"><b>Representation of a statefulset with a storage</b></p>
+</p>
+
+<h2 id="types-of-persistent-volume-">Types of Persistent volume 📁</h2>
+
+<p>There are 2 types of persistent volume. Below is the definition of each of them right from the Kubernetes documentation</p>
+
+<h3 id="static-">Static 💿</h3>
+
+<p>Static provisioning allow a Cluster administrator to expose a set of persistent storage to the Cluster</p>
+
+<blockquote>
+  <p>A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users. They exist in the Kubernetes API and are available for consumption.</p>
+</blockquote>
+
+<h3 id="dynamic-️">Dynamic 🖥️</h3>
+
+<blockquote>
+  <p>When none of the static PVs the administrator created matches a user’s PersistentVolumeClaim, the cluster may try to dynamically provision a volume specially for the PVC. This provisioning is based on StorageClasses: the PVC must request a storage class and the administrator must have created and configured that class in order for dynamic provisioning to occur.</p>
+</blockquote>
+
+<p>This dynamic solution remove a lot of headache regarding how to create, delete and size up your storage.</p>
+
+<p>Moreover if you don’t have a lot of knowledges in this field like me the writer 😅.</p>
+
+<p>It’s far better to let the Kubernetes engine do the allocation of storage for us</p>
+
+<h2 id="components">Components</h2>
+
+<p>As we said in the section <em>How does it work</em>. The persistent claim (PV) is located in the Cluster.</p>
+
+<p>In order to define the behavior of the Persistent volume, Kubernetes is using a PersistentVolumeClaim (PVC). This PVC allow us to define several options such as size, access-modes, labels.</p>
+
+<p>While extensible if you need to have even more flexibility Kubernetes offer a deeper customization throught the <code class="highlighter-rouge">StorageClass</code> resources</p>
+
+<h2 id="access-modes-">Access modes 🔏</h2>
+
+<p>Creating a storage required you to define an access mode to your storage. Currently there are <strong>3 types</strong> of access mode available</p>
+
+<ul>
+  <li>ReadWriteOnce: a volume can be mounted as read-write by a single node</li>
+  <li>ReadOnlyMany: a volume can be mounted read-only by many nodes</li>
+  <li>ReadWriteMany: a volume can be mounted as read-write by many nodes</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ From Kubernetes docs: A volume can only be mounted using one access mode at a time, even if it supports many. For example, a GCE Persistent Disk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.</p>
+</blockquote>
+
+<h2 id="resources">Resources</h2>
+
+<p><a href="https://console.bluemix.net/docs/containers/cs_storage_basics.html#kube_concepts">Kubernetes storage introduction by IBM</a></p>
+
+<p><a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Kubernetes storage documentation</a></p>
+
+<p><a href="https://cloud.netapp.com/blog/dynamic-kubernetes-persistent-volume-provisioning">Static or dynamic</a></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 kubernetes-docker-lab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

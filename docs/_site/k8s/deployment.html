@@ -1,0 +1,438 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Deployment 🚀 - kubernetes-docker-lab</title>
+<meta name="description" content="Learning how to deploy a web app from Docker to Kubernetes to GCloud">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="kubernetes-docker-lab">
+<meta property="og:title" content="Deployment 🚀">
+<meta property="og:url" content="http://localhost:4000/k8s/deployment.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/k8s/deployment.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="kubernetes-docker-lab Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">kubernetes-docker-lab</a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Docker</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/intro" class="">Introduction to docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/example" class="">Example of deployment with Docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/swarm" class="">Docker swarm</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kubernetes knowledges</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/architecture" class="">Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/deployment" class="">Deployment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/services" class="">Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/storage" class="">Volumes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/cron" class="">Cron task</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deploying an app to minikube</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/minikube" class="">Minikube</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+    
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Deployment 🚀">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Deployment 🚀
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>In this article we’ll talk about the different type of deployment named Controller in Kubernetes</p>
+
+<h2 id="controllers-">Controllers ⚡</h2>
+
+<p>As of Feburary 2019, Kubernetes provide several types of Controllers.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>These controller are part of the kube-controller-manager
+</code></pre></div></div>
+
+<ul>
+  <li>ReplicaSet</li>
+  <li>ReplicationController</li>
+  <li>StatefulSets</li>
+  <li>DaemonSet</li>
+  <li>TTL Controller (see documentation as it’s in alpha)</li>
+  <li>CronJob</li>
+</ul>
+
+<h3 id="replicaset">ReplicaSet</h3>
+
+<p>ReplicaSet is a type of controller that aim to surpass the previous ReplicationController. It can be used if you need to maintain a stable amount of replica Pods running at anytime.</p>
+
+<p>Futhermore ReplicaSet will monitor the status of each pods and create a new one if one of them happened to failed or lost.</p>
+
+<p>Note that ReplicaSet is also ship with additional functionnalities. I suggest you to check the Kubernetes documentation as well as the <strong>Explanation of ReplicaSet article</strong> on the resources section</p>
+
+<p align="center">
+  <img src="../img/replicaset_schema.png" alt="drawing" width="450" />  
+  <p align="center"><b>ReplicaSet schema, Jiamin Ning, Medium article.</b></p>
+</p>
+
+<h3 id="replicationcontroller">ReplicationController</h3>
+
+<p>ReplicationController is actually an older version of ReplicaSet. While their purposes are the same they work differently ReplicationController does not support set based selector.</p>
+
+<p>It’s therefore recommended by Kubernetes to use the <strong>ReplicaSet</strong> instead of the <strong>ReplicationController</strong></p>
+
+<h3 id="statefulsets">StatefulSets</h3>
+
+<p>StatefulSets is a kind of controller that has the same capabilities as the ReplicaSet. However one major difference is that the StatefulSets is able to use a storage which can be use for storing datas without losing when pods are restarted / destroyed.</p>
+
+<p>This kind of deployment is useful for statful application e.g: a photoshop application</p>
+
+<p>Note: You could setup a database with Kubernetes by using this option. However database resources can grow rapidly which a container is at some point limited. However for the purposes of the demo we will use it</p>
+
+<p align="center">
+  <img src="../img/statefulset.png" alt="drawing" width="450" />  
+  <p align="center"><b>Representation of a statefulset with a storage</b></p>
+</p>
+
+<h3 id="daemonsets">DaemonSets</h3>
+
+<p>A DaemonSet is a kind of controller that will deploy a pod into each Node that exist on the cluster. If a node get removed then the DaemonSet pod will get garbage collected.</p>
+
+<p>Moreover DaemonSet automatically scale based on the number of Nodes available.</p>
+
+<p>This kind of deployment can be useful for many type of application such as <strong>logs collections</strong>, <strong>monitoring tools</strong></p>
+
+<h2 id="api-objects-">API Objects 📜</h2>
+
+<p>API Object are wrappers around the controllers describe above. It add additional functionnality to them. Below is the list of available API Object available in Kubernetes:</p>
+
+<ul>
+  <li>Deployments</li>
+  <li>Job</li>
+  <li>CronJob</li>
+</ul>
+
+<h3 id="deployment">Deployment</h3>
+
+<p>Deployment is an API Object that leverage the ReplicaSet controller by bringing additional feature such as:</p>
+
+<ul>
+  <li>Create a deployment to Rollout a ReplicaSet: Creating ReplicaSet in background and monitor the status to see if it succeed.</li>
+  <li>Declare new state of the pods by updating the template spec: This will allow Kubernetes to create a new type of ReplicaSet and to replace the old ones on the fly</li>
+  <li>Rollabck to an earlier version of a Deployment</li>
+  <li>Scale up the deployment</li>
+  <li>Pause the deployment</li>
+  <li>Cleanup older ReplicaSets that we don’t need anymore</li>
+</ul>
+
+<p>Thus it’s recommanded to use the <strong>Deployment</strong> instead of using the <strong>controller</strong> directly.</p>
+
+<h3 id="job">Job</h3>
+
+<p>A Job is a kind of controller that allow you to run a number of pods. It allow you to create several pod, tracks it’s completion and set a number of pod that need to be succeed in order for the Job to be considered as complete. In case of a failure the job will recreate an additional pod.</p>
+
+<p>Job can be use to run conccurent pod. (parallelism). A special kind of Job named CronJob exist and is based on the Job controller</p>
+
+<h3 id="cronjob">CronJob</h3>
+
+<p>CronJob allow you to run a number of pod’s replica at a certain amount of time. Like the Jobs the CronJob will attempt to recreate a numbers of pods if one of them fail. I suggest you to take a look at the CronJob section.</p>
+
+<h2 id="resources">Resources</h2>
+
+<p><a href="https://medium.com/@jiamin_ning/build-your-first-kubernetes-service-with-replicaset-7c37d9be689c">Explanation of ReplicaSet</a></p>
+
+<p><a href="https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/">Kubernetes ReplicaSet documentation</a></p>
+
+<p><a href="https://medium.com/google-cloud/kubernetes-run-a-pod-per-node-with-daemon-sets-f77ce3f36bf1">DaemonSet explanation by a GCP Developer</a></p>
+
+<p><a href="https://codeblog.dotsandbrackets.com/one-off-kubernetes-jobs/">Job &amp; CronJob explanation</a></p>
+
+<p><a href="https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/">TTL Controller</a></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 kubernetes-docker-lab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

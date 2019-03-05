@@ -1,0 +1,435 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Ingress 🧠 - kubernetes-docker-lab</title>
+<meta name="description" content="Learning how to deploy a web app from Docker to Kubernetes to GCloud">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="kubernetes-docker-lab">
+<meta property="og:title" content="Ingress 🧠">
+<meta property="og:url" content="http://localhost:4000/gcp/ingress.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/gcp/ingress.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="kubernetes-docker-lab Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">kubernetes-docker-lab</a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Docker</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/intro" class="">Introduction to docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/example" class="">Example of deployment with Docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/swarm" class="">Docker swarm</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kubernetes knowledges</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/architecture" class="">Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/deployment" class="">Deployment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/services" class="">Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/storage" class="">Volumes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/cron" class="">Cron task</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deploying an app to minikube</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/minikube" class="">Minikube</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+    
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Ingress 🧠">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Ingress 🧠
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>As we saw earlier we’d create our API service based on the NodePort type. However it’s not suitable to use each Node’s IP as they are ephemeral. In order to resolve this issue we could use an API Object that will manage the external access of the services used by a Cluster.</p>
+
+<p>Here come Ingress, an API Object that allow us to define access to our services from a Single IP. The Ingress controller will be responsible for fullfilling the <a href="https://www.webopedia.com/TERM/I/ingress_traffic.html">Ingress</a> by spawing a LoadBalancer and other network systems.</p>
+
+<p>If you don’t know what a LoadBalancer is. Please check this great article about LoadBalancing <a href="https://www.digitalocean.com/community/tutorials/what-is-load-balancing">Digital Ocean Loadbalancer explanation</a></p>
+
+<p>When generating a default Ingress configuration. Ingress come with a <code class="highlighter-rouge">ephemeral</code> IP. Which mean that your single endpoint that manage the services can change at any time.</p>
+
+<p>However with GCP we have the possibility to create <strong>Static IP</strong> which is free if you used it. Let’s firstable generate our Static IP</p>
+
+<h2 id="generate-static-ip-">Generate static IP ⚡</h2>
+
+<p>Before allocating the static IP with Google we need to choose which kind of IP we need. Within GCP there are <strong>2 types</strong> of IP:</p>
+
+<ul>
+  <li>Regional: Use for an Instance or a Network Load Balancer</li>
+  <li>Global: IP for HTTP(S), SSL Proxy, TCP Proxy Load Balancer</li>
+</ul>
+
+<p>In our case we’ll use Global IP as we’re reserving an HTTP address.</p>
+
+<p>With the GCloud SDK run the command below which is going to create an IP of type global.</p>
+
+<pre><code class="language-ssh">gcloud compute addresses create bobba-api-ip --global
+</code></pre>
+
+<p>Now check that your IP has been created with the command</p>
+
+<pre><code class="language-ssh">gcloud compute addresses describe bobba-api-ip --global
+</code></pre>
+
+<p>You should get a result like below</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">address</span><span class="pi">:</span> <span class="s">&lt;ip&gt;</span>
+<span class="na">creationTimestamp</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2019-02-21T02:21:45.465-08:00'</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s1">'</span><span class="s">'</span>
+<span class="na">id</span><span class="pi">:</span> <span class="s1">'</span><span class="s">ID'</span>
+<span class="na">ipVersion</span><span class="pi">:</span> <span class="s">IPV4</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">compute#address</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">bobba-api-ip</span>
+<span class="na">networkTier</span><span class="pi">:</span> <span class="s">PREMIUM</span>
+<span class="na">selfLink</span><span class="pi">:</span> <span class="s">https://www.googleapis.com/compute/v1/projects/&lt;project_name&gt;/global/addresses/bobba-api-ip</span>
+<span class="na">status</span><span class="pi">:</span> <span class="s">&lt;status&gt;</span>
+<span class="na">users</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">https://www.googleapis.com/compute/v1/projects/&lt;project_name&gt;/global/forwardingRules/k8s-fw-default-bobba-api-ingress--c37fc980ac025b96</span>
+</code></pre></div></div>
+
+<p>All right we have our IP Address let’s move on and create our Ingress service</p>
+
+<h2 id="ingress-configuration-️">Ingress configuration ⚒️</h2>
+
+<p>Like all kubernetes configuration creating an Ingress configuration is straightforward. Below is the configuration file that is location of the file on the project <code class="highlighter-rouge">gcp/ingress/balancing.yml</code>. Let’s describe it</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
+<span class="c1"># Type of services</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Ingress</span>
+<span class="c1"># Meta data such as name</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">bobba-api-ingress</span>
+  <span class="c1"># Here we're defining the static IP to use</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="c1"># Hey it's the name of our ip address that we created earlier</span>
+    <span class="s">kubernetes.io/ingress.global-static-ip-name</span><span class="pi">:</span> <span class="s">bobba-api-ip</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">rules</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">http</span><span class="pi">:</span>
+        <span class="na">paths</span><span class="pi">:</span>
+        <span class="c1"># Rule to define which service should we target</span>
+        <span class="c1"># You can add multiple services to target</span>
+        <span class="pi">-</span> <span class="na">path</span><span class="pi">:</span> <span class="s">/*</span>
+          <span class="na">backend</span><span class="pi">:</span>
+            <span class="na">serviceName</span><span class="pi">:</span> <span class="s">bobba-api</span>
+            <span class="c1"># Expose port by the service. E.g if port: 80 in service then use 80 for servicePort</span>
+            <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+</code></pre></div></div>
+
+<p>Now that we have our configuration we can deploy our ingress configuration to GCP by running this command below:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create <span class="nt">-f</span> gcp/ingress/balancing.yml
+</code></pre></div></div>
+
+<p>You can then check your ingress by running the command</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl describe ingress
+</code></pre></div></div>
+
+<blockquote>
+  <p>Now it’s going to take a bit of time in order for the configuration to be created and spread. Now, take a break, take a frappuccino, bubble tea, watch some stuff on Netflix or just go outside it might be sunny. 🌞</p>
+</blockquote>
+
+<p>Once you did all of that you should be able to use the Static IP for targeting the API. E.g</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl &lt;IP&gt;
+
+<span class="c"># you should get a response like below</span>
+Hello bubble tea server <span class="o">!!</span>
+</code></pre></div></div>
+
+<h3 id="save-your-address-somewhere-well-reuse-it-for-building-the-front-image">Save your address somewhere we’ll reuse it for building the front image</h3>
+
+<h4 id="now-lets-move-on-and-create-our-front-image">Now let’s move on and create our <a href="/gcp/front.html">front image</a></h4>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 kubernetes-docker-lab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

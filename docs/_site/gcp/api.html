@@ -1,0 +1,372 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Create our docker image for the API 🏮 - kubernetes-docker-lab</title>
+<meta name="description" content="Learning how to deploy a web app from Docker to Kubernetes to GCloud">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="kubernetes-docker-lab">
+<meta property="og:title" content="Create our docker image for the API 🏮">
+<meta property="og:url" content="http://localhost:4000/gcp/api.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/gcp/api.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="kubernetes-docker-lab Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">kubernetes-docker-lab</a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Docker</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/intro" class="">Introduction to docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/example" class="">Example of deployment with Docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/swarm" class="">Docker swarm</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kubernetes knowledges</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/architecture" class="">Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/deployment" class="">Deployment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/services" class="">Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/storage" class="">Volumes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/cron" class="">Cron task</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deploying an app to minikube</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/minikube" class="">Minikube</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+    
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Create our docker image for the API 🏮">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Create our docker image for the API 🏮
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>As we did with Minikube. We also need to create a set of Docker images in order to make them deployable to GCP with one noticeable differences. These images will be deployed to GCP and thus, store into GCP. Let’s do it.</p>
+
+<p>First let’s deploy the API image</p>
+
+<h2 id="creating-our-api-image-️">Creating our API image ⚙️</h2>
+
+<p>The command that need to be run should looks like to what we’d saw when we deploy our API to minikube.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build <span class="nt">-t</span> sesame_api <span class="nt">-f</span> build/api/Dockerfile.release &lt;path to root folder&gt;/kubernetes-docker-lab
+</code></pre></div></div>
+
+<p>Now tag the images with a version so that we can define a special version to use for our Deployment.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker tag sesame_api gcr.io/&lt;projet_name&gt;/sesame_api:v1
+</code></pre></div></div>
+
+<p>Configure Docker to use GCloud as a credential helper by running this command:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcloud auth configure-docker
+</code></pre></div></div>
+
+<p>Finally push your image into GCR</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker push gcr.io/&lt;project_name&gt;/sesame_api:v1
+</code></pre></div></div>
+
+<h2 id="check-our-image">Check our image</h2>
+
+<p>Now let’s check that are being stored into GCP.</p>
+<ul>
+  <li>Go to the <strong>Container registry</strong> section</li>
+  <li>Click on the <strong>images</strong> options, you should see the images like the image below</li>
+</ul>
+
+<p align="center">
+  <img src="../img/gcp-api-image.png" alt="drawing" width="500" />
+</p>
+
+<h4 id="lets-move-on-and-configure-our-sql-database-deploying-our-application-">Let’s move on and configure our SQL database <a href="/gcp/sql.html">Deploying our application !</a></h4>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 kubernetes-docker-lab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

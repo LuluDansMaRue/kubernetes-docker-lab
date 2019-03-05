@@ -1,4 +1,10 @@
-## Deployment 🚀
+---
+layout: single
+classes: wide
+title: Deployment 🚀
+sidebar:
+  nav: "docs"
+---
 
 In this article we'll talk about the different type of deployment named Controller in Kubernetes
 

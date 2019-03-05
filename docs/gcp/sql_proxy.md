@@ -1,4 +1,10 @@
-## CloudSQL Proxy 🚧
+---
+layout: single
+classes: wide
+title: CloudSQL Proxy
+sidebar:
+  nav: "docs"
+---
 
 Previously in our [SQL article](sql.md) we saw how to implement a CloudSQL Proxy in our pods. Now it's time to see how and how does it work.
 

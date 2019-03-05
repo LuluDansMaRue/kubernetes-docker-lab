@@ -1,4 +1,10 @@
-## Front service 🐥
+---
+layout: single
+classes: wide
+title: Front service
+sidebar:
+  nav: "docs"
+---
 
 As describe earlier a service allow you to group a certain number of pods in order to make them accessible to in different level. In the case of our Front we want it to be reachable from the outside. As our front-end is the main entry point to our system we want it to be able to reach it with a simple url on the port 80.
 

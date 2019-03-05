@@ -1,0 +1,502 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Database 💾 - kubernetes-docker-lab</title>
+<meta name="description" content="Learning how to deploy a web app from Docker to Kubernetes to GCloud">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="kubernetes-docker-lab">
+<meta property="og:title" content="Database 💾">
+<meta property="og:url" content="http://localhost:4000/k8s/deployment/database.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/k8s/deployment/database.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="kubernetes-docker-lab Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">kubernetes-docker-lab</a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Docker</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/intro" class="">Introduction to docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/example" class="">Example of deployment with Docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/swarm" class="">Docker swarm</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kubernetes knowledges</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/architecture" class="">Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/deployment" class="">Deployment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/services" class="">Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/storage" class="">Volumes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/cron" class="">Cron task</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deploying an app to minikube</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/minikube" class="">Minikube</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+    
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Database 💾">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Database 💾
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>During our previous deployment we only saw <em>Stateless</em> deployment. However regarding our database it need to be <em>Stateful</em>. Indeed if anything happened to our MySQL pod we don’t want to loose the datas store on the database.
+Here come the usefulness of <code class="highlighter-rouge">StatefulSet</code>.</p>
+
+<p>Let’s take a look at how to deploy it</p>
+
+<h1 id="creating-the-docker-image-">Creating the Docker image 🐣</h1>
+
+<p>First we will create the MySQL image for minikube. Within this image we’re provide the <strong>environment</strong> variables &amp; the MySQL dump file. The Dockerfile is available in the <code class="highlighter-rouge">build/db</code> folder</p>
+
+<p>Create the image by using this command:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build <span class="nt">-t</span> sesame_db <span class="nt">-f</span> build/db/Dockerfile &lt;path to root folder&gt;/kubernetes-docker-lab
+</code></pre></div></div>
+
+<p>Once you build the image check that the image is availble with the command <code class="highlighter-rouge">docker images</code>
+Now let’s first create our service.</p>
+
+<h2 id="creating-our-services-">Creating our services 🐥</h2>
+
+<p>This is the service use by the database statefulset deployment. As always, the deployment file is available in the folder <code class="highlighter-rouge">k8s/service/db_service.yml</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">db</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="c1"># Disable the cluster ip</span>
+  <span class="na">clusterIP</span><span class="pi">:</span> <span class="s">None</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">db</span>
+    <span class="na">tier</span><span class="pi">:</span> <span class="s">database</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="c1"># Expose outside of the cluster</span>
+  <span class="pi">-</span> <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="c1"># port expose to the cluster</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="s">3306</span>
+    <span class="c1"># Port of the pods</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="s">3306</span>
+</code></pre></div></div>
+
+<p>As you can see it’s pretty much the same object as the other kind of service with one big difference. We’re disabling the ClusterIP.</p>
+
+<p>As per Kubernetes documentation for a <strong>StatefulSet</strong> type of deployment it’s recommended to disable it for the reason cited below:</p>
+
+<blockquote>
+  <p>Sometimes you don’t need or want load-balancing and a single service IP. In this case, you can create “headless” services by specifying “None” for the cluster IP (.spec.clusterIP).</p>
+</blockquote>
+
+<blockquote>
+  <p>This option allows developers to reduce coupling to the Kubernetes system by allowing them freedom to do discovery their own way. Applications can still use a self-registration pattern and adapters for other discovery systems could easily be built upon this API.</p>
+</blockquote>
+
+<blockquote>
+  <p>For such Services, a cluster IP is not allocated, kube-proxy does not handle these services, and there is no load balancing or proxying done by the platform for them. How DNS is automatically configured depends on whether the service has selectors defined.</p>
+</blockquote>
+
+<p>TL;DR: Disable the load balancing or the proxiyng for decoupling the usage of the StatefulSets. The service can still be accessible by the DNS depending on how you configure the selectors</p>
+
+<p>In our example we have defined selectors which make our service available to other pods by using the selector which act as a DNS</p>
+
+<h2 id="creating-our-statefulset-config-">Creating our StatefulSet config 🐥</h2>
+
+<p>As we said earlier <code class="highlighter-rouge">StatefulSet</code> will be the kind of deployment that we’re going to use.</p>
+
+<p>The deployment file is available in the <code class="highlighter-rouge">k8s/deployment/db_deployment.yml</code></p>
+
+<p>But let me explain the configuration file</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version of the APi</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="c1"># Defining the kind of deployment</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">StatefulSet</span>
+<span class="c1"># Set the metadata that'll be use by the services</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">db</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">db</span>
+    <span class="na">tier</span><span class="pi">:</span> <span class="s">database</span>
+<span class="c1"># Definition of what's going to contain our StatefulSet</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">db</span>
+      <span class="na">tier</span><span class="pi">:</span> <span class="s">database</span>
+  <span class="c1"># Important: We match the service that we defined earlier</span>
+  <span class="na">serviceName</span><span class="pi">:</span> <span class="s">db</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">db</span>
+        <span class="na">tier</span><span class="pi">:</span> <span class="s">database</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="c1"># Define our container</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">db</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">sesame_db:latest</span>
+        <span class="c1"># We want to enforce the usage of a local docker image</span>
+        <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">Never</span>
+        <span class="na">ports</span><span class="pi">:</span>
+          <span class="c1"># Exposing the MySQL port</span>
+          <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="s">3306</span>
+        <span class="c1"># Mount a volume name pv-sql</span>
+        <span class="na">volumeMounts</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">pv-sql</span>
+            <span class="c1"># We're mounting the volume to the folder where MySQL store the datas</span>
+            <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/var/lib/mysql/</span>
+  <span class="c1"># Define the volumes that will be use by the Pods</span>
+  <span class="na">volumeClaimTemplates</span><span class="pi">:</span>
+    <span class="c1"># Name of the volume</span>
+    <span class="pi">-</span> <span class="na">metadata</span><span class="pi">:</span> 
+        <span class="na">name</span><span class="pi">:</span> <span class="s">pv-sql</span>
+      <span class="na">spec</span><span class="pi">:</span>
+        <span class="c1"># See the access mode section</span>
+        <span class="na">accessModes</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+        <span class="na">resources</span><span class="pi">:</span>
+          <span class="c1"># Define the size</span>
+          <span class="na">requests</span><span class="pi">:</span>
+            <span class="na">storage</span><span class="pi">:</span> <span class="s">60Mi</span>
+</code></pre></div></div>
+
+<p>Our configuration file has 2 parts:</p>
+
+<ul>
+  <li>First, the configuration of the deployment &amp; the container</li>
+  <li>Definition of the stateful storage (optional)</li>
+</ul>
+
+<p>The first part is about defining the statefulset deployment and specifying the behavior of our pods. Secondly we’re configuring our PVC that we’re going to connect to our statefulset deployment.</p>
+
+<p>Once create each pod will be link to a single and unique volumes. In which in our case is only 1 pod so 1 volume.
+By defining this storage and by using the StatefulSet we’re confident that when we update, delete, restart our deployment the datas won’t be lost.</p>
+
+<p>The definition of the storage is straightforward. StatefulSet allow you to define a Volume through the <code class="highlighter-rouge">volumeClaimTemplates property</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">volumeClaimTemplates</span><span class="pi">:</span>
+  <span class="c1"># Name of the volume</span>
+  <span class="pi">-</span> <span class="na">metadata</span><span class="pi">:</span> 
+      <span class="na">name</span><span class="pi">:</span> <span class="s">pv-sql</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">accessModes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+      <span class="na">resources</span><span class="pi">:</span>
+        <span class="c1"># Define the size</span>
+        <span class="na">requests</span><span class="pi">:</span>
+          <span class="na">storage</span><span class="pi">:</span> <span class="s">60Mi</span>
+</code></pre></div></div>
+
+<p>Regarding the <strong>access modes</strong> it’s recommended to use the ReadWriteOnce mode.
+Later on you call your storage within the <code class="highlighter-rouge">volumeMounts</code> property of your container.</p>
+
+<p>Now when you are launching the deployment with the command</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create <span class="nt">-f</span> k8s/deployment/db_deployment.yml
+</code></pre></div></div>
+
+<p>You should be able to see your pods. And as you can see the pod don’t have a random ID but an ID with a precise order which is due to the StatefulSet behavior.</p>
+
+<p><img src="/img/db_pod.png" alt="db" /></p>
+
+<p>You should also be able to see that a volume exist by using the command:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pvc
+</code></pre></div></div>
+
+<p><img src="/img/db_pvc.png" alt="pvc" /></p>
+
+<h4 id="-et-voilà-you-have-a-database-which-is-running---go-back-to-the-example-page-in-order-to-see-how-to-access-to-the-project-front-end">🎉 Et voilà you have a database which is running ! 🎉 go back to the <a href="/k8s/deployment/example.html">example</a> page in order to see how to access to the project front-end</h4>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 kubernetes-docker-lab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

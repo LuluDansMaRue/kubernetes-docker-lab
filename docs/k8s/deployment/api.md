@@ -1,4 +1,10 @@
-## Deploying the API 🖥️
+---
+layout: single
+classes: wide
+title: Deploying the API 
+sidebar:
+  nav: "docs"
+---
 
 Like the front-end project. Deploying the API required you to have several files like so:
 

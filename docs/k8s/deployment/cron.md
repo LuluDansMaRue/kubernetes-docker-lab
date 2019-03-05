@@ -1,4 +1,10 @@
-## CronJob ⏱️
+---
+layout: single
+classes: wide
+title: CronJob
+sidebar:
+  nav: "docs"
+---
 
 In this section we will take a look at how to implement a CronJob in Kubernetes by using Minikube.
 

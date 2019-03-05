@@ -1,4 +1,10 @@
-## Multiple cluster with Ingress 📚
+---
+layout: single
+classes: wide
+title: Multiple cluster with Ingress
+sidebar:
+  nav: "docs"
+---
 
 During these tests we only did our tests with only **1 cluster**. However for an application with an important volume of traffic one cluster might not be suitable.
 

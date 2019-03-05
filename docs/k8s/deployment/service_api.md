@@ -1,4 +1,10 @@
-## Services API 🎒
+---
+layout: single
+classes: wide
+title: Services API
+sidebar:
+  nav: "docs"
+---
 
 Regarding our API (back-end) we're not required to deploy our API in a special port. This mean that we could use the ```NodePort``` withot any headache. Let's configured the service so that it will use the NodePort
 

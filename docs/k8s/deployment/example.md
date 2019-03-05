@@ -1,4 +1,10 @@
-## Deployment exercise ⚙️
+---
+layout: single
+classes: wide
+title: Deployment exercise ⚙️
+sidebar:
+  nav: "docs"
+---
 
 We saw many theorical information. Now it's time to apply these knowledges in a small project example. Today our example is a simple web app which need to be deploy with Kubernetes. Each layer of the app need to be deploy seperately within the same cluster due to Minikube's limitation.
 

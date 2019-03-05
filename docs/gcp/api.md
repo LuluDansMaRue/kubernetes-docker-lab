@@ -1,4 +1,10 @@
-## Create our docker image for the API 🏮
+---
+layout: single
+classes: wide
+title: Create our docker image for the API 🏮
+sidebar:
+  nav: "docs"
+---
 
 As we did with Minikube. We also need to create a set of Docker images in order to make them deployable to GCP with one noticeable differences. These images will be deployed to GCP and thus, store into GCP. Let's do it.
 

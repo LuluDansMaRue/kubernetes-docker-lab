@@ -1,0 +1,429 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Kubernetes Docker experiments 🎋 - kubernetes-docker-lab</title>
+<meta name="description" content="Learning how to deploy a web app from Docker to Kubernetes to GCloud">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="kubernetes-docker-lab">
+<meta property="og:title" content="Kubernetes Docker experiments 🎋">
+<meta property="og:url" content="http://localhost:4000/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="kubernetes-docker-lab Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--home wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">kubernetes-docker-lab</a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Docker</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/intro" class="">Introduction to docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/example" class="">Example of deployment with Docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/swarm" class="">Docker swarm</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kubernetes knowledges</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/architecture" class="">Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/deployment" class="">Deployment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/services" class="">Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/storage" class="">Volumes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/cron" class="">Cron task</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deploying an app to minikube</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/minikube" class="">Minikube</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+    
+  
+  </div>
+
+
+  <div class="archive">
+    
+      <h1 id="page-title" class="page__title">Kubernetes Docker experiments 🎋</h1>
+    
+    <h1 id="kubernetes-docker-experiments-">Kubernetes Docker experiments 🎋</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Welcome fan of Bubble tea.</p>
+
+<p>This project is for people who are curious and want to learn how to deploy an application from A to B to several environements such as:</p>
+
+<ul>
+  <li>Docker for your development environment</li>
+  <li>Minikube for emuling your Kubernetes production environment</li>
+  <li>Kubernetes for your production environment on GCloud</li>
+</ul>
+
+<p>Throughout this guide we’ll learn several thing which are describe in the table of contents below</p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ul>
+  <li><a href="/docker/intro.html">Introduction to Docker</a></li>
+  <li>
+    <ul>
+      <li><a href="/docker/example.html">Example of deployment with Docker</a></li>
+    </ul>
+  </li>
+  <li><a href="/k8s/swarm.html">A quick look at Docker Swarm</a></li>
+  <li><a href="/k8s/architecture.html">Architecture</a></li>
+  <li><a href="/k8s/deployment.html">Deployment</a></li>
+  <li><a href="/k8s/services.html">Service</a></li>
+  <li><a href="/k8s/storage.html">Persistent volume</a></li>
+  <li><a href="/k8s/cron.html">Cron task</a></li>
+  <li><a href="/k8s/minikube.html">Minikube</a></li>
+  <li><a href="/k8s/deployment/example.html">Example with Minikube</a></li>
+  <li>
+    <ul>
+      <li><a href="/k8s/deployment/front.html">Front deployment</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/k8s/deployment/api.html">API deployment</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/k8s/deployment/service_front.html">Service front deployment</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/k8s/deployment/service_api.html">Service API deployment</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/k8s/deployment/database.html">Database</a></li>
+    </ul>
+  </li>
+  <li><a href="/gcp/intro.html">Deploying on Google Cloud Platform</a></li>
+  <li>
+    <ul>
+      <li><a href="/gcp/api.html">Build the API docker image</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/gcp/sql.html">Configuring the SQL Database</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/gcp/deployment_api.html">Deploying the API</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/gcp/ingress.html">Configure an Ingress resources</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/gcp/front.html">Build the Front docker image</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/gcp/deployment_front.html">Deploy the front image</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/gcp/mci.html">Load balance multiple cluster</a></li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="/gcp/debug.html">Debugging</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="objectives-">Objectives ✅</h2>
+
+<p>At the end of this project you should be able to get a good grasp on Docker, Kubernetes and GCloud.</p>
+
+<p>Below are the objectives that we should have reach</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Be able to deploy an app on Docker
+- Understand the architecture of Kubernetes
+- Understand the difference between Kubernetes &amp; Docker Swarm
+- Know how to use minikube for local prototyping
+- Know how to deploy a web app from A to B with kubernetes within GCloud
+- Understand when &amp; how to scale a cluster on multiple pods &amp; on several timezone.
+- Be able to add an other service to an existing GCloud product (e.g: GCloud SQL) 
+- Be able to understand &amp; implement a deamon, service &amp; side-car (e.g: Cloud SQL Proxy)
+- Understand &amp; know how to deploy a load balancer
+- Deploy a load balancer for multiple cluster
+- Be able to know implement a monitoring process by using stackdriver &amp; grafana.
+- Create Cron task on GCloud 
+</code></pre></div></div>
+
+<h2 id="enjoy--">Enjoy ! 🎎</h2>
+
+
+<h3 class="archive__subtitle">Recent Posts</h3>
+
+
+
+
+
+
+  </div>
+</div>
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 kubernetes-docker-lab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

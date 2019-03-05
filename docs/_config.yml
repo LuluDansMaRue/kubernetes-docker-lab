@@ -1,1 +1,4 @@
-remote_theme: jekyll-text-theme
+remote_theme: mmistakes/minimal-mistakes
+plugins:
+  - jekyll-include-cache
+minimal_mistakes_skin: "contrast"

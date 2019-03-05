@@ -1,4 +1,10 @@
-## Deploying the front-end 🦅
+---
+layout: single
+classes: wide
+title: Deploying the front-end 🦅
+sidebar:
+  nav: "docs"
+---
 
 Deploying an application to Kubernetes required you to have at least those components
 

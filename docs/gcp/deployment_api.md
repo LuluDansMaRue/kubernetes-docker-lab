@@ -1,4 +1,10 @@
-## Deploying the API 🔮
+---
+layout: single
+classes: wide
+title: Deploying the API 🔮
+sidebar:
+  nav: "docs"
+---
 
 Before deploying the front we'll firstly deploy the API. Indeed we want to make sure that our API is working properly.
 

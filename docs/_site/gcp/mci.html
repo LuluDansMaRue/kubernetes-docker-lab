@@ -1,0 +1,558 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Multiple cluster with Ingress - kubernetes-docker-lab</title>
+<meta name="description" content="Learning how to deploy a web app from Docker to Kubernetes to GCloud">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="kubernetes-docker-lab">
+<meta property="og:title" content="Multiple cluster with Ingress">
+<meta property="og:url" content="http://localhost:4000/gcp/mci.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/gcp/mci.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="kubernetes-docker-lab Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">kubernetes-docker-lab</a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Docker</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/intro" class="">Introduction to docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docker/example" class="">Example of deployment with Docker</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/swarm" class="">Docker swarm</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kubernetes knowledges</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/architecture" class="">Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/deployment" class="">Deployment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/services" class="">Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/storage" class="">Volumes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/cron" class="">Cron task</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deploying an app to minikube</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/k8s/minikube" class="">Minikube</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+    
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Multiple cluster with Ingress">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Multiple cluster with Ingress
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>During these tests we only did our tests with only <strong>1 cluster</strong>. However for an application with an important volume of traffic one cluster might not be suitable.</p>
+
+<p>As an example your application is popular in the US and in East asia. Therefore it might be better to create an other cluster in one of those region for better load repartition. This is what we’re going to do today.</p>
+
+<h2 id="context">Context</h2>
+
+<p>For now our application is only deployed in the us with our cluster located in <code class="highlighter-rouge">us-central1-a</code>. However as said earlier our app is really popular in Taiwan therefore we’ll create an other cluster to handle that load.</p>
+
+<p>Combine with a LoadBalancer the load balancer will decide how to distribute the traffic.</p>
+
+<h2 id="creating-an-other-cluster-">Creating an other cluster 💾</h2>
+
+<p>Let’s create an other cluster. This time we’ll choose a cluster based in the region <code class="highlighter-rouge">asia-east1-c</code> which is based in Taiwan. For our cluster set the same settings as we did with the us cluster.</p>
+
+<h2 id="configuration-">Configuration 🔧</h2>
+
+<p>First let’s switch to the context of our new cluster. Run these commands below</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># This will add the config of the new cluster to kubectl</span>
+gcloud container clusters get-credentials &lt;cluster_name&gt; <span class="nt">--zone</span> asia-east1-c <span class="nt">--project</span> &lt;project_id&gt;
+
+<span class="c"># Get the context</span>
+kubectl config get-contexts
+
+<span class="c"># Choose the context where you find your cluster with an asia-east1-c name and run</span>
+kubectl config use-context &lt;cluster&gt;
+</code></pre></div></div>
+
+<p>Before re-deploying we need to re-crete the google cloud credentials need by our database. I’m suggest you to refer to the <a href="/gcp/sql.html#creating-our-mysql-database-">create cloud proxy sql credentials section</a></p>
+
+<p>Now that we have recreate our credentials we can redeploy our API by running this command</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create <span class="nt">-f</span> gcp/deployment/api.yml
+</code></pre></div></div>
+
+<p>If everything goes fine we can move to Kubemci</p>
+
+<h2 id="kubemci-️">Kubemci ⏹️</h2>
+
+<p>Kubemci (Kubernetes multicluster ingress) is a <strong>Beta</strong> CLI tool that help us to configure a load balancer which is using multiple clusters.</p>
+
+<p>This is a beta tool and doesn’t guarantee the fact that the API will change nor if the API is stable.</p>
+
+<p>Firstable you’ll need to download Kubemci. Download Kubemci from <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress?hl=en#download_the_kubemci_command-line_tool">Download Kubemci</a></p>
+
+<p>Now that we have download our Kubemci CLI app we need to make it executable</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod +x ./kubemci
+</code></pre></div></div>
+
+<p>Ok now let’s check the requirements needed to create our multicluster LoadBalancer</p>
+
+<blockquote>
+  <p>For each Service you are planning to use in the multi-cluster ingress, it must be configured the same across all of the clusters.</p>
+</blockquote>
+
+<p>As per <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress?hl=en#creating_a_multi-cluster_ingress">Google documentations</a> we need to ensure that our service respect these rules</p>
+
+<ul>
+  <li>Same name in every cluster</li>
+  <li>Same namespace (default in our case)</li>
+  <li>Service of type <code class="highlighter-rouge">NodePort</code></li>
+  <li>Use <strong>same NodePort</strong> in our case <code class="highlighter-rouge">31320</code></li>
+</ul>
+
+<p>As we didn’t touch our service configuration file we’re already respecting the rules ! How great we are bubble-tea lover !</p>
+
+<h2 id="get-the-credentials-">Get the credentials 💳</h2>
+
+<p>In order for Kubemci to work it need to have a <strong>credentials of our cluster</strong>.</p>
+
+<p>In order to do that create a folder at the root of the project which we’ll be calling <code class="highlighter-rouge">mci</code>.</p>
+
+<p>Now let’s get the credentials for our american cluster by running this command</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">KUBECONFIG</span><span class="o">=</span>mci/mcikubeconfig gcloud container clusters get-credentials <span class="nt">--zone</span><span class="o">=</span>us-central1-a &lt;cluster_name&gt;
+</code></pre></div></div>
+
+<p>Let’s also do that command for our asian cluster</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">KUBECONFIG</span><span class="o">=</span>mci/mcikubeconfig gcloud container clusters get-credentials <span class="nt">--zone</span><span class="o">=</span>asia-east1-c &lt;cluster_name&gt;
+</code></pre></div></div>
+
+<p>If everything go right you should have a file name <code class="highlighter-rouge">mcikubeconfig</code> in the <code class="highlighter-rouge">mci</code> folder which should look like that</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">clusters</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">cluster</span><span class="pi">:</span>
+    <span class="na">certificate-authority-data</span><span class="pi">:</span> <span class="s">&lt;cert&gt;</span>
+    <span class="na">server</span><span class="pi">:</span> <span class="s">&lt;ip&gt;</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+<span class="pi">-</span> <span class="na">cluster</span><span class="pi">:</span>
+    <span class="na">certificate-authority-data</span><span class="pi">:</span> <span class="s">&lt;cert&gt;</span>
+    <span class="na">server</span><span class="pi">:</span> <span class="s">&lt;ip&gt;</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+<span class="na">contexts</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">context</span><span class="pi">:</span>
+    <span class="na">cluster</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+<span class="pi">-</span> <span class="na">context</span><span class="pi">:</span>
+    <span class="na">cluster</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+<span class="na">current-context</span><span class="pi">:</span> <span class="s">&lt;cluster name either asia or us&gt;</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Config</span>
+<span class="na">preferences</span><span class="pi">:</span> <span class="pi">{}</span>
+<span class="na">users</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;a name&gt;</span>
+  <span class="na">user</span><span class="pi">:</span>
+    <span class="na">auth-provider</span><span class="pi">:</span>
+      <span class="na">config</span><span class="pi">:</span>
+        <span class="na">access-token</span><span class="pi">:</span> <span class="s">token</span>
+        <span class="na">cmd-args</span><span class="pi">:</span> <span class="s">config config-helper --format=json</span>
+        <span class="na">cmd-path</span><span class="pi">:</span> <span class="s">&lt;path to gcloud bin&gt;</span>
+        <span class="na">expiry</span><span class="pi">:</span> <span class="s">2019-02-27T16:41:16Z</span>
+        <span class="na">expiry-key</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{.credential.token_expiry}'</span>
+        <span class="na">token-key</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{.credential.access_token}'</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">gcp</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;a name&gt;</span>
+  <span class="na">user</span><span class="pi">:</span>
+    <span class="na">auth-provider</span><span class="pi">:</span>
+      <span class="na">config</span><span class="pi">:</span>
+        <span class="na">access-token</span><span class="pi">:</span> <span class="s">token</span>
+        <span class="na">cmd-args</span><span class="pi">:</span> <span class="s">config config-helper --format=json</span>
+        <span class="na">cmd-path</span><span class="pi">:</span> <span class="s">&lt;path to gcloud bin&gt;</span>
+        <span class="na">expiry</span><span class="pi">:</span> <span class="s">2019-02-27T16:41:16Z</span>
+        <span class="na">expiry-key</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{.credential.token_expiry}'</span>
+        <span class="na">token-key</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{.credential.access_token}'</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">gcp</span>
+</code></pre></div></div>
+
+<p>Ok now let’s move on to Ingress</p>
+
+<h2 id="configure-our-ingress">Configure our Ingress</h2>
+
+<p>Configuring an Ingress resources required a static IP. Good thing to know we have already generated our IP for our previous ingress.</p>
+
+<p>Firstable delete our current ingress on the first cluster</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl config use-context &lt;us_cluster&gt;
+</code></pre></div></div>
+
+<p>Then run</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl delete ingress bobba-api-ingress
+</code></pre></div></div>
+
+<p>Your ingress should have been deleted (go to the LoadBalancer section of GCP for further checks). Ok we’re fully ready for configuring our new ingress. 
+The new Ingress configuration won’t differ that much. It’s available in the folder <code class="highlighter-rouge">gcp/ingress/mci_balancing.yml</code>. Let’s describe it</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Ingress</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">bobba-api-ingress</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="c1"># Reference to our static IP address</span>
+    <span class="s">kubernetes.io/ingress.global-static-ip-name</span><span class="pi">:</span> <span class="s">bobba-api-ip</span>
+    <span class="c1"># Enable the multi cluster</span>
+    <span class="s">kubernetes.io/ingress.class</span><span class="pi">:</span> <span class="s">gce-multi-cluster</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">backend</span><span class="pi">:</span>
+    <span class="c1"># Name of our api service</span>
+    <span class="na">serviceName</span><span class="pi">:</span> <span class="s">bobba-api</span>
+    <span class="c1"># Port to expose by the LoadBalancer</span>
+    <span class="na">servicePort</span><span class="pi">:</span> <span class="s">80</span>
+</code></pre></div></div>
+
+<p>As you can see the configuration doesn’t differ that much from the original Ingress LoadBalancer there’s only a slight change. Ok, let’s deploy our Ingress ressources</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./kubemci create &lt;name of ingress / bobba-api-ingress&gt; <span class="nt">--ingress</span><span class="o">=</span>kubernetes-docker-lab/gcp/ingress/mci_balancing.yml <span class="nt">--gcp-project</span><span class="o">=</span>&lt;project_id&gt; <span class="nt">--kubeconfig</span><span class="o">=</span>kubernetes-docker-lab/mci/mcikubeconfig
+</code></pre></div></div>
+
+<p>Once you run this command you’ll see a lot of log with a final Log with a final log which should be <code class="highlighter-rouge">Success.</code>.</p>
+
+<p>Now let’s check our Ingress with this command</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./kubemci list <span class="nt">--gcp-project</span><span class="o">=</span>&lt;project_id&gt;
+</code></pre></div></div>
+
+<p>You should have an output like so</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME                IP           CLUSTERS
+bobba-api-ingress   &lt;staticIP&gt;   &lt;cluster asia or us&gt;, &lt;cluster asia or us&gt;, 
+</code></pre></div></div>
+
+<h2 id="healthcheck-️">Healthcheck ✔️</h2>
+
+<p>We have configure our Ingress ressources and it’s working properly. However we need to do one more thing. Configure the healthcheck of our Ingress. Indeed for the moment our Ingress will check the services by default should check the health of our pods every <code class="highlighter-rouge">30 seconds</code> with a delay of <code class="highlighter-rouge">30 seconds</code> with a limit of trial of <code class="highlighter-rouge">3 times</code>. Which mean that after 3 attempt the services will be considered as unhealthy.</p>
+
+<p>In order to accelerate this (because our app is highly use). We need to set a lower healthcheck timeout.</p>
+
+<p>Go to the <code class="highlighter-rouge">Compute engines &gt; Healthcheck</code> section and select our Ingress ressources <code class="highlighter-rouge">mci-...-bobba-api-ingress</code>. Your page should look like this</p>
+
+<p align="center">
+  <img src="../img/mci-first.png" alt="drawing" width="500" />
+</p>
+
+<p>Now let’s edit it. Click on the button <code class="highlighter-rouge">Edit</code> and update the <code class="highlighter-rouge">Health criteria</code> with the following parameters:</p>
+
+<ul>
+  <li>Check interval: 10 (every 10 seconds a health check is send)</li>
+  <li>Timeout interval: 10 (wait 10s before k8s consider the request as a failure)</li>
+  <li>Unhealthy thresold: 1 (Maximum number of failure before considering the instance unhealthy)</li>
+</ul>
+
+<p>Once you finish click on the <code class="highlighter-rouge">Save</code> button. You should get an output like so</p>
+
+<p align="center">
+  <img src="../img/mci-second.png" alt="drawing" width="200" />
+</p>
+
+<h4 id="now-when-your-user-will-visit-your-web-app-from-asia-the-loadbalancer-will-redirect-the-traffic-to-the-asia-east1-c-when-the-service-will-be-unaccessible-the-loadbalancer-will-re-route-the-request-to-the-other-cluster">Now when your user will visit your web app from asia the LoadBalancer will redirect the traffic to the asia-east1-c. When the service will be unaccessible the Loadbalancer will re-route the request to the other cluster.</h4>
+
+<p>Et voilà our web app could handle traffic coming from asia and the us ! so nice :).</p>
+
+<blockquote>
+  <p>Note: This feature is also supported by Regional Cluster.</p>
+</blockquote>
+
+<h2 id="resources">Resources</h2>
+
+<p><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress?hl=en">Google documentation</a></p>
+
+<p><a href="https://thenewstack.io/deploy-a-multicluster-ingress-on-google-kubernetes-engine/">Configuring MCI the new stack</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 kubernetes-docker-lab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

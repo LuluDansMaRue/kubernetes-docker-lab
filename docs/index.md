@@ -1,3 +1,9 @@
+---
+classes: wide
+sidebar:
+  nav: "docs"
+---
+
 # Kubernetes Docker experiments 🎋
 
 ## Introduction

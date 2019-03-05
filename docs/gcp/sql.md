@@ -1,4 +1,10 @@
-## MySQL on GCP 
+---
+layout: single
+classes: wide
+title: MySQL on GCP 
+sidebar:
+  nav: "docs"
+---
 
 In today's article we're going to set up a MySQL database which is going to be use by our pods's API.
 

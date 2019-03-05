@@ -1,4 +1,10 @@
-## A small word regarding Docker swarm
+---
+layout: single
+classes: wide
+title: A small paragraph regarding Docker swarm
+sidebar:
+  nav: "docs"
+---
 
 Previously we made our deployment with docker-compose locally. Regarding the production environment Docker offer the Swarm mode which allow you to orchestrate container just like Kubernetes & Mesos. However Swarm is lesser use than Kubernetes.
 
