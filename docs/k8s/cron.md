@@ -1,8 +1,14 @@
-# CronJob ⏱️
+---
+layout: single
+classes: wide
+title: CronJob
+sidebar:
+  nav: "docs"
+---
 
 In this article we will take a look at the CronJob in Kubernetes.
 
-# A special type of Job
+## A special type of Job[¶](#a-special-type-of-job)
 
 In the OS world a CronJob is a task that is command by the CronTab a small process which allow you to define script that need to be executed throughout the time.
 
@@ -10,7 +16,7 @@ Within Kubernetes CronJob is a special kind of Job. Indeed Job are pods that are
 
 When it come to the CronJob the behavior is the same with a small difference which is that this job will be re executed more through the time.
 
-# Example
+## Example[¶](#example)
 
 Within our example deployment we're giving an example into how to deploy a CronJob with kubernetes by using MiniKube an GCP. take a look
 

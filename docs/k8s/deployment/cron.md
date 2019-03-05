@@ -1,16 +1,22 @@
-## CronJob ⏱️
+---
+layout: single
+classes: wide
+title: CronJob
+sidebar:
+  nav: "docs"
+---
 
 In this section we will take a look at how to implement a CronJob in Kubernetes by using Minikube.
 
-## Configuration
+## Configuration[¶](#configurations)
 
 In order to do this deployment you'll need to have minikube installed as well as having Docker.
 
-## Images 💿
+## Images[¶](#images)
 
 For these deployment examples we'll use an image which is located in the **build/cron** folder. I suggested you to take a look at it. It's based on the golang image.
 
-## Steps
+## Steps[¶](#steps)
 
 ### Creating the docker image
 
@@ -107,7 +113,7 @@ spec:
 
 ```
 
-## Running the CRON
+## Running the CRON[¶](#running-the-cron)
 
 First we're going to create the service within our cluster by running this command
 
@@ -133,7 +139,7 @@ Once you see a new job appaear on the list this mean that a **new pod** has been
 kubectl get pods
 ```
 
-## Debugging the CronJob
+## Debugging the CronJob[¶](#debugging-the-cronjob)
 
 Sometimes it can happened that you missly configured the cronjob or that something went wrong.
 

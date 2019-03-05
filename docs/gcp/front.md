@@ -1,8 +1,14 @@
-## Create our docker image for the Front 🖼️
+---
+layout: single
+classes: wide
+title: Create our docker image for the Front project
+sidebar:
+  nav: "docs"
+---
 
 This is the same process as for the API image
 
-## Creating our Front image ⚒️
+## Creating our Front image[¶](#creating-our-front-image)
 
 Before building our Front image we're going to update the file ```request.js```
 
@@ -26,7 +32,7 @@ Finally push your image into GCR
 docker push gcr.io/<project_name>/sesame_front:v2
 ```
 
-## Check our image
+## Check our image[¶](#check-our-image)
 
 Now let's check that are being stored into GCP.
 - Go to the **Container registry** section

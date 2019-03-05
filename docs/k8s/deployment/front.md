@@ -1,4 +1,10 @@
-## Deploying the front-end 🦅
+---
+layout: single
+classes: wide
+title: Deploying the front-end 🦅
+sidebar:
+  nav: "docs"
+---
 
 Deploying an application to Kubernetes required you to have at least those components
 
@@ -7,7 +13,7 @@ Deploying an application to Kubernetes required you to have at least those compo
 
 We'll take a look at these components steps by steps
 
-## Building our Docker image 🐣
+## Building our Docker image[¶](#building-our-docker-image)
 
 As said earlier we're using the Docker runtime environment for our small deployment example. In order for minikube to be able to use the image. We will build a Docker image for the front-end.
 
@@ -31,7 +37,7 @@ Once the image is build run the command ```docker images```. and you should see 
   <img src="../../img/sesame_front_img.png" />
 </p>
 
-## Create the deployment configuration 🐥
+## Create the deployment configuration[¶](#create-the-deployment-configuration)
 
 Our front-end application is a stateless app. Indeed we're storing nothing on our pods. Therefore the most suitable type of deployment is the ```Deployment``` type. 
 
@@ -78,7 +84,7 @@ spec:
               - start.sh
 ```
 
-## Deploying our front-end
+## Deploying our front-end[¶](#deploying-our-front-end)
 
 Now that you understand what's inside a deployment configuration file. Let's deploy our app. 🐤
 
@@ -107,7 +113,7 @@ Et voilà you made your first deployment ! 😃
 
 #### Now let's deploy our [API](api.md)
 
-## Error 🚫
+## Error[¶](#error)
 
 If you have any error you can check the event status of your pods by running this command.
 
@@ -126,6 +132,6 @@ kubectl logs -p <pod_name>
 kubectl logs <pod_name>
 ```
 
-## Resources
+## Resources[¶](#resources)
 
 [Labels, Selector, Metadata explained](https://medium.com/@zwhitchcox/matchlabels-labels-and-selectors-explained-in-detail-for-beginners-d421bdd05362)

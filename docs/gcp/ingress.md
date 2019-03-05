@@ -1,4 +1,10 @@
-## Ingress 🧠
+---
+layout: single
+classes: wide
+title: Ingress 🧠
+sidebar:
+  nav: "docs"
+---
 
 As we saw earlier we'd create our API service based on the NodePort type. However it's not suitable to use each Node's IP as they are ephemeral. In order to resolve this issue we could use an API Object that will manage the external access of the services used by a Cluster.
 
@@ -10,7 +16,7 @@ When generating a default Ingress configuration. Ingress come with a ```ephemera
 
 However with GCP we have the possibility to create **Static IP** which is free if you used it. Let's firstable generate our Static IP
 
-## Generate static IP ⚡
+## Generate static IP[¶](#generate-static-ip)
 
 Before allocating the static IP with Google we need to choose which kind of IP we need. Within GCP there are **2 types** of IP:
 
@@ -50,7 +56,7 @@ users:
 
 All right we have our IP Address let's move on and create our Ingress service
 
-## Ingress configuration ⚒️
+## Ingress configuration[¶](#ingress-configuration)
 
 Like all kubernetes configuration creating an Ingress configuration is straightforward. Below is the configuration file that is location of the file on the project ```gcp/ingress/balancing.yml```. Let's describe it
 

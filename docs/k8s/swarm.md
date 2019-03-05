@@ -1,4 +1,10 @@
-## A small word regarding Docker swarm
+---
+layout: single
+classes: wide
+title: A small paragraph regarding Docker swarm
+sidebar:
+  nav: "docs"
+---
 
 Previously we made our deployment with docker-compose locally. Regarding the production environment Docker offer the Swarm mode which allow you to orchestrate container just like Kubernetes & Mesos. However Swarm is lesser use than Kubernetes.
 
@@ -8,7 +14,7 @@ Previously we made our deployment with docker-compose locally. Regarding the pro
 
 Nevertheless it's interesting to understand the usage & the difference between Docker Swarm & Kubernetes
 
-## A brief look of Docker swarm 🐳
+## A brief look of Docker swarm[¶](#a-brief-look-of-docker-swarm)
 
 Docker Swarm is a container orchestrator that is ship by default with Docker. It aim to simplify the management of multiple containers just like what Kubernetes does.
 
@@ -33,7 +39,7 @@ TL;DR:
 - Seemless integration with already known config e.g compose
 - Ship out of the box with Docker
 
-## Why using Kubernetes for this guide
+## Why using Kubernetes for this guide[¶](#why-using-kubernetes-for-this-guide)
 
 As you can see on the graph. Kubernetes is much more popular than Docker Swarm. 
 
@@ -41,7 +47,7 @@ Futhermore, Docker Swarm hasn't been use to a lot of production environment with
 
 While this learning guide will use Kubernetes for deploying our app into a so-called production environment. Docker swarm could be perfectly use for fast and small deployment.
 
-## Resources
+## Resources[¶](#resources)
 
 [Docker swarm & Kubernetes comparaison](https://platform9.com/blog/kubernetes-docker-swarm-compared/)
 

@@ -1,4 +1,10 @@
-## Front service 🐥
+---
+layout: single
+classes: wide
+title: Front service
+sidebar:
+  nav: "docs"
+---
 
 As describe earlier a service allow you to group a certain number of pods in order to make them accessible to in different level. In the case of our Front we want it to be reachable from the outside. As our front-end is the main entry point to our system we want it to be able to reach it with a simple url on the port 80.
 
@@ -13,7 +19,7 @@ In our case as minikube provide a LoadBalancer out of the box we could use the L
 
 In order to create our *service* we only need one thing. A Yaml configuration file which is describe below:
 
-## Configuration of the front service ⚒️
+## Configuration of the front service[¶](#configuration-of-the-front-services)
 
 As always we're going to describe how the ```yaml``` file is. The original file is available in the ```k8s/services/front_service.yml``` folder
 

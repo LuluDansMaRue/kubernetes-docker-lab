@@ -1,10 +1,16 @@
-## Create our docker image for the API 🏮
+---
+layout: single
+classes: wide
+title: Create our docker image for the API 🏮
+sidebar:
+  nav: "docs"
+---
 
 As we did with Minikube. We also need to create a set of Docker images in order to make them deployable to GCP with one noticeable differences. These images will be deployed to GCP and thus, store into GCP. Let's do it.
 
 First let's deploy the API image
 
-## Creating our API image ⚙️
+## Creating our API image[¶](#creating-our-api-image)
 
 The command that need to be run should looks like to what we'd saw when we deploy our API to minikube.
 
@@ -30,7 +36,7 @@ Finally push your image into GCR
 docker push gcr.io/<project_name>/sesame_api:v1
 ```
 
-## Check our image
+## Check our image[¶](#check-our-image)
 
 Now let's check that are being stored into GCP.
 - Go to the **Container registry** section
