@@ -66,4 +66,8 @@ Below are the objectives that we should have reach
 - Create Cron task on GCloud 
 ```
 
+## Go deeper
+
+If you wish to go deeper into learning Kubernetes I recommend you to take a look at this website [Kubernetes by example](http://kubernetesbyexample.com/)
+
 ## Enjoy ! 🎎
