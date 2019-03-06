@@ -59,15 +59,3 @@ func GetRandInt(min int, max int) int {
 	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(max-min) + min
 }
-
-// SetLogOutput set the log file output
-// See this stack: https://stackoverflow.com/questions/19965795/go-golang-write-log-to-file
-// Return * os.File
-func SetLogOutput() *os.File {
-	f, err := os.OpenFile(logpath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		panic(err)
-	}
-
-	return f
-}

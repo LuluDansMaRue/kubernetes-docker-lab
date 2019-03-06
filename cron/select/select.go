@@ -12,11 +12,6 @@ import (
 
 // Main function
 func main() {
-	// Set the log output to a file
-	f := utils.SetLogOutput()
-	defer f.Close()
-	log.SetOutput(f)
-
 	rand := utils.GetRandInt(10, 30)
 	idx := 0
 

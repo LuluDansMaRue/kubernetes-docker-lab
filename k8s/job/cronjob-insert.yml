@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: insertbobba
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: insertbobba
+            image: sesame_minikube
+            imagePullPolicy: Never
+            args:
+            - go
+            - run
+            - insert/insert.go
+          restartPolicy: OnFailure
