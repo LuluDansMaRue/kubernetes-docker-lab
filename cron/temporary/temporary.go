@@ -1,4 +1,3 @@
-// Temporary.go is a CRON task
 // This cron file will create a random number of Temporary table
 // The goal is to see if there's any significient by a monitoring tool
 package main
@@ -8,16 +7,11 @@ import (
 	"strconv"
 	"sync"
 
-	"../utils"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab-cron/utils"
 )
 
 // Main function
 func main() {
-	// Set the log output
-	f := utils.SetLogOutput()
-	defer f.Close()
-	log.SetOutput(f)
-
 	// Choose the number of iteration that this teste will run
 	rand := utils.GetRandInt(1, 30)
 	idx := 0

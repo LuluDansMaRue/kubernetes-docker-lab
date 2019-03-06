@@ -1,4 +1,3 @@
-// Select.go CRON task
 // This cron file will try to do a random select on the database
 // The goal is to see if there's any pick on the database monitoring system
 package main
@@ -8,16 +7,11 @@ import (
 	"strconv"
 	"sync"
 
-	"../utils"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab-cron/utils"
 )
 
 // Main function
 func main() {
-	// Set the log output to a file
-	f := utils.SetLogOutput()
-	defer f.Close()
-	log.SetOutput(f)
-
 	rand := utils.GetRandInt(10, 30)
 	idx := 0
 
