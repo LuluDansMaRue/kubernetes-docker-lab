@@ -20,6 +20,8 @@ docs:
         url:    /k8s/storage
       - title:  Cron task
         url:    /k8s/cron
+      - title:  Horizontal pod autoscaler
+        url:    /k8s/hscaler
 
   - title:      Deploying an app to minikube 
     children:
