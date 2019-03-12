@@ -42,6 +42,7 @@ Throughout this guide we'll learn several thing which are describe in the table 
 * * [Build the Front docker image](gcp/front.md)
 * * [Deploy the front image](gcp/deployment_front.md)
 * * [Load balance multiple cluster](gcp/mci.md)
+* * [Horizontal autoscaler](k8s/hscaler.md)
 * * [Debugging](gcp/debug.md)
 
 
