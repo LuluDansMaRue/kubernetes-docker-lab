@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: {{ .Values.service.name }}
   labels:
-    helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
+    helm.sh/chart: {{ include "bobba-helm-chart.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
@@ -17,6 +17,6 @@ spec:
       nodePort: {{ .Values.service.nodePort }}
       {{- end }}
   selector:
-    helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
+    helm.sh/chart: {{ include "bobba-helm-chart.chart" . }}
     app: {{ .Values.deployment.app }}
     tier: {{ .Values.deployment.tier }}
