@@ -1,0 +1,32 @@
+# Deployment configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  labels:
+    helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
+    app: {{ .Values.deployment.name }}
+    tier: {{ .Values.deployment.tier }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
+      app: {{ .Values.deployment.name }}
+      tier: {{ .Values.deployment.tier }}
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
+        app: {{ .Values.deployment.name }}
+        tier: {{ .Values.deployment.tier }}
+    spec:
+      containers:
+        - name: {{ .Values.deployment.name }}
+          env: {{- include "bobba-api-chart.env" . | nindent 4 }}
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.deployment.port }}
+              protocol: TCP

@@ -1,0 +1,22 @@
+# Service configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+  labels:
+    helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      nodePort: {{ if and .Values.service.nodePort }} {{ .Values.service.nodePort }} {{ end }}
+    selector:
+      helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
+      app: {{ .Values.deployment.app }}
+      tier: {{ .Values.deployment.tier }}
+
+  
