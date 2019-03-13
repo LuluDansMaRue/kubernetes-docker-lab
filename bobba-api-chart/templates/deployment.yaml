@@ -8,7 +8,7 @@ metadata:
     app: {{ .Values.deployment.name }}
     tier: {{ .Values.deployment.tier }}
 spec:
-  replicas: {{ .Values.deployment.replicaCount }}
+  replicas: {{ .Values.deployment.replicasCount }}
   selector:
     matchLabels:
       helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
@@ -23,9 +23,11 @@ spec:
     spec:
       containers:
         - name: {{ .Values.deployment.name }}
-          env: {{- include "bobba-api-chart.env" . | nindent 4 }}
-          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
-          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          {{- if .Values.env }}
+            env: {{- include "bobba-api-chart.environment" . | nindent 4 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.deployment.port }}

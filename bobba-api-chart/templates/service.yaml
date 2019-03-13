@@ -13,12 +13,10 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      {{- if and .Values.service.nodePort }}
+      {{- if .Values.service.nodePort }}
       nodePort: {{ .Values.service.nodePort }}
       {{- end }}
-    selector:
-      helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
-      app: {{ .Values.deployment.app }}
-      tier: {{ .Values.deployment.tier }}
-
-  
+  selector:
+    helm.sh/chart: {{ include "bobba-api-chart.chart" . }}
+    app: {{ .Values.deployment.app }}
+    tier: {{ .Values.deployment.tier }}

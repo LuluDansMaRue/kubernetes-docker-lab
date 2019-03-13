@@ -1,0 +1,7 @@
+{{- define "bobba-api-chart.environment" -}}
+MYSQL_USER: alison
+MYSQL_PASSWORD: bobba
+MYSQL_ROOT_PASSWORD: bobbaroot
+MYSQL_HOST: db
+MYSQL_DATABASE: thebestbobba
+{{- end -}}
