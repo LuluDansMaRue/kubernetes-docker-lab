@@ -15,7 +15,7 @@ deployment:
   app: bobba-api
   name: bobba-api
   tier: backend
-  replicasCount: 2
+  replicasCount: 5
   port: 8000
 
 # Image use by the deployment

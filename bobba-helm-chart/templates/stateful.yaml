@@ -1,0 +1,37 @@
+# Deployment for the api
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.stateful.name }}
+  labels:
+    helm.sh/chart: {{ include "bobba-helm-chart.chart" . }}
+    app: {{ .Values.stateful.name }}
+    tier: {{ .Values.stateful.tier }}
+spec:
+  replicas: {{ .Values.stateful.replicas }}
+  selector:
+    matchLabels:
+      helm.sh/chart: {{ include "bobba-helm-chart.chart" . }}
+      app: {{ .Values.stateful.name }}
+      tier: {{ .Values.stateful.tier }}
+  serviceName: {{ .Values.stateful.serviceName }}
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: {{ include "bobba-helm-chart.chart" . }}
+        app: {{ .Values.stateful.name }}
+        tier: {{ .Values.stateful.tier }}
+    spec:
+      containers:
+        - name: {{ .Values.stateful.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.stateful.port }}
+              protocol: TCP
+          volumeMounts:
+            - name: {{ .Values.volume.name }}
+              mountPath: {{ .Values.volume.mountPath }}
+  volumeClaimTemplates: {{- include "bobba-helm-chart.volumes" . | nindent 4 }}
+          
