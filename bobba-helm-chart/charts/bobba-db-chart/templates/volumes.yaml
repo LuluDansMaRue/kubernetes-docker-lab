@@ -3,8 +3,8 @@
     name: {{ .Values.volumes.name }}
   spec:
     accessModes:
-      {{- range $value := Values.volumes.accessModes }}
-        - {{- $value }}
+      {{- range $value := .Values.volumes.accessModes }}
+        - {{ $value }}
       {{- end}}
     resources:
       requests:

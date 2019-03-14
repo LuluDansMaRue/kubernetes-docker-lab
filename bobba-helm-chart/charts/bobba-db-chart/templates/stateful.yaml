@@ -4,21 +4,21 @@ kind: StatefulSet
 metadata:
   name: {{ .Values.stateful.name }}
   labels:
-    helm.sh/chart: {{ include "bobba-helm-chart.chart" . }}
+    helm.sh/chart: {{ include "bobba-db-chart.chart" . }}
     app: {{ .Values.stateful.name }}
     tier: {{ .Values.stateful.tier }}
 spec:
-  replicas: {{ .Values.stateful.replicas }}
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      helm.sh/chart: {{ include "bobba-helm-chart.chart" . }}
+      helm.sh/chart: {{ include "bobba-db-chart.chart" . }}
       app: {{ .Values.stateful.name }}
       tier: {{ .Values.stateful.tier }}
   serviceName: {{ .Values.stateful.serviceName }}
   template:
     metadata:
       labels:
-        helm.sh/chart: {{ include "bobba-helm-chart.chart" . }}
+        helm.sh/chart: {{ include "bobba-db-chart.chart" . }}
         app: {{ .Values.stateful.name }}
         tier: {{ .Values.stateful.tier }}
     spec:
@@ -27,11 +27,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: {{ .Values.stateful.port }}
+            - containerPort: {{ .Values.stateful.port }}
               protocol: TCP
           volumeMounts:
-            - name: {{ .Values.volume.name }}
-              mountPath: {{ .Values.volume.mountPath }}
+            - name: {{ .Values.volumes.name }}
+              mountPath: {{ .Values.volumes.mountPath }}
   volumeClaimTemplates: {{- include "bobba-helm-chart.volumes" . | nindent 4 }}
           
