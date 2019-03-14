@@ -120,3 +120,17 @@ With special values file
 ```shell
 helm install --debug --dry-run -f bobba-helm-chart/values-api.yaml ./bobba-helm-chart
 ```
+
+### Upgrade
+
+```shell
+helm upgrade -f bobba-helm-chart/values-api.yaml broken-pronghorn bobba-helm-chart
+```
+
+### Rollback
+
+```shell
+helm history <release>
+
+helm rollback broken-pronghorn <number_release>
+```
