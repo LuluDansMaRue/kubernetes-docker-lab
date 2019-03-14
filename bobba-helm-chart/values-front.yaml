@@ -18,6 +18,10 @@ deployment:
   port: 8080
   args: true
 
+# database activation
+db:
+  enabled: false
+
 # Image use by the deployment
 image:
   repository: sesame_front

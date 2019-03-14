@@ -18,6 +18,10 @@ deployment:
   replicasCount: 5
   port: 8000
 
+# database activation
+db:
+  enabled: true
+
 # Image use by the deployment
 image:
   repository: sesame_api
