@@ -9,14 +9,14 @@ image:
 replicas: 1
 
 service:
-  name: db-service
+  name: db
   port: 3306
   targetPort: 3306
 
 stateful:
   name: db
   tier: database
-  serviceName: db-service
+  serviceName: db
   port: 3306
 
 volumes:
