@@ -1,0 +1,1 @@
+Congratulation you've just deploy the release {{ .Release.Name }} for the project {{ .Values.projectID }} ! for Minikube

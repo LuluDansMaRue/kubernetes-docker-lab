@@ -1,0 +1,12 @@
+{{- define "bobba-helm-chart.volumes" -}}
+- metadata: 
+    name: {{ .Values.volumes.name }}
+  spec:
+    accessModes:
+      {{- range $value := .Values.volumes.accessModes }}
+        - {{ $value }}
+      {{- end}}
+    resources:
+      requests:
+        storage: {{ .Values.volumes.size }}
+{{- end -}}

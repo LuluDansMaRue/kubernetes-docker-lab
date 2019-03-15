@@ -1,0 +1,5 @@
+{{- define "bobba-helm-chart.startup" -}}
+args:
+  - sh
+  - start.sh
+{{- end -}}

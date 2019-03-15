@@ -60,3 +60,16 @@ docs:
         url:    /gcp/mci
       - title:  Debug your instance
         url:    /gcp/debug
+
+  - title:      Helm
+    children:
+      - title:  Introduction to helm
+        url:    /helm/intro
+      - title:  Architecture of Helm
+        url:    /helm/architecture
+      - title:  Creating a chart for minikube
+        url:    /helm/bobba-charts
+      - title:  Creating a subchart for the database
+        url:    /helm/bobba-db
+      - title:  Useful actions
+        url:    /helm/actions

@@ -1,0 +1,27 @@
+# Default values for bobba-db-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  pullPolicy: Never
+  repository: sesame_db
+  tag: latest
+
+replicas: 1
+
+service:
+  name: db
+  port: 3306
+  targetPort: 3306
+
+stateful:
+  name: db
+  tier: database
+  serviceName: db
+  port: 3306
+
+volumes:
+  name: pv-sql
+  mountPath: /var/lib/mysql/
+  accessModes:
+    - ReadWriteOnce
+  size: 60Mi
