@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Helm
+sidebar:
+  nav: "docs"
+---
+
 ## Helm's components
 
 Helm is a package manager which is made of 2 parts:

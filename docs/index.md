@@ -44,7 +44,12 @@ Throughout this guide we'll learn several thing which are describe in the table 
 * * [Load balance multiple cluster](gcp/mci.md)
 * * [Horizontal autoscaler](k8s/hscaler.md)
 * * [Debugging](gcp/debug.md)
-
+* [Deploying our Application with Helm](helm/intro.md)
+* * [Helm architecture](helm/architecture.md)
+* * Helm on Minikube
+* * * [Creating our bobba-chart](helm/bobba-charts.md)
+* * * [Creating a subchart for the database](helm/bobba-db.md)
+* * * [Useful Helm actions](helm/actions.md)
 
 ## Objectives[¶](#objectives)
 

@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Helm with Minikube
+sidebar:
+  nav: "docs"
+---
+
 ## Creating our Bobba-db chart
 
 We have create our chart for our front-end & back-end application which is a good start. 
@@ -71,19 +79,7 @@ db:
 
 ## Installing
 
-As our bobba-api project need the database we'll first delete the current release which doesn't contain any database.
-
-Run the command below
-
-```shell
-# this list the different release available, Retrieve the release associate to the bobba-api
-helm list
-
-# Delete the helm release
-helm delete <release_name>
-```
-
-Now let's debug our installation first
+Like for the ```bobba-vue```. We'll first make a dry test run of our chart to check any error any error in our deployment. Run the command below
 
 ```shell
 helm install --debug --dry-run -f bobba-helm-chart/values-api.yaml ./bobba-helm-chart
@@ -94,3 +90,12 @@ If you don't see any error run the command
 ```shell
 helm install -f bobba-helm-chart/values-api.yaml ./bobba-helm-chart
 ```
+
+You should get an output similar to the image below
+
+<p align="center">
+  <img src="../img/helm_install_api.png" alt="drawing" width="500"/>
+</p>
+<p align="center"><b>Helm deploying bobba-api</b></p>
+
+

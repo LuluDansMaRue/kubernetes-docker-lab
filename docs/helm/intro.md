@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Helm
+sidebar:
+  nav: "docs"
+---
+
 ## Context
 
 Kubernetes is a huge platform that's complex. This required as you saw in the previous part of this learning guide an understanding of how is working Kubernetes.
@@ -22,14 +30,16 @@ As a package manager for Kubernetes. Helm allow you to easily maintain your Kube
 
 ## Table of contents
 
-* [Components](components.md)
-* [Creating our chart for the bobba project](bobba-charts.md)
-* [Creating our chart for the database](bobba-db.md)
-* [Useful commands](cmd.md)
-* [Wrap up](conclusion.md)
+* [Architecture](architecture.md)
+* Minikube example
+* * [Creating our chart for the bobba project](bobba-charts.md)
+* * [Creating our chart for the database](bobba-db.md)
+* * [Useful actions & Wrap up](actions.md)
 
 ## Resources
 
 [Helm documentation](https://helm.sh/docs/)
 
 [Bitmani helm's guide](https://docs.bitnami.com/kubernetes/how-to/deploy-application-kubernetes-helm/)
+
+[CNCF video](https://www.youtube.com/watch?v=vQX5nokoqrQ)

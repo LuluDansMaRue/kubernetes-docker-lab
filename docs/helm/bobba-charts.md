@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Helm with Minikube
+sidebar:
+  nav: "docs"
+---
+
 ## Creating our Bobba-charts
 
 As describe earlier Helm is composed of charts which can be download and configure easily. In our case for the purpose of learning Helm we'll make our own charts.
@@ -183,7 +191,7 @@ Let's explain this command
 - -f <file>: allow you to select a different ```values``` file. (By default it use the ```values.yaml``` file)
 - ./bobba-helm-chart: the name of the chart
 
-## Installing
+## Installing the front
 
 As you can see we'd just use the ```debug``` mode for running our chart. Installing is then no more simpler than running the command without using the ```--debug --dry-run``` command.
 
@@ -191,12 +199,16 @@ As you can see we'd just use the ```debug``` mode for running our chart. Install
 helm install -f <path_to_values.yaml> <charts>
 
 # In our example
-helm install -f bobba-helm-chart/values-api.yaml ./bobba-helm-chart
+helm install -f bobba-helm-chart/values-front.yaml ./bobba-helm-chart
 ```
 
 When the installation is successfull a sucessfull message will appear with the list of objects that has been deployed into Kubernetes as well with the release name. Below is a screenshot of what it could look like
 
 <p align="center">
-  <img src="../img/helm_install.png" alt="drawing" width="500"/>
+  <img src="../img/helm_install_front.png" alt="drawing" width="500"/>
 </p>
-<p align="center"><b>Helm global architecture</b></p>
+<p align="center"><b>Helm deploying bobba-vue</b></p>
+
+## Installing the back-end
+
+Installing the back-end will be done later as we need a dependencies.
