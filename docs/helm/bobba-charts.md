@@ -187,3 +187,10 @@ As you can see we'd just use the ```debug``` mode for running our chart. Install
 ```shell
 helm install -f <path_to_values.yaml> <charts>
 ```
+
+When the installation is successfull a sucessfull message will appear with the list of objects that has been deployed into Kubernetes as well with the release name. Below is a screenshot of what it could look like
+
+<p align="center">
+  <img src="../img/helm_install.png" alt="drawing" width="400"/>
+</p>
+<p align="center"><b>Helm global architecture</b></p>
