@@ -170,6 +170,9 @@ All right now that we've create our yaml template file for both of the bobba-api
 Helm is providing a command for you to test your configuration. This command will return errors if something is wrong with your configurations files. It'll also show you the entire rendered yaml files which are going to be send to the ```tiller```. Below is the command
 
 ```shell
+helm install --debug --dry-run -f <path_to_values.yaml> <path_to_chart>
+
+# In our example
 helm install --debug --dry-run -f bobba-helm-chart/values-api.yaml ./bobba-helm-chart
 ```
 
@@ -186,11 +189,14 @@ As you can see we'd just use the ```debug``` mode for running our chart. Install
 
 ```shell
 helm install -f <path_to_values.yaml> <charts>
+
+# In our example
+helm install -f bobba-helm-chart/values-api.yaml ./bobba-helm-chart
 ```
 
 When the installation is successfull a sucessfull message will appear with the list of objects that has been deployed into Kubernetes as well with the release name. Below is a screenshot of what it could look like
 
 <p align="center">
-  <img src="../img/helm_install.png" alt="drawing" width="400"/>
+  <img src="../img/helm_install.png" alt="drawing" width="500"/>
 </p>
 <p align="center"><b>Helm global architecture</b></p>
