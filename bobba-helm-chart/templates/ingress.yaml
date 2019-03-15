@@ -1,4 +1,4 @@
-{{- if .Values.env.prod }}
+{{- if .Values.ingress.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:

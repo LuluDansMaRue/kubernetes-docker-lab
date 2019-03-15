@@ -2,10 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# environment
-env:
-  prod: false
-
 # Use by the service
 service:
   name: bobba-api-service
@@ -24,7 +20,7 @@ deployment:
 
 # database activation
 db:
-  enabled: true
+  enabled: false
 
 # Image use by the deployment
 image:
@@ -34,6 +30,9 @@ image:
 
 ingress:
   enabled: false
+  name: bobba-api-ingress
+  ip: bobba-api-ip
+  path: /*
 
 env: false
 projectID: API Golang
