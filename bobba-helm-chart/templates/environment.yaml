@@ -1,4 +1,25 @@
 {{- define "bobba-helm-chart.environment" -}}
-- name: DEPLOYMENT
-  value: minikube
+{{- if eq .Values.deployment.app "bobba-vue" }}
+env:
+  - name: DEPLOYMENT
+    value: minikube
+{{- else }}
+env:
+  - name: NODE_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+  - name: MYSQL_HOST
+    value: 127.0.0.1
+  - name: MYSQL_USER
+    valueFrom:
+      secretKeyRef:
+        name: cloudsql-db-credentials
+        key: username
+  - name: MYSQL_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: cloudsql-db-credentials
+        key: password   
+{{- end }}
 {{- end -}}

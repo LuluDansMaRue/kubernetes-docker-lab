@@ -34,5 +34,5 @@ ingress:
   ip: bobba-api-ip
   path: /*
 
-env: false
+env: true
 projectID: API Golang
