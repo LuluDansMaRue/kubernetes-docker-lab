@@ -24,7 +24,7 @@ spec:
       containers:
         - name: {{ .Values.deployment.name }}
           {{- if .Values.env }}
-          {{- include "bobba-helm-chart.environment" . | nindent 10 }}
+          env: {{ include "bobba-helm-chart.environment" . | nindent 10 }}
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}

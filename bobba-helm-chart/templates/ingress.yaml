@@ -5,9 +5,9 @@ metadata:
   name: {{ .Values.ingress.name }}
   annotations:
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ip }}
-  spec:
-    rules:
-      - http:
+spec:
+  rules:
+    - http:
         paths:
         - path: {{ .Values.ingress.path }}
           backend:
