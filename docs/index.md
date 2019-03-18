@@ -49,6 +49,7 @@ Throughout this guide we'll learn several thing which are describe in the table 
 * * Helm on Minikube
 * * * [Creating our bobba-chart](helm/bobba-charts.md)
 * * * [Creating a subchart for the database](helm/bobba-db.md)
+* * * [Deploying our Helm on GCP](helm/gcp.md)
 * * * [Useful Helm actions](helm/actions.md)
 
 ## Objectives[¶](#objectives)

@@ -26,9 +26,12 @@ We have 2 commons components which are:
 
 Thus thanks to the templating system of Helm we could gather these common components together in 1 generic component.
 
-The yaml file is available in the folder ```bobba-helm-chart/templates/deploymen.yaml```. 
+The yaml file is available in the folder ```bobba-helm-chart/templates/deployment.yaml```. 
 
-As these deployment are similar the technic is to create 2 distinc ```Values``` files.
+As these deployment are similar the technic is to create 4 distinct ```Values``` files.
+
+- 2 for the bobba-api (1 for the production, 1 for the development)
+- 2 for the bobba-vue 1 for the production, 1 for the development)
 
 These values will be used by the ```deployment.yaml``` template file which will then be render by the tiller.
 
@@ -172,6 +175,31 @@ spec:
 ```
 
 All right now that we've create our yaml template file for both of the bobba-api & the bobba-vue project let's test it.
+
+## Ingress
+
+Configuring the ingress is also straightforward. Define an ingress.yaml in the ```templates``` folder and Helm will automatically use it. Our ingresss looks like that
+
+```yaml
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ip }}
+spec:
+  rules:
+    - http:
+        paths:
+        - path: {{ .Values.ingress.path }}
+          backend:
+            serviceName: {{ .Values.service.name }}
+            servicePort: {{ .Values.service.port }}
+{{- end }}
+```
+
+Notice the ```{{- if ... -}} ... {{- end}}```. We only want to launch our ingress when needed thus we have a flag in our Values files whenever we need to enable it or not.
 
 ## Testing
 

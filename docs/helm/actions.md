@@ -50,6 +50,14 @@ helm history <release_name>
 
 You should see that rolling back will create an other release with the description saying that we'd rollback to the 1st version.
 
+### Status of your release
+
+You can take a look at the status of your release by using the command
+
+```shell
+helm status <release_name>
+```
+
 ## Wrap up
 
 In this small example we saw how to deploy our small app to Minikube with the help of Helm. We saw that using Helm allow us to be more flexible as well as doing rollback and upgrade easily with only 1 command.
