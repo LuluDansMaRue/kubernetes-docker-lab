@@ -1,6 +1,8 @@
 # Default values for bobba-api-chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+environment:
+  prod: true
 
 # Use by the service
 service:
@@ -15,21 +17,24 @@ deployment:
   app: bobba-api
   name: bobba-api
   tier: backend
-  replicasCount: 5
+  replicasCount: 10
   port: 8000
 
 # database activation
 db:
-  enabled: true
+  enabled: false
 
 # Image use by the deployment
 image:
-  repository: sesame_api
-  tag: latest
-  pullPolicy: Never
+  repository: gcr.io/kubernetes-demo-232217/sesame_api
+  tag: v3.3
+  pullPolicy: IfNotPresent
 
 ingress:
-  enabled: false
+  enabled: true
+  name: bobba-api-ingress
+  ip: bobba-api-ip
+  path: /*
 
-env: false
+env: true
 projectID: API Golang

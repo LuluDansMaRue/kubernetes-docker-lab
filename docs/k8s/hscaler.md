@@ -1,4 +1,5 @@
 ---
+layout: single
 classes: wide
 title: Horizontal pod autoscaler
 sidebar:

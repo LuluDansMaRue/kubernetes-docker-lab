@@ -1,0 +1,41 @@
+# Default values for bobba-front-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# environment
+environment:
+  dev: true
+
+# Use by the service
+service:
+  name: bobba-vue-service
+  type: LoadBalancer
+  port: 80
+  targetPort: 8080
+
+# Use by the deployment
+deployment:
+  app: bobba-vue
+  name: bobba-vue
+  tier: frontend
+  replicasCount: 2
+  port: 8080
+  args: true
+
+# database activation
+db:
+  enabled: false
+
+# Image use by the deployment
+image:
+  repository: sesame_front
+  tag: latest
+  pullPolicy: Never
+
+# Ingress
+ingress:
+  enabled: false
+
+# Args
+env: true
+projectID: Front VueJS

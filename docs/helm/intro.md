@@ -34,6 +34,7 @@ As a package manager for Kubernetes. Helm allow you to easily maintain your Kube
 * Minikube example
 * * [Creating our chart for the bobba project](bobba-charts.md)
 * * [Creating our chart for the database](bobba-db.md)
+* * [Deploying into GCP](gcp.md)
 * * [Useful actions & Wrap up](actions.md)
 
 ## Resources

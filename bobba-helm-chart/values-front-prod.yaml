@@ -1,6 +1,7 @@
-# Default values for bobba-front-chart.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Values for the prod of bobba-vue.
+# environment
+environment:
+  prod: true
 
 # Use by the service
 service:
@@ -14,7 +15,7 @@ deployment:
   app: bobba-vue
   name: bobba-vue
   tier: frontend
-  replicasCount: 2
+  replicasCount: 9
   port: 8080
   args: true
 
@@ -24,9 +25,9 @@ db:
 
 # Image use by the deployment
 image:
-  repository: sesame_front
-  tag: latest
-  pullPolicy: Never
+  repository: gcr.io/kubernetes-demo-232217/sesame_front
+  tag: v3.1
+  pullPolicy: IfNotPresent
 
 # Ingress
 ingress:

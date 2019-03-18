@@ -1,0 +1,4 @@
+{{- define "bobba-helm-chart.environment.dev" -}}
+- name: DEPLOYMENT
+  value: minikube
+{{- end -}}
