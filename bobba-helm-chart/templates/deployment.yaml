@@ -23,8 +23,10 @@ spec:
     spec:
       containers:
         - name: {{ .Values.deployment.name }}
-          {{- if .Values.env }}
-          env: {{ include "bobba-helm-chart.environment" . | nindent 10 }}
+          {{- if .Values.environment.prod }}
+          env: {{ include "bobba-helm-chart.environment.prod" . | nindent 10 }}
+          {{- else if .Values.environment.dev }}
+          env: {{ include "bobba-helm-chart.environment.dev" . | nindent 10 }}
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}

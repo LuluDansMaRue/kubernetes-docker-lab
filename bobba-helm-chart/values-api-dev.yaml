@@ -2,6 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+environment:
+  prod: false
+
 # Use by the service
 service:
   name: bobba-api-service
@@ -34,5 +37,4 @@ ingress:
   ip: bobba-api-ip
   path: /*
 
-env: true
 projectID: API Golang

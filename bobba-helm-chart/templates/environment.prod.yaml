@@ -1,7 +1,7 @@
-{{- define "bobba-helm-chart.environment" -}}
+{{- define "bobba-helm-chart.environment.prod" -}}
 {{- if eq .Values.deployment.app "bobba-vue" -}}
 - name: DEPLOYMENT
-  value: minikube
+  value: gcloud
 {{- else -}}
 - name: NODE_NAME
   valueFrom:
