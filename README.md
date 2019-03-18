@@ -1,6 +1,6 @@
 <div align="center">
   <h2>Kubernetes docker experiments (珍珠奶茶 experiments)</h2>
-  <img src="stack.png" width="400" height="500" alt="logo">
+  <img src="stack.png" width="400" height="450" alt="logo">
 </div>
 
 ## Introduction ✍️
