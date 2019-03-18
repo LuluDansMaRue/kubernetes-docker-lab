@@ -22,18 +22,21 @@ spec:
         tier: {{ .Values.deployment.tier }}
     spec:
       containers:
-        - name: {{ .Values.deployment.name }}
-          {{- if .Values.environment.prod }}
-          env: {{ include "bobba-helm-chart.environment.prod" . | nindent 10 }}
-          {{- else if .Values.environment.dev }}
-          env: {{ include "bobba-helm-chart.environment.dev" . | nindent 10 }}
-          {{- end }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.deployment.port }}
-              protocol: TCP
-          {{- if .Values.deployment.args }}
-            {{- include "bobba-helm-chart.startup" . | nindent 10 }}
-          {{- end }}
+      - name: {{ .Values.deployment.name }}
+        {{- if .Values.environment.prod }}
+        env: {{ include "bobba-helm-chart.environment.prod" . | nindent 10 }}
+        {{- else if .Values.environment.dev }}
+        env: {{ include "bobba-helm-chart.environment.dev" . | nindent 10 }}
+        {{- end }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - name: http
+            containerPort: {{ .Values.deployment.port }}
+            protocol: TCP
+        {{- if .Values.deployment.args }}
+          {{- include "bobba-helm-chart.startup" . | nindent 10 }}
+        {{- end }}
+      {{- if and .Values.environment.prod (eq .Values.deployment.app "bobba-api") }}
+      {{- include "bobba-helm-chart.sql-proxy" . | nindent 6 }}
+      {{- end }}
