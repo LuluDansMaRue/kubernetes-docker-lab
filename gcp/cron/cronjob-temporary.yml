@@ -1,0 +1,48 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: temporary
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: temporary
+            image: gcr.io/kubernetes-demo-232217/sesame_cron:v1
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: MYSQL_HOST
+                value: 127.0.0.1
+              - name: MYSQL_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudsql-db-credentials
+                    key: username
+              - name: MYSQL_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudsql-db-credentials
+                    key: password 
+            args:
+            - go
+            - run
+            - temporary/temporary.go
+          - name: cloudsql-proxy
+            image: gcr.io/cloudsql-docker/gce-proxy:1.13
+            command: ["/cloud_sql_proxy",
+                      "-instances=kubernetes-demo-232217:us-central1:db=tcp:3306",
+                      "-credential_file=/secrets/cloudsql/credentials.json"]
+            securityContext:
+              runAsUser: 2  # non-root user
+              allowPrivilegeEscalation: false
+            volumeMounts:
+              - name: cloudsql-instance-credentials
+                mountPath: /secrets/cloudsql
+                readOnly: true
+          volumes:
+            - name: cloudsql-instance-credentials
+              secret:
+                secretName: cloudsql-instance-credentials
+          restartPolicy: OnFailure
