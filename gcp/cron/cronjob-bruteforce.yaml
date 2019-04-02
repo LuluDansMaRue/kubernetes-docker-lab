@@ -1,0 +1,32 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: bruteforce
+spec:
+  schedule: "*/15 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: bruteforce
+            image: gcr.io/kubernetes-demo-232217/sesame_cron:v1
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: MYSQL_HOST
+                value: cloudsql-proxy-svc
+              - name: MYSQL_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudsql-db-credentials
+                    key: username
+              - name: MYSQL_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudsql-db-credentials
+                    key: password  
+            args:
+            - go
+            - run
+            - bruteforce/bruteforce.go
+          restartPolicy: OnFailure

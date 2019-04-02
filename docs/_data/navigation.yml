@@ -58,6 +58,8 @@ docs:
         url:    /gcp/deployment_front
       - title:  Load balance multiple cluster
         url:    /gcp/mci
+      - title:  Deploying CronJob
+        url:    /gcp/cronjob
       - title:  Debug your instance
         url:    /gcp/debug
 

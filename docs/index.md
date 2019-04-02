@@ -41,6 +41,7 @@ Throughout this guide we'll learn several thing which are describe in the table 
 * * [Configure an Ingress resources](gcp/ingress.md)
 * * [Build the Front docker image](gcp/front.md)
 * * [Deploy the front image](gcp/deployment_front.md)
+* * [Deploying cronjob](gcp/cronjob.md)
 * * [Load balance multiple cluster](gcp/mci.md)
 * * [Horizontal autoscaler](k8s/hscaler.md)
 * * [Debugging](gcp/debug.md)

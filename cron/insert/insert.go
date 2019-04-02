@@ -25,7 +25,7 @@ func main() {
 		}
 
 		_, execErr := stmt.Exec(
-			gofakeit.Name(),
+			gofakeit.BeerName(),
 			10.0,
 			gofakeit.Name(),
 			gofakeit.NameSuffix(),

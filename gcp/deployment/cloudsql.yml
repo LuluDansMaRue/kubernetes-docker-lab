@@ -1,0 +1,52 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cloudsql-proxy-svc
+spec:
+  clusterIP: None
+  selector:
+    app: cloudsql
+    tier: proxy
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudsql
+  labels:
+    app: cloudsql
+    tier: proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudsql
+      tier: proxy
+  template:
+    metadata:
+      labels:
+        app: cloudsql
+        tier: proxy
+    spec:
+      containers:
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.13
+        ports:
+          - containerPort: 3306
+        command: ["/cloud_sql_proxy",
+                  "-instances=<project>:<zone>:<database_name>=tcp:0.0.0.0:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        securityContext:
+          runAsUser: 2  # non-root user
+          allowPrivilegeEscalation: false
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials

@@ -1,0 +1,32 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: insertbobba
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: insertbobba
+            image: gcr.io/kubernetes-demo-232217/sesame_cron:v1.1
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: MYSQL_HOST
+                value: cloudsql-proxy-svc
+              - name: MYSQL_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudsql-db-credentials
+                    key: username
+              - name: MYSQL_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudsql-db-credentials
+                    key: password 
+            args:
+            - go
+            - run
+            - insert/insert.go
+          restartPolicy: OnFailure

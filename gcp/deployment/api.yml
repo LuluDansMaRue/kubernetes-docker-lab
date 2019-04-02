@@ -24,7 +24,7 @@ metadata:
     app: bobba-api
     tier: backend
 spec:
-  replicas: 2
+  replicas: 9
   selector:
     matchLabels:
       app: bobba-api
@@ -59,7 +59,7 @@ spec:
         ports:
           - containerPort: 8000
       - name: cloudsql-proxy
-        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        image: gcr.io/cloudsql-docker/gce-proxy:1.13
         command: ["/cloud_sql_proxy",
                   "-instances=kubernetes-demo-232217:us-central1:db=tcp:3306",
                   "-credential_file=/secrets/cloudsql/credentials.json"]
