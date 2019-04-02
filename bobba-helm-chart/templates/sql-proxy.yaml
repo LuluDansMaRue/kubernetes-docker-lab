@@ -1,6 +1,6 @@
 {{- define "bobba-helm-chart.sql-proxy" -}}
 - name: cloudsql-proxy
-  image: gcr.io/cloudsql-docker/gce-proxy:1.11
+  image: gcr.io/cloudsql-docker/gce-proxy:1.13
   command: ["/cloud_sql_proxy",
             "-instances=kubernetes-demo-232217:us-central1:db=tcp:3306",
             "-credential_file=/secrets/cloudsql/credentials.json"]

@@ -33,12 +33,11 @@ spec:
     spec:
       containers:
       - name: cloudsql-proxy
-        #image: gcr.io/kubernetes-demo-232217/miniserver:v1.2
         image: gcr.io/cloudsql-docker/gce-proxy:1.13
         ports:
           - containerPort: 3306
         command: ["/cloud_sql_proxy",
-                  "-instances=kubernetes-demo-232217:us-central1:db=tcp:0.0.0.0:3306",
+                  "-instances=<project>:<zone>:<database_name>=tcp:0.0.0.0:3306",
                   "-credential_file=/secrets/cloudsql/credentials.json"]
         securityContext:
           runAsUser: 2  # non-root user
