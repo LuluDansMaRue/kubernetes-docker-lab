@@ -25,7 +25,6 @@ func (db *BobbaCon) AddBobba(b bobba.Bobba) (int64, error) {
 	}
 
 	insertedID, _ := row.LastInsertId()
-	db.Close()
 
 	return insertedID, nil
 }
@@ -65,8 +64,6 @@ func (db *BobbaCon) GetAllBobba() ([]bobba.Bobba, error) {
 		bobbas = append(bobbas, b)
 	}
 
-	db.Close()
-
 	return bobbas, nil
 }
 
@@ -83,8 +80,6 @@ func (db *BobbaCon) RemoveBobba(id int) error {
 	if execErr != nil {
 		return execErr
 	}
-
-	db.Close()
 
 	return nil
 }
@@ -119,8 +114,6 @@ func (db *BobbaCon) GetSingleBobba(id int) (bobba.Bobba, error) {
 	b.Shop = shop
 	b.Flavor = flavor
 	b.Calory = calory
-
-	db.Close()
 
 	return b, nil
 }

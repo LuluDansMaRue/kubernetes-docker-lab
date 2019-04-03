@@ -8,8 +8,6 @@ import (
 
 	"github.com/LuluDansMaRue/kubernetes-docker-lab/bobba"
 
-	"github.com/LuluDansMaRue/kubernetes-docker-lab/database"
-
 	"github.com/LuluDansMaRue/kubernetes-docker-lab/node"
 
 	"github.com/gorilla/mux"
@@ -29,10 +27,6 @@ type success struct {
 const (
 	idEmptyRemove string = "Id is empty. Can't remove the bubble tea"
 	idEmptyDetail string = "Id is empty. Can't get detail of a bubble tea"
-)
-
-var (
-	db *database.BobbaCon
 )
 
 // Default Handler
@@ -197,23 +191,8 @@ func getRequestID(params map[string]string, identifier string) (int, error) {
 	return id, nil
 }
 
-// InitDB
-// Call the initializer of the database
-func initDB() {
-	instance, err := database.Create()
-
-	if err != nil {
-		panic(err)
-	}
-
-	db = instance
-}
-
 // Creating the routing
 func routing() *mux.Router {
-	// Initialize the database once
-	initDB()
-
 	r := mux.NewRouter()
 	r.HandleFunc("/", defaultHandler)
 	r.HandleFunc("/bobba/add", addBobba).Methods("POST")

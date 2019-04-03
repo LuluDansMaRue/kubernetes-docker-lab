@@ -4,6 +4,7 @@ import (
 	"sync"
 
 	"github.com/LuluDansMaRue/kubernetes-docker-lab/bobba"
+	"github.com/LuluDansMaRue/kubernetes-docker-lab/database"
 )
 
 // Run Add Routine
@@ -16,14 +17,22 @@ func runAddRoutine(b bobba.Bobba) (int64, error) {
 
 	// run the call to the database
 	go func() {
-		inserted, err := db.AddBobba(b)
+		db, err := database.Create()
 		if err != nil {
 			errs = err
 			wg.Done()
 			return
 		}
 
+		inserted, opErr := db.AddBobba(b)
+		if opErr != nil {
+			errs = opErr
+			wg.Done()
+			return
+		}
+
 		id = inserted
+		db.Close()
 		wg.Done()
 		return
 	}()
@@ -42,11 +51,19 @@ func runRemoveRoutine(id int) error {
 	wg.Add(1)
 
 	go func() {
+		db, conErr := database.Create()
+		if conErr != nil {
+			errs = conErr
+			wg.Done()
+			return
+		}
+
 		err := db.RemoveBobba(id)
 		if err != nil {
 			errs = err
 		}
 
+		db.Close()
 		wg.Done()
 		return
 	}()
@@ -67,6 +84,13 @@ func runGetAllRoutine() ([]bobba.Bobba, error) {
 	wg.Add(1)
 
 	go func() {
+		db, conErr := database.Create()
+		if conErr != nil {
+			errs = conErr
+			wg.Done()
+			return
+		}
+
 		bobbas, err := db.GetAllBobba()
 		if err != nil {
 			errs = err
@@ -75,6 +99,8 @@ func runGetAllRoutine() ([]bobba.Bobba, error) {
 		}
 
 		teas = bobbas
+
+		db.Close()
 		wg.Done()
 		return
 	}()
@@ -96,6 +122,13 @@ func runGetDetailedRoutine(id int) (bobba.Bobba, error) {
 	wg.Add(1)
 
 	go func() {
+		db, conErr := database.Create()
+		if conErr != nil {
+			errs = conErr
+			wg.Done()
+			return
+		}
+
 		bobba, err := db.GetSingleBobba(id)
 		if err != nil {
 			errs = err
@@ -104,6 +137,8 @@ func runGetDetailedRoutine(id int) (bobba.Bobba, error) {
 		}
 
 		tea = bobba
+
+		db.Close()
 		wg.Done()
 		return
 	}()
