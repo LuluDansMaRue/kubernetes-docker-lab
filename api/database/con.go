@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"errors"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -35,4 +36,13 @@ func Create() (*BobbaCon, error) {
 	}
 
 	return &instance, nil
+}
+
+// Close the database. Log the error if something went wrong
+func (db *BobbaCon) Close() {
+	err := db.connection.Close()
+
+	if err != nil {
+		log.Fatal("Unable to close the connection " + err.Error())
+	}
 }
