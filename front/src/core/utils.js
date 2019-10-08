@@ -16,10 +16,6 @@ utils.getCommandPayload = msg => {
   };
 }
 
-utils.isCommandRoom = cmd => {
-  
-}
-
 utils.getContentFromInput = msg => {
   if (!msg.startsWith('/'))
     return msg
