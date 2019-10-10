@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bobba-chat
+  labels:
+    app: bobba-chat
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bobba-chat
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: bobba-chat
+        tier: backend
+    spec:
+      containers:
+      - name: bobba-chat
+        image: sesame_chat:latest
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 8088

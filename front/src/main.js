@@ -4,11 +4,14 @@ import VModal from 'vue-js-modal'
 
 import store from './store'
 import router from './core/router'
+import { open } from './core/socket'
 
 // Entry point App.vue
 import App from './App.vue'
 
 Vue.config.productionTip = false
+
+open()
 
 // Use the router
 Vue.use(VueRouter)
