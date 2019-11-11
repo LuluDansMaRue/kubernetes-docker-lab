@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./api:/data
+      - ./api:/go/data
     ports:
       - "9000:8000"
     depends_on:

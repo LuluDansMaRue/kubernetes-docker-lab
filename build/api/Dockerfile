@@ -16,8 +16,5 @@ RUN mkdir $GOPATH/${APP_PATH}
 # Set workdir to back
 WORKDIR $GOPATH/${APP_PATH}
 
-# Install a hot reloading tool for our server
-RUN go get github.com/githubnemo/CompileDaemon
-
 # Run the server
 CMD ["sh", "start.sh"]
