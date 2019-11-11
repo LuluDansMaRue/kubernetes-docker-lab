@@ -140,6 +140,34 @@ func getBobbaDetail(w http.ResponseWriter, r *http.Request) {
 	w.Write(payload)
 }
 
+func addOrder(w http.ResponseWriter, r *http.Request) {
+	var order bobba.Order
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&order)
+
+	// Set JSON header
+	w.Header().Set("Content-type", "application/json")
+
+	if err != nil {
+		errPayload := buildErrorPayload(err.Error(), 200)
+		w.Write(errPayload)
+		return
+	}
+
+	// call our goroutine
+	last, insertErr := runAddOrderRoutine(order)
+
+	if insertErr != nil {
+		errPayload := buildErrorPayload(insertErr.Error(), 200)
+		w.Write(errPayload)
+		return
+	}
+
+	payload := buildSuccessPayload(last, 200)
+	w.Write(payload)
+	return
+}
+
 ///// Utility methods //////
 
 // Build Error Payload
@@ -196,6 +224,7 @@ func routing() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/", defaultHandler)
 	r.HandleFunc("/bobba/add", addBobba).Methods("POST")
+	r.HandleFunc("/bobba/order", addOrder).Methods("POST")
 	r.HandleFunc("/bobba/{id}", removeBobba).Methods("DELETE")
 	r.HandleFunc("/bobba/{id}", getBobbaDetail).Methods("GET")
 	r.HandleFunc("/bobba", getAllBobba).Methods("GET")

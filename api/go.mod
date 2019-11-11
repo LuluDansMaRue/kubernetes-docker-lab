@@ -8,3 +8,5 @@ require (
 	github.com/rs/cors v1.6.0
 	golang.org/x/sys v0.0.0-20190228071610-92a0ff1e1e2f // indirect
 )
+
+go 1.13

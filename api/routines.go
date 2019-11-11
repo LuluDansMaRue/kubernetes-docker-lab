@@ -42,6 +42,41 @@ func runAddRoutine(b bobba.Bobba) (int64, error) {
 	return id, errs
 }
 
+// Run Add Order Routine
+// Run a goroutine to add an order bubble tea
+func runAddOrderRoutine(order bobba.Order) (int64, error) {
+	var wg sync.WaitGroup
+	var errs error
+	var id int64
+	wg.Add(1)
+
+	// run the call to the database
+	go func() {
+		db, err := database.Create()
+		if err != nil {
+			errs = err
+			wg.Done()
+			return
+		}
+
+		inserted, opErr := db.OrderBobba(order)
+		if opErr != nil {
+			errs = opErr
+			wg.Done()
+			return
+		}
+
+		id = inserted
+		db.Close()
+		wg.Done()
+		return
+	}()
+
+	wg.Wait()
+
+	return id, errs
+}
+
 // RunRemoveRoutine run a routine for removing a data in the database
 // Param int id
 // Return error
